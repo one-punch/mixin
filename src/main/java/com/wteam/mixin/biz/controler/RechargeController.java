@@ -85,7 +85,8 @@ public class RechargeController {
     IRechargeHandleService shanWangHandleService;
     @Autowired
     IRechargeHandleService yikuaiHandleService;
-
+    @Autowired
+    IRechargeHandleService dazhongRechargerService;
     // 2016-09-20 08-54-53
     public static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
     /**
@@ -229,6 +230,8 @@ public class RechargeController {
                 shanWangHandleService.callback(request, response);break;
             case "yikuai": // 宜快
                 yikuaiHandleService.callback(request, response);break;
+            case "dazhong": // 大众
+            	dazhongRechargerService.callback(request, response);break;
         }
 
     }

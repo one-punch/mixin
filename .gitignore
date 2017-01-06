@@ -1,4 +1,6 @@
 target/
 .settings/
-
+src/main/resources/alipay
+src/main/resources/user-config
+src/main/resources/wechat
 .svn/

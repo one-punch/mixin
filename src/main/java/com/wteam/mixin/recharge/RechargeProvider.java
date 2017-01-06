@@ -41,6 +41,8 @@ public class RechargeProvider {
     public static final  String ShanWang = "三网";
     /** 宜快*/
     public static final  String YiKuai = "宜快";
+    
+    public static final  String DaZhong = "大众";
     /** all*/
     public static final  List<String> ALL ;
 
@@ -62,7 +64,7 @@ public class RechargeProvider {
         MAP.put(YouXing2, "YX2");
         MAP.put(ShanWang, "SW");
         MAP.put(YiKuai, "YK");
-
+        MAP.put(DaZhong, "OMS");
         ALL = new ArrayList<>(MAP.keySet());
     }
 
