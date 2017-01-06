@@ -1,0 +1,112 @@
+<!--平台账户充值-->
+<div  ng-controller="PlatformAccountCtrl">
+<div class="content">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="glyphicon glyphicon-adjust"></i> 平台账户充值</h3>
+		</div>
+		<div class="panel-body">
+				<div class="col-md-6 col-sm-6">
+					<div class="balanceCell">
+						<div class="balanceCell-title">
+							<h3><i class="glyphicon glyphicon-th-large text-primary"></i> 支付宝充值</h3>
+							<button ng-click="alipaySubmitShow()" class="btn btn-primary" 
+								data-toggle="modal" data-target="#alipay">充值</button>
+						</div>
+						<div class="balanceCell-body">
+						<center>
+									
+							</center>
+					
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-6">
+					<div class="balanceCell">
+						<div class="balanceCell-title">
+							<h3><i class="glyphicon glyphicon-th-large text-primary"></i> 支付宝余额充值</h3>
+							<button ng-click="alipaySubmitShow()" class="btn btn-primary" 
+								data-toggle="modal" data-target="#esaypay">充值</button>
+						</div>
+						<div class="balanceCell-body">
+						<center>
+									
+							</center>
+					
+						</div>
+					</div>
+				</div>
+				<hr>
+				<hr>
+				<hr>
+				<div class="col-md-12 col-sm-12">
+					<h3><i class="glyphicon glyphicon-leaf text-success"></i> 充值说明</h3>
+					<div string-html="doc.content"></div>
+				</div>
+		</div>
+	</div>
+</div>
+<!--支付宝充值 模态框 #alipay-->
+<div class="modal fade" id="alipay" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">支付宝充值</h4>
+            </div>
+            <div class="modal-body">
+                <form name="add_balance_form" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">金额</label>
+                        <div class="col-sm-9">
+                            <input name="sort" ng-model="balance"
+                                required min="0"
+                                type="number" class="form-control" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button ng-click="alipaySubmit()" type="submit" class="btn btn-danger">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--支付宝充值 模态框 #esaypay-->
+<div class="modal fade" id="esaypay" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">支付宝余额充值</h4>
+            </div>
+            <div class="modal-body">
+                <form name="esaypay_form" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">金额</label>
+                        <div class="col-sm-9">
+                            <input name="sort" ng-model="balance"
+                                required min="0"
+                                type="number" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">支付宝交易订单号</label>
+                        <div class="col-sm-9">
+                            <input name="sort" ng-model="alipayOrderId"
+                                required
+                                type="text" class="form-control" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button ng-click="easySubmit()" type="submit" class="btn btn-danger">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<a ng-href="{{alipayDirectUrl + orderNum}}"  target="_blank" style="display: none" id="toAlipay"></a>
+</div>

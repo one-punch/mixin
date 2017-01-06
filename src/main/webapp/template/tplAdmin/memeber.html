@@ -1,0 +1,277 @@
+<div ng-controller="MemberCtrl">
+<!--会员管理中心-->
+<div class="content" >
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="glyphicon glyphicon-user"></i> 会员管理中心</h3>
+		</div>
+		<div class="panel-body">
+			<button ng-click="addShow()" class="btn btn-info" data-toggle="modal" data-target="#addMember"><i class="glyphicon glyphicon-plus"></i> 添加会员</button>
+			<ul class="memberList">
+				<li  ng-repeat="member in memberList">
+					<div class="memberInfo">
+						<span><i class="glyphicon glyphicon-user text-success"></i> 会员：{{member.name}}</span>
+						<a ui-sref="admin.home.memberTranfficplan({memberId:member.id})" class="btn btn-info"><i class="glyphicon glyphicon-search"></i> 查看流量折扣</a>
+						<button ng-click="addVaildityShow($index)" class="btn btn-warning" data-toggle="modal" data-target="#addDate"><i class="glyphicon glyphicon-plus"></i> 添加有效期</button>
+						<button ng-click="editShow($index)" class="btn btn-success" data-toggle="modal" data-target="#editMember"><i class="glyphicon glyphicon-edit"></i> 编辑会员</button>
+						<button class="btn btn-danger" data-toggle="modal" data-target="#delMember">删除会员</button>
+						<button ng-click="showMember($index)" class="btn btn-default memberCellToggle" style="float: right;">展开/隐藏</button>
+						<hr />
+						<div class="memberDetail" ng-show="member.show">
+							<div id="memberDirection1" class="memberDirection">
+								{{member.info}}
+							</div>
+							<hr />
+							<div>
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>有效期</th>
+											<th>价格(元)</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<thbody>
+										<tr ng-repeat="vail in member.vailditys">
+											<td>{{vail.memberVaildity}}</td>
+											<td>{{vail.cost}}</td>
+											<td>
+<!-- 												<button class="btn btn-success btn-xs" data-toggle="modal" data-target="#editDate">编辑</button> -->
+												<button ng-click="deleteVaildity(vail.id)" class="btn btn-danger btn-xs" >删除</button>
+											</td>
+										</tr>
+									</thbody>
+								</table>
+							</div>
+						</div>
+						
+					</div>
+					<!--<hr />-->
+				</li>
+<!-- 				<li>
+					<div class="memberInfo">
+						<span><i class="glyphicon glyphicon-user text-success"></i> 会员：XXX</span>
+						<a ui-sref="admin.home.memberTranfficplan" class="btn btn-info"><i class="glyphicon glyphicon-search"></i> 查看流量折扣</a>
+						<button class="btn btn-success" data-toggle="modal" data-target="#editMember"><i class="glyphicon glyphicon-edit"></i> 编辑会员</button>
+						<button class="btn btn-warning" data-toggle="modal" data-target="#addDate"><i class="glyphicon glyphicon-plus"></i> 添加有效期</button>
+						<button class="btn btn-default memberCellToggle" style="float: right;">显示/隐藏</button>
+						<hr />
+						<div id="memberDirection1" class="memberDirection">
+							《水浒传》是中国sdf历f史上以白话wef文写成的章回小说，被后人归为中国古 典四大文学名著之一。其内容讲述北宋山东梁山泊以宋江为首的绿林好汉，由被 迫落草，发展壮大，直至受到朝廷招安，东征西讨的历程。又名《忠义水浒传》， 初名《江湖豪客传》，1一般简称《水浒》，全书定型于明朝。作者历来有争议，一 般认为是施耐庵所著，而罗贯中则做了整理，金圣叹删节为七十回本。 《水浒传sd s
+						</div>
+						<hr />
+						<div>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>有效期</th>
+										<th>价格(元)</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<thbody>
+									<tr>
+										<td>10</td>
+										<td>1</td>
+										<td>
+											<button class="btn btn-success btn-xs" data-toggle="modal" data-target="#editDate">编辑</button>
+											<button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delMember">删除</button>
+										</td>
+									</tr>
+								</thbody>
+							</table>
+						</div>
+					</div>
+					<hr />
+				</li> -->
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!--编辑有效期 模态框 #editDate-->
+<div class="modal fade" id="editDate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">编辑有效期</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">会员</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">有效期</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">价格</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" />
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="submit" class="btn btn-danger">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--添加有效期 模态框 #addDate-->
+<div class="modal fade" id="addDate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">添加有效期</h4>
+			</div>
+			<div class="modal-body">
+				<form name="add_vaildity_form" class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">会员</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control"  value="{{member.name}}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">有效期（天）</label>
+						<div class="col-sm-9">
+							<input name="memberVaildity" ng-model="vaildity.memberVaildity"
+								required
+								type="number" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">价格</label>
+						<div class="col-sm-9">
+							<input name="sort" ng-model="vaildity.cost"
+								required step="0.01"
+								type="number" class="form-control" />
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button  ng-click="addVaildity()" type="submit" class="btn btn-danger">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--删除  模态框 #delMember-->
+<div class="modal fade" id="delMember" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">删除会员</h4>
+			</div>
+			<div class="modal-body">
+				<p class="alert alert-danger">确定删除xxxx会员吗？</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="submit" class="btn btn-danger">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--编辑会员 模态框 #editMember-->
+<div class="modal fade" id="editMember" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">编辑会员</h4>
+			</div>
+			<div class="modal-body">
+				<form name="edit_member_form" class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">会员</label>
+						<div class="col-sm-9">
+							<input name="name" ng-model="member.name"
+								required
+								type="text" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">排序（数字）</label>
+						<div class="col-sm-9">
+							<input name="sort" ng-model="member.sort"
+								required min="0"
+								type="number" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">详情</label>
+						<div class="col-sm-9">
+							<textarea name="info" ng-model="member.info"
+								required
+								class="form-control" rows="7"></textarea>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button ng-click="editMember()" type="submit" class="btn btn-danger">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--添加会员 模态框 #addMember-->
+<div class="modal fade" id="addMember" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">添加会员</h4>
+			</div>
+			<div class="modal-body">
+				<form name="add_member_form"  class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">会员</label>
+						<div class="col-sm-9">
+							<input name="name" ng-model="member.name"
+								required
+								type="text" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">排序（数字）</label>
+						<div class="col-sm-9">
+							<input name="sort" ng-model="member.sort"
+								required min="0"
+								type="number" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">详情</label>
+						<div class="col-sm-9">
+							<textarea name="info" ng-model="member.info"
+								required
+								class="form-control" rows="7"></textarea>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button ng-click="addMember()" type="submit" class="btn btn-danger">确定</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+</div>

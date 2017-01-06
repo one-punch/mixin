@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test tl</title>
+
+</head>
+<body>
+	<a href='../../test/jsonToObject?user={"credential":"我们是好朋友","delete":false,"principal":"5555"}'>GET jsonToObject</a>
+	
+	<form action="../../test/jsonToObject" method="post" >
+		<input type="text" name="user" value='{"credential":"我们是好朋友","delete":false,"principal":"5555"}'>
+		<br><input type="submit" value="jsonToObject">
+	</form>
+	<br>
+	<form action="../../test/jsonToObjectList" method="post" >
+		<input type="text" name="user" value='{"credential":"e10adc3949ba59abbe56e057f20f883e","delete":false,"principal":"5555"}'>
+		<input type="text" name="user" value='{"credential":"e10adc3949ba59abbe56e057f20f883e","delete":false,"principal":"5555"}'>
+		<br><input type="submit" value="jsonToObjectList">
+	</form>
+	<br>
+	<br>
+	<br>
+	<form action="../../test/exception" method="post" >
+		<input type="text" name="exception" value='0'>
+		<br><input type="submit" value="exception 0">
+	</form>
+	<br>
+	<form action="../../test/exception" method="post" >
+		<input type="text" name="exception" value='1'>
+		<br><input type="submit" value="exception 1">
+	</form>
+	<br>
+	<form action="../../test/exception" method="post" >
+		<input type="text" name="exception" value='2'>
+		<br><input type="submit" value="exception 2">
+	</form>
+	<br>
+	<form action="../../test/jsonToObject" method="post" >
+		<br><input type="submit" value="exception 4 ">
+	</form>
+	<br>
+	<br>
+	<br>
+	<form action="../../test/validate" method="post" >
+		<input type="text" name="user" value='{"credential":"e10adc3949ba59abbe56e057f20f883e","delete":false,"principal":"5555"}'>
+		<br><input type="submit" value="validate success">
+	</form>
+	<br>
+	<form action="../../test/validate" method="post" >
+		<input type="text" name="user" value='{"credential":"e10adc3949ba59abbe56e057f20f883e","principal":"5555","tel":"13234234","email":"asdflkasjdf;l"}'>
+		<input type="text" name="user2" value='{"credential":"e10adc3949ba59abbe56e057f20f883e","principal":"5555","tel":"13234234","email":"asdflkasjdf;l"}'>
+		<br><input type="submit" value="validate failure">
+	</form>
+	<br>
+	<form action="../../test/validate" method="post" >
+		<input type="text" name="user" value='{"credential":"e10adc3949ba59abbe56e057f20f883e","principal":"5555","tel":"13234234","email":"asdflkasjdf;l"}'>
+		<br><input type="submit" value="validate no user2">
+	</form>
+	
+	<br>
+	<br>
+	<br>
+	<br>
+	<form action="../../file/upload" method="post" enctype="multipart/form-data" >
+		<input type="file" name="file" >
+		<br><input type="submit" value="上传文件默认类型">
+	</form>
+	<br>
+	<form action="../../file/upload" method="post" enctype="multipart/form-data" >
+		<input type="file" name="file" >
+		<input type="text" name="type"  value="png">
+		<br><input type="submit" value="上传文件  png类型">
+	</form>
+	<br>
+	<a href="../../file/download?fid=1">下载文件</a>
+	<br>
+	<a href="../../file/downloadBigFile">下载大文件</a>
+	<br>
+	查看文件： <img alt="" src="../../file/see?fid=1">
+	
+	
+    <br>
+    <br>
+    <br>
+    <br>
+    <form action="../../login" method="post" enctype="multipart/form-data" >
+        <input type="text" name="principal" value="asdf" >
+        <input type="text" name="credential" value="asdfasdf" >
+        <br><input type="submit" value="登录失败">
+    </form>
+    <br>
+    <form action="../../login" method="post" enctype="multipart/form-data" >
+        <input type="text" name="principal" value="user" >
+        <input type="text" name="credential" value="4fc711301f3c784d66955d98d399afb" >
+        <br><input type="submit" value="用户登录成功">
+    </form>
+    <a href="../../test/user">用户权限</a>
+    <br>
+    <form action="../../login" method="post" enctype="multipart/form-data" >
+        <input type="text" name="principal" value="supermanager" >
+        <input type="text" name="credential" value="768c1c687efe184ae6dd2420710b8799" >
+        <br><input type="submit" value="管理员登录成功">
+    </form>
+    <a href="../../test/supermanager">管理员权限</a>
+</body>
+</html>

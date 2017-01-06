@@ -1,0 +1,44 @@
+<header class="head text-primary" style="position: fixed;">
+	<a href="#" class="left text-primary"><i class="fa fa-chevron-left"></i></a>
+	<h4>充值记录</h4>
+	<i class="fa fa-user right"></i>
+</header>
+<div class="weui_panel weui_panel_access" style="top:40px">
+	<div class="weui_panel_bd payList">
+
+		<a ng-repeat="order in orderList" href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+			<div class="weui_media_hd flow">
+				{{ order.trafficplanValue >= 1024 ? util.round(order.trafficplanValue/1024) + 'G' : order.trafficplanValue +'M'  }}
+			</div>
+			<div class="weui_media_bd">
+				<p class="weui_media_desc">
+					<span class="payListDetail1"><i class="fa fa-volume-control-phone" aria-hidden="true"></i> {{order.phone}}</span>
+					<span class="payListDetail2">{{states[order.state]}}</span><br />
+					<!-- <span class="payListDetail2">花费</span><br /> -->
+					<span class="payListDetail3"><i class="fa fa-calendar" aria-hidden="true"></i> {{order.createTime | date: format.datetime}}</span>
+					<span class="payListDetail4 text-warning"><i class="fa fa-jpy" aria-hidden="true"></i>{{order.retailPrice | number : 2}}</span>
+				</p>
+			</div>
+		</a>
+	</div>
+	
+	<div ng-show="page.pageNo < page.totalPage" class="weui_btn_area">
+		<button ng-click="next()" type="button" class="btn-primary">更多</button>
+	</div>
+	<div ng-show="page.pageNo == page.totalPage" class="partLine">- 记录就这么多了 -</div>
+</div>
+<style type="text/css">
+
+.btn-primary{
+	background: #1591cf;
+	width: 90%;
+	display: block;
+	color: #ffffff;
+	border:none ;
+	line-height: 40px;
+	border-radius: 5px;
+	margin: 10px auto;
+	outline:none;
+}
+</style>
+<div class="partLine">&nbsp;</div>

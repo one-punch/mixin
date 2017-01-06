@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.UploadFileVo</class-a>
+		<class-b>com.wteam.mixin.model.po.UploadFilePo</class-b>
+	</mapping>
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.ThemeVo</class-a>
+		<class-b>com.wteam.mixin.model.po.ThemePo</class-b>
+	</mapping>
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.PermissionVo</class-a>
+		<class-b>com.wteam.mixin.model.po.PermissionPo</class-b>
+	</mapping>
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.BusinessBannerVo</class-a>
+		<class-b>com.wteam.mixin.model.po.BusinessBannerPo</class-b>
+	</mapping>
+
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.MemberVo</class-a>
+		<class-b>com.wteam.mixin.model.po.MemberPo</class-b>
+	</mapping>
+
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.MemberVaildityVo</class-a>
+		<class-b>com.wteam.mixin.model.po.MemberVaildityPo</class-b>
+	</mapping>
+
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.OrderSettlementVo</class-a>
+		<class-b>com.wteam.mixin.model.po.OrderSettlementPo</class-b>
+	</mapping>
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.UserVo</class-a>
+		<class-b>com.wteam.mixin.model.po.UserPo</class-b>
+	</mapping>
+
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.TrafficGroupVo</class-a>
+		<class-b>com.wteam.mixin.model.po.TrafficGroupPo</class-b>
+	</mapping>
+
+	<mapping map-null="false" wildcard="true">
+		<class-a>com.wteam.mixin.model.vo.TrafficPlanVo</class-a>
+		<class-b>com.wteam.mixin.model.po.TrafficGroupPo</class-b>
+		<field>
+			<a>groupName</a>
+			<b>name</b>
+		</field>
+		<field>
+			<a>province</a>
+			<b>province</b>
+		</field>
+	</mapping>
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.TrafficPlanVo</class-a>
+		<class-b>com.wteam.mixin.model.po.TrafficPlanPo</class-b>
+		<field>
+			<a>trafficgroupId</a>
+			<b>trafficGroupId</b>
+		</field>
+	</mapping>
+
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.WithdrawVo</class-a>
+		<class-b>com.wteam.mixin.model.po.WithdrawPo</class-b>
+	</mapping>
+
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.BusinessMenuVo</class-a>
+		<class-b>com.wteam.mixin.model.po.BusinessMenuPo</class-b>
+	</mapping>
+
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.DocumentVo</class-a>
+		<class-b>com.wteam.mixin.model.po.DocumentPo</class-b>
+	</mapping>
+
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.DConfigVo</class-a>
+		<class-b>com.wteam.mixin.model.po.DConfigPo</class-b>
+	</mapping>
+
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.CustomMenuButton</class-a>
+		<class-b>com.wteam.mixin.model.po.WechatCustomMenuPo</class-b>
+		<field>
+			<a>key</a>
+			<b>menuKey</b>
+		</field>
+	</mapping>
+
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.AutoReplyVo</class-a>
+		<class-b>com.wteam.mixin.model.po.WechatReplyPo</class-b>
+	</mapping>
+
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.BusinessThemeVo</class-a>
+		<class-b>com.wteam.mixin.model.po.BusinessThemePo</class-b>
+	</mapping>
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.BusinessBalanceRecordVo</class-a>
+		<class-b>com.wteam.mixin.model.po.BusinessBalanceRecordPo</class-b>
+	</mapping>
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.CustomerInfoVo</class-a>
+		<class-b>com.wteam.mixin.model.po.CustomerInfoPo</class-b>
+	</mapping>
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.MemberTrafficPlanVo</class-a>
+		<class-b>com.wteam.mixin.model.po.MemberTrafficPlanPo</class-b>
+	</mapping>
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.CustomMenuVo</class-a>
+		<class-b>com.wteam.mixin.model.po.WechatCustomMenuPo</class-b>
+	</mapping>
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.BusinessInfoVo</class-a>
+		<class-b>com.wteam.mixin.model.po.BusinessInfoPo</class-b>
+	</mapping>
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.wexin.XPayConfig</class-a>
+		<class-b>com.wteam.mixin.model.po.BusinessInfoPo</class-b>
+	</mapping>
+	<mapping map-null="false">
+		<class-a>com.wteam.mixin.model.vo.CustomerOrderVo</class-a>
+		<class-b>com.wteam.mixin.model.po.CustomerOrderPo</class-b>
+	</mapping>
+</mappings>

@@ -1,0 +1,130 @@
+<div class="slideBox">
+	<div class="bd">
+		<ul style="list-style: none;">
+			<li>
+				<a href="#"><img src="/customer/images/banner/banner1.jpg" /></a>
+			</li>
+			<li>
+				<a href="#"><img src="/customer/images/banner/banner2.jpg" /></a>
+			</li>
+			<li>
+				<a href="#"><img src="/customer/images/banner/banner3.jpg" /></a>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="weui_tab">
+	<div class="weui_navbar">
+		<div ng-click="changeProvince('全国')" ng-class="province=='全国' ? 'weui_navbar_item navArea' : 'weui_navbar_item'" id="nav1">
+			全国用户充值
+		</div>
+		<div ng-click="changeProvince(telProvince)" ng-class="province!='全国' ? 'weui_navbar_item navArea' : 'weui_navbar_item'" id="nav2">
+			{{telProvince}}用户充值
+		</div>
+	</div>
+	<div class="weui_tab_bd">
+	</div>
+</div>
+<!--全国用户充值 二级菜单-->
+<div ng-show="province == '全国'" class="weui_tab" >
+	<div class="a"></div>
+	<div class="weui_navbar nav2Div">
+		<div ng-click="changeProvider(0)"  ng-class="provider==0 ? 'nav2 weui_bar_item_on' : 'nav2'" id="subNav1-1">
+			中国移动
+		</div>
+		<div ng-click="changeProvider(1)"  ng-class="provider==1 ? 'nav2 weui_bar_item_on' : 'nav2'" id="subNav1-2">
+			中国联通
+		</div>
+		<div ng-click="changeProvider(2)" ng-class="provider==2 ? 'nav2 weui_bar_item_on' : 'nav2'" id="subNav1-3">
+			中国电信
+		</div>
+	</div>
+	<div class="weui_tab_bd">
+	</div>
+</div>
+<!--广东用户充值 二级菜单-->
+<div ng-show="province != '全国'" class="weui_tab" >
+	<div class="a"></div>
+	<div class="weui_navbar nav2Div">
+		<div ng-click="changeProvider(0)" ng-class="provider==0 ? 'nav2 weui_bar_item_on' : 'nav2'">
+			{{telProvince}}移动
+		</div>
+		<div ng-click="changeProvider(1)" ng-class="provider==1 ? 'nav2 weui_bar_item_on' : 'nav2'">
+			{{telProvince}}联通
+		</div>
+		<div ng-click="changeProvider(2)" ng-class="provider==2 ? 'nav2 weui_bar_item_on' : 'nav2'" >
+			{{telProvince}}电信
+		</div>
+	</div>
+	<div class="weui_tab_bd">
+	</div>
+</div>
+
+<!---->
+<div class="weui_cell" style="background: #ffffff;">
+	<div class="weui_cell_hd">
+		<label class="weui_label"><i class="fa fa-volume-control-phone" aria-hidden="true"></i></label>
+	</div>
+	<div class="weui_cell_bd weui_cell_primary">
+		<input ng-change="telChange()" ng-model="tel"
+			class="weui_input" type="number" pattern="[0-9]*" placeholder="请输入手机号" />
+	</div>
+</div>
+<div class="weui_cells_tips">全国移动、联通、电信用户均可充值</div>
+
+<!---->
+<div ng-repeat="group in provincegroupList" class="weui_panel weui_panel_access">
+	<div class="flowDetail">
+		{{group.name}}
+		<a href="javascript:;" ng-click="infoShow(group)"><i class="fa fa-question-circle fa-lg"></i> 流量详情</a>
+	</div>
+	<div class="weui_panel_bd">
+		<div class="weui_cells weui_cells_access">
+			<a ng-click="submit(plan)"  ng-repeat="plan in group.trafficplanList" class="weui_cell flowList" href="javascript:;">
+				<div class="weui_cell_bd weui_cell_primary ">
+					<h4>{{ plan.value >= 1024 ? util.round(plan.value/1024) + 'G' : plan.value +'M'  }}</h4>
+					<label>{{plan.name}}</label>
+				</div>
+				<div class="weui_cell_ft flowListPrid"><i class="fa fa-jpy"></i> {{plan.retailPrice | number : 2 }}</div>
+			</a>
+		</div>
+	</div>
+</div>
+<!---->
+<div  ng-repeat="group in countrygroupList" class="weui_panel weui_panel_access">
+	<div class="weui_panel_bd">
+		<div class="weui_grids flowCell">
+			<div ng-repeat="plan in group.trafficplanList">
+				<a ng-click="submit(plan)"  href="javascript:;" class="weui_grid">
+					<div ng-if="plan.tip" class="cellTips">
+						<div class="extra"></div>
+						<small class="extra-font">{{plan.tip}}</small>
+					</div>
+					<h4>{{ plan.value >= 1024 ? util.round(plan.value/1024) + 'G' : plan.value +'M'  }}</h4>
+					<p class="text-warning">￥{{plan.retailPrice | number : 2 }}</p>
+					<p class="text-gray">{{plan.name}}</p>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--BEGIN dialog1-->
+<div class="weui_dialog_confirm" id="dialog1" ng-if="group.isShowInfo">
+	<div class="weui_mask"></div>
+	<div class="weui_dialog">
+		<div class="weui_dialog_hd"><strong class="weui_dialog_title">流量详情</strong></div>
+		<div class="weui_dialog_bd">
+			<ul class="text-xs dadetail">
+				{{group.info || '暂时没有介绍'}}
+			</ul>
+		</div>
+		<div class="weui_dialog_ft">
+<!-- 			<a href="javascript:;" class="weui_btn_dialog default" ng-click="infoClose()">取消</a> -->
+			<a ng-click="submit(plan)" href="javascript:;" class="weui_btn_dialog primary" ng-click="infoClose()">确定</a>
+		</div>
+	</div>
+</div>
+<!--END dialog1-->
+<div class="partLine">&nbsp;</div>
+<!-- <script type="text/javascript" src="/customer/theme2/js/script.js"></script> -->

@@ -1,0 +1,109 @@
+<!--广告管理中心-->
+<div ng-controller="BannerCtrl"> 
+<div class="content">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="glyphicon glyphicon-flag"></i> 广告管理中心</h3>
+		</div>
+		<div class="panel-body">
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addBanner"><i class="glyphicon glyphicon-plus"></i> 添加广告</button>
+			<div class="bannerCell">
+				<div class="row">
+					<div class="col-md-4 col-sm-4">
+						<img src="img/theme/theme1.png" />
+					</div>
+					<div class="col-md-8 col-sm-8">
+						<div class="form-group">
+							<label>广告</label>
+							<span>sjdofsjdofijwioefjsodjfoiwjeoefjsodjfoiwjeoefjsodjfoiwjsodjfoiwjefoisj</span>
+						</div>
+						<div class="form-group">
+							<label>链接</label>
+							<a href="www.baidu.com">www.baidu.com</a>
+						</div>
+						<div class="form-group">
+							<label>显示</label>
+							<input type="checkbox" />
+						</div>
+						<button type="button" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> 删除</button>
+					</div>
+				</div>
+			</div>
+			<div class="bannerCell">
+				<div class="row">
+					<div class="col-md-4 col-sm-4">
+						<img src="img/theme/theme1.png" />
+					</div>
+					<div class="col-md-8 col-sm-8">
+						<div class="form-group">
+							<label>广告</label>
+							<span>sjdofsjdofijwioefjsodjfoiwjeoefjsodjfoiwjeoefjsodjfoiwjsodjfoiwjefoisj</span>
+						</div>
+						<div class="form-group">
+							<label>链接</label>
+							<a href="www.baidu.com">www.baidu.com</a>
+						</div>
+						<div class="form-group">
+							<label>显示</label>
+							<input type="checkbox" />
+						</div>
+						<button type="button" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> 删除</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!--添加 模态框 #addBanner-->
+<div class="modal fade" id="addBanner" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">添加广告</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">广告名</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">链接</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">显示</label>
+						<div class="col-sm-10">
+							<section>
+								<!-- Checbox  -->
+								<div class="checkboxFour">
+									<input type="checkbox" value="1" id="showbanner-add" name="" />
+									<label for="showbanner-add"></label>
+								</div>
+							</section>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">图片</label>
+						<div class="col-sm-10">
+							<input type="file" class="form-control" />
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="submit" class="btn btn-primary">提交</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+</div>

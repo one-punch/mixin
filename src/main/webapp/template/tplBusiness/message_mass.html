@@ -1,0 +1,14 @@
+<!--群发消息-->
+<div ng-controller="WechaMessageMasstCtrl" class="content">
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="glyphicon glyphicon-envelope"></i> 群发消息</h3>
+		</div>
+		<div class="panel-body">
+			<div class="mess">
+				<button ng-click="sendMass()" class="btn btn-info"><i class="glyphicon glyphicon-send"></i> 发送</button>
+				<textarea ng-model="mass.content"class="form-control" rows="7"></textarea>
+			</div>
+		</div>
+	</div>
+</div>

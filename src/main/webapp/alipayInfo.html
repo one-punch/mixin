@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="icon" href="img/logo/logo.ico" type="image/x-icon" />
+		<title>支付宝支付</title>
+		<style>
+			/**/
+			body{
+				font-family: "微软雅黑";
+			}
+div.wechatInfo-success,
+div.wechatInfo-danger{
+	text-align: center;
+}
+div.wechatInfo-success h1{
+	margin: 15px auto;
+	font-size: 150px;
+	color: #04BE02;
+	display: block;
+	padding: 30px;
+}
+div.wechatInfo-success h2{
+	margin: 15px auto;
+	font-size: 30px;
+	color: #04BE02;
+	display: block;
+}
+div.wechatInfo-danger h2{
+	margin: 15px auto;
+	font-size: 30px;
+	color: #E50525;
+	display: block;
+}
+div.wechatInfo-success p,
+div.wechatInfo-danger p{
+	font-size: 20px;
+	color: #666;
+}
+div.wechatInfo-danger h1{
+	margin: 15px auto;
+	font-size: 150px;
+	color: #E50525;
+	display: block;
+	padding: 30px;
+}
+</style>
+
+	<script src="js/utils/jQuery-2.1.4.min.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<div id="content" style="display: none">
+			<div class="wechatInfo-success" style="display: none">
+				<h1>
+					:-)
+				</h1>
+				<h2>成功</h2>
+				<p>商家余额充值</p>
+			</div>
+			<div class="wechatInfo-danger" style="display: none">
+				<h1>
+					:-(
+				</h1>
+				<h2>失败</h2>
+				<p>商家余额充值</p>
+			</div>
+		</div>
+	</body>
+
+<script type="text/javascript">
+/**
+ * js获取url参数值的
+ * Request['param']
+ */
+var Request = GetRequest();
+
+function GetRequest() {
+	var url = location.search; //获取url中"?"符后的字串 
+	var theRequest = new Object();
+	if (url.indexOf("?") != -1) {
+		var str = url.substr(1);
+		strs = str.split("&");
+		for (var i = 0; i < strs.length; i++) {
+			theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+		}
+	}
+	return theRequest;
+}
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#content").show();
+	var token = Request['token']
+	if (token == 'success') {
+		$(".wechatInfo-success").show()
+	} else {
+		$(".wechatInfo-danger").show()
+	}
+	  
+});
+</script>
+</html>

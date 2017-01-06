@@ -1,0 +1,88 @@
+	
+	<link type="text/css" rel="stylesheet" href="/customer/css/pay.css" />
+	<div>
+		<header class="head text-primary" style="position: fixed;">
+			<a ui-sref="customer.home.recharge" class="left text-primary"><i class="fa fa-chevron-left"></i></a>
+			<h4>订单支付</h4>
+			<i class="fa fa-user right"></i>
+		</header>
+		<div class="partLine">&nbsp;</div>
+
+		<div class="page">
+			<div class="bd">
+				<div class="weui_cells">
+					<div class="weui_cell">
+						<div class="weui_cell_bd weui_cell_primary">
+							<p>订单编号</p>
+						</div>
+						<div class="weui_cell_ft">{{payInfo.order.orderNum}}</div>
+					</div>
+					<div class="weui_cell">
+						<div class="weui_cell_bd weui_cell_primary">
+							<p>充值号码</p>
+						</div>
+						<div class="weui_cell_ft">{{payInfo.order.phone}}</div>
+					</div>
+					<div class="weui_cell">
+						<div class="weui_cell_bd weui_cell_primary">
+							<p>订单名称</p>
+						</div>
+						<div class="weui_cell_ft">{{payInfo.trafficplan.name}}</div>
+					</div>
+					<div class="weui_cell">
+						<div class="weui_cell_bd weui_cell_primary">
+							<p>金额</p>
+						</div>
+						<div class="weui_cell_ft">{{payInfo.order.retailPrice | number : 2}}</div>
+					</div>
+
+					<div class="weui_cells weui_cells_radio">
+						<label class="weui_cell weui_check_label" for="pay1">
+			                <div class="weui_cell_bd weui_cell_primary">
+			                    <p ><i class="fa fa-weixin fa-lg text-success"></i> 微信支付</p>
+			                </div>
+			                <div class="weui_cell_ft">
+			                    <input type="radio" class="weui_check" name="radio1" id="pay1" checked="checked">
+			                    <span class="weui_icon_checked"></span>
+			                </div>
+			            </label>
+<!-- 						<label class="weui_cell weui_check_label" for="pay2">
+			                <div class="weui_cell_bd weui_cell_primary">
+			                    <p><i class="fa fa-credit-card fa-lg text-primary"></i> 余额支付</p>
+			                </div>
+			                <div class="weui_cell_ft">
+			                    <input type="radio" name="radio1" class="weui_check" id="pay2">
+			                    <span class="weui_icon_checked"></span>
+			                </div>
+			            </label>
+						<label class="weui_cell weui_check_label" for="pay3">
+			                <div class="weui_cell_bd weui_cell_primary">
+			                    <p><i class="fa fa-gg-circle fa-lg text-warning"></i> 分销奖励</p>
+			                </div>
+			                <div class="weui_cell_ft">
+			                    <input type="radio" name="radio1" class="weui_check" id="pay3" >
+			                    <span class="weui_icon_checked"></span>
+			                </div>
+			            </label> -->
+					</div>
+
+				</div>
+				<div class="weui_btn_area">
+					<button ng-click="pay()" type="button" class="btn-primary">微信支付</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 二维码 -->
+	<div class="weui_dialog_confirm" id="qrcode_toast" ng-show="qrcode.show">
+        <div class="weui_mask"></div>
+        <div class="weui_dialog">
+            <div class="weui_dialog_hd"><strong class="weui_dialog_title">支付二维码</strong></div>
+            <div  class="weui_dialog_bd" >
+            	<div id="qrcode"></div>
+            </div>
+            <div class="weui_dialog_ft">
+                <a href="javascript:;" class="weui_btn_dialog default" ng-click="qrcode.closeDialog()">取消</a>
+            </div>
+        </div>
+    </div>

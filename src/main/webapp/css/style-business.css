@@ -1,0 +1,276 @@
+body{
+	/*background: #e7e7eb;*/
+	font-family: "microsoft yahei";
+	background-image:url(../img/bgimage/bg2.png);
+}
+hr{
+	color:#666;
+	margin-bottom:-6px
+}
+/*header*/
+div.header{
+	margin-top:0px ;
+	margin-bottom:10px ;
+	background: #ffffff;
+	padding: 10px;
+}
+div.header img{
+	width: 50px;
+	height: 50px;
+	border-radius: 5px;
+}
+
+div.logOut{
+	float: right;
+	margin-top: -38px;
+}
+div.userName{
+	margin-top: -43px;
+	margin-left:60px ;
+}
+div.phoneNum{
+	margin-left: 60px;
+}
+span.mebberName{
+	background: #60d395;
+	border-radius: 5px;
+	padding: 2px 8px;
+	color: #fff;
+	margin-left:15px ;
+}
+
+
+/*theme*/
+div.theme{
+	margin-top:10px ;
+	font-family: "microsoft yahei";
+	
+}
+div.theme h4{
+	/*text-overflow:ellipsis;*/
+	/*overflow: hidden;*/
+	
+}
+div.theme img{
+	width: 150px;
+	height: 225px;
+}
+div.theme p{
+	margin-top: -5px;
+}
+table.themeTable tr td{
+	width: 25%;
+}
+/**/
+div.memberInfo{
+	margin: 15px auto;
+	width: 100%;
+	background:#eff7ef;
+	padding:8px;
+}
+div.memberInfo span{
+	margin-right: 70px;
+	color: #666;
+	/*border-bottom: 1px solid #00BC0C;*/
+}
+div#memberDirection{
+	margin: 0px auto;
+}
+div#memberDirection button{
+	border-radius:10px ;
+	margin: 8px auto;
+	background: #E5E5E5;
+	padding: 6px 13px;
+	color: #666;
+	border: none;
+	opacity: 0.9;
+	transition: 0.3s;
+}
+div#memberDirection button:hover,
+div#memberDirection button:visited{
+	color: #fff;
+	background: #0088CC;
+	transition: 0.3s;
+	border: none;
+	border-radius:10px ;
+}
+img.tableImage{
+	width: 50px;
+	height: 50px;
+	border-radius: 10px;
+}
+/*财务管理中心*/
+div.balanceCell{
+	border: 2px dotted #e7e7eb;
+	margin: 15px auto;
+}
+div.balanceCell h3{
+	display: inline-block;
+	margin-right: 10px;
+	color: #999;
+}
+div.balanceCell-title{
+	text-align: center;
+	margin-bottom: 15px;
+	width: 100%;
+}
+div.balanceCell-title small{
+	color: #999;
+}
+div.balanceCell-body{
+	width: 100%;
+	margin: 20px 15px 5px 15px;
+	
+}
+div.balanceCell-body div{
+	width: 80%;
+	display: inline-block;
+	text-align: center;
+}
+div.balanceCell-body table{
+	width: 90%;
+	margin: 20px;
+}
+div.balanceCell-body table td{
+	width: 25%;
+}
+div.rightNavdiv{
+	display: block;
+	margin:-15px -15px -30px -15px;
+}
+/**/
+div.wechatNo{
+	margin-left:-15px ;
+	text-align: center;
+}
+
+div.mess button,div.keyword button{
+	margin: 15px auto;
+}
+/*banner*/
+div.bannerCell{
+	border: 2px dotted #eee;
+	padding: 10px;
+	/*box-shadow: 1px 1px 8px #b6bab8;*/
+}
+div.bannerCell img{
+	width: 50%;
+	max-width: 150px;
+	height: auto;
+}
+div.bannerCell div.form-group{
+	margin: 3px auto;
+}
+div.bannerCell div.form-group label{
+	margin-right:15px ;
+	font-size: 15px;
+	font-family: "microsoft yahei";
+	color: #07990A;
+}
+/*wechat menu*/
+div.wechatMenu input[type=text]{
+	border: none;
+	transition:0.3s;
+}
+div.wechatMenu input[type=text]:hover
+{
+	border: 1px solid #00BC0C ;
+	transition:0.3s;
+}
+div.wechatMenu ul{
+	/*background: #eee;*/
+}
+div.wechatMenu ul>li{
+	list-style: none;
+	/*background: #2AABD2;*/
+	border-bottom:2px dotted  #eee;
+	padding: 5px;
+	margin-left: -25px;
+	
+}
+
+div.wechatMenu ul li>ul li{
+	/*background: #00BC0C;*/
+	margin-left: -5px;
+	border: none;
+	padding: 3px;
+	transition: 0.3s;
+}
+div.wechatMenu ul li>ul li:hover{
+	background: #eee;
+	border-radius:5px ;
+	padding: 5px;
+	transition: 0.1s;
+}
+div.wechatMenu i{
+	transition: 0.5s;
+}
+div.wechatMenu i:hover{
+	transition: 0.1s;
+	transform:rotate(-90deg);
+-ms-transform:rotate(-90deg); 	/* IE 9 */
+-moz-transform:rotate(-90deg); 	/* Firefox */
+-webkit-transform:rotate(-90deg); /* Safari 和 Chrome */
+-o-transform:rotate(-90deg); 
+}
+
+div.vcodeImg{
+	float: right;
+	margin-top: -35px;
+}
+div.vcodeImg img{
+	width : 91px;
+	height : 36px;
+}
+div.vcodeImg a{
+	text-decoration: none;
+}
+div.trafficAPI-add{
+	padding: 15px;
+	border: 2px dotted #60D395;
+}
+div.trafficAPI-table{
+	margin-top: 25px;
+}
+div.trafficAPI-table h4{
+	font-family: "microsoft yahei";
+	margin: 15px auto;
+}
+
+.trafficRechangeList{
+	border: 2px dotted #B2DBA1;
+	margin: 15px 15px;
+	width: 96%;
+	text-align: center;
+}
+.trafficRechangeList table{
+	border: none;
+	width: 100%;
+	margin: 10px auto;
+}
+.trafficRechangeList table tr td{
+	width: 33%;
+	padding: 0px 8px ;
+}
+
+.trafficRechangeList button {
+	margin: 8px auto;
+	border: none;
+	padding: 15px 25px;
+	background: ;
+	width: 100%;
+	text-align: center;
+	background: #eee;
+	color: #398439;
+	transition: 0.4s;
+}
+/* .trafficRechangeList button:hover{
+		background: #00BC0C;
+		color: #fff;
+		transition: 0.2s;
+} */
+.trafficRechangeList button.active{
+		background: #00BC0C;
+		color: #fff;
+		transition: 0.2s;
+}

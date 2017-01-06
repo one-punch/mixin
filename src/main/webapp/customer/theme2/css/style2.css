@@ -1,0 +1,351 @@
+body {
+	font-family: "microsoft yahei";
+	background: #f2f6f9;
+	overflow-x: hidden;
+}
+button{
+	outline:none;
+}
+
+/*menu*/
+
+p.weui_tabbar_label {
+	color: #999;
+}
+
+a.active p {
+	color: #1591cf;
+}
+
+a.active {
+	background: #eee;
+}
+
+div.menu {
+	z-index: 99;
+}
+
+div.content {
+	top: 0;
+	left: 0;
+	z-index: -99;
+}
+
+.text-info {
+	color: #81c0f3;
+}
+
+.text-primary {
+	color: #1591cf;
+}
+
+.text-warning {
+	color: #e50525;
+	font-size: 10px;
+}
+
+.text-gray {
+	color: #999;
+	font-size: 10px;
+}
+
+.text-xs {
+	font-size: 10px;
+}
+
+div.flowDetail {
+	position: relative;
+	margin:15px 15px;
+	font-size: 14px;
+}
+div.flowDetail a {
+	color: #2da015;
+	float: right;
+}
+
+div.flowDetail a:hover {
+	color: #333;
+	background: #eee;
+}
+
+div.flowCell a {
+	text-align: center;
+	color: #1591cf;
+}
+
+div.flowCell p {
+	font-size: 14px;
+}
+
+div.partLine {
+	margin: 30px auto;
+	text-align: center;
+	color: #bbb;
+}
+/*recharge*/
+
+div.btn-group {
+	margin: 8px auto;
+}
+
+.btnItem {
+	width: 30%;
+	height: 50px;
+	background: #fafafa;
+	border-radius: 3px;
+	display: inline-block;
+	color: #666;
+	border: none;
+}
+
+.btn-action {
+	background: #81c0f3 !important;
+	color: #fff !important;
+}
+/**/
+
+label.payUser {
+	background: #1591cf;
+	padding: 2px 8px;
+	border-radius: 3px;
+	color: #fff;
+}
+
+span.payListDetail1,
+span.payListDetail2,
+span.payListDetail3,
+span.payListDetail4 {
+	font-size: 13px;
+}
+
+span.payListDetail2,
+span.payListDetail4 {
+	float: right;
+}
+/*theme2*/
+
+ul.tabList {
+	position: absolute;
+	width: 100%;
+}
+
+ul.tabList li {
+	display: inline-block;
+	float: left;
+}
+
+.flowList h4 {
+	color: #999;
+}
+
+.flowList small {
+	margin-left: 8px;
+	font-size: 10px;
+}
+
+.flowList label {
+	font-size: 10px;
+	color: #999;
+}
+
+div.flowListPrid {
+	color: #e50525;
+}
+/**/
+
+div.extra {
+	position: absolute;
+	margin-top: -19px;
+	right: 0px;
+	width: 0;
+	height: 0;
+	border-top: 34px solid #81c0f3;
+	border-left: 34px solid transparent;
+}
+p.extra-font,
+small.extra-font{
+	position: absolute;
+	color: #eee;
+	font-style: initial;
+	transform: rotate(45deg);
+}
+p.extra-font {
+	left: 140px;
+	top: 3px;
+	font-size: 8px;
+}
+
+small.extra-font {
+	right: -1px;
+	top: 2px;
+}
+
+div.flow {
+	background: #81c0f3;
+	color: #fff;
+}
+
+header.head {
+	width: 100%;
+	display: block;
+	top: 0px;
+	text-align: center;
+	z-index: 90;
+	background: #fafafa;
+	height: 40px;
+	box-shadow: 1px 1px 3px #bbb;
+}
+
+header.head h4 {
+	padding: 15px auto;
+	line-height: 40px;
+	display: inline-block;
+}
+
+i.right {
+	float: right;
+	margin-right: 20px;
+	margin-left: -20px;
+	line-height: 40px;
+}
+.left{
+	float: left;
+	padding: 0px 20px;
+	margin-right: -40px;
+	line-height: 40px;
+	display: block;
+}
+a.left:hover{
+	background: #eee;
+}
+/**/
+
+div.GDnav,
+div.QGnav {
+	margin-top: 15PX;
+	width: 100%;
+	display: block;
+}
+
+div.GDnav ul>li,
+div.QGnav ul>li {
+	display: inline-block;
+	float: left;
+	text-align: center;
+	list-style: none;
+	line-height: 40px;
+}
+
+div.nav2Div {
+	text-align: center;
+}
+
+div.nav2,
+div.nav3 {
+	border: none;
+	line-height: 40px;
+	font-size: 14px;
+	text-align: center;
+	margin: 5px auto;
+	display: block;
+}
+
+div.nav2:hover,
+div.visit,
+.weui_bar_item_on {
+	color: #1591cf;
+}
+
+div.navArea {
+	background: #81c0f3;
+	color: #FFFFFF;
+}
+/**/
+.a ,
+.b{
+	position: absolute;
+	margin-top: -13px;
+	margin-left: 60px;
+	left: 0px;
+	width: 0;
+	height: 0;
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-bottom: 20px solid #fafafa;
+	z-index: 1;
+}
+
+div#subNav2 {
+	display: none;
+}
+
+.banner {
+	width: 80%;
+}
+
+.banner img {
+	width: 100%;
+}
+
+
+/**/
+
+.slideBox {
+	width: 100%;
+	height: 105px;
+	overflow: hidden;
+	position: relative;
+}
+
+.slideBox .hd {
+	height: 15px;
+	overflow: hidden;
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	z-index: 1;
+}
+
+.slideBox .hd ul {
+	overflow: hidden;
+	zoom: 1;
+	float: left;
+	list-style: none;
+}
+
+.slideBox .hd ul li {
+	list-style: none;
+	float: left;
+	margin-right: 5px;
+	width: 15px;
+	height: 15px;
+	line-height: 14px;
+	text-align: center;
+	background: #fff;
+	cursor: pointer;
+}
+
+.slideBox .hd ul li.on {
+	background: #f00;
+	color: #fff;
+	list-style: none;
+}
+
+.slideBox .bd {
+	position: relative;
+	height: 100%;
+	z-index: 0;
+}
+
+.slideBox .bd img {
+	width: 100%;
+	height: 100%;
+}
+
+.dadetail li{
+	list-style: none;
+	text-align: left;
+}
+.dadetail span{
+	color: #e50525;
+}

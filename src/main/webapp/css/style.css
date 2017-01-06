@@ -1,0 +1,86 @@
+body {
+	font-family: "microsoft yahei";
+	background: #e7e7eb;
+	/*background-image: url(../img/bgimage/registe-login-bg.png);*/
+}
+/*register*/
+div.register{
+	background: #FFFFFF;
+	padding: 20px;
+	/*margin: 40px;*/
+	box-shadow: 1px 1px 10px #b6bab8;
+	/**/
+	margin:20px auto ;
+	width: 30%;
+}
+div.serviceAgreementInfo {
+	background: #FFFFFF;
+	padding: 20px;
+	/*margin: 40px;*/
+	box-shadow: 1px 1px 10px #b6bab8;
+	
+	margin:50px auto ;
+	width: 60%;
+}
+
+div.registerTitle {
+	position: relative;
+}
+
+div.registerTitle h1 {
+	font-family: "microsoft yahei";
+	color: #666;
+	z-index: 99;
+}
+
+div.registerTitle img {
+	position: absolute;
+	z-index: 1;
+	width: auto;
+	height: 100%;
+	margin-top: -50px;
+	right: 0px;
+}
+
+/*login*/
+div.login{
+	background: #FFFFFF;
+	padding: 20px;
+	box-shadow: 1px 1px 10px #b6bab8;
+	margin:120px auto ;
+	width: 30%;
+}
+
+div.loginTitle {
+	position: relative;
+}
+
+div.loginTitle h1 {
+	font-family: "microsoft yahei";
+	color: #666;
+	z-index: 99;
+}
+
+div.loginTitle img {
+	position: absolute;
+	z-index: 1;
+	width: auto;
+	height: 100%;
+	margin-top: -50px;
+	right: 0px;
+}
+
+div.bgImg {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: -1;
+}
+
+div.bgImg> img {
+	height: 100%;
+	width: 100%;
+	border: 0;
+}

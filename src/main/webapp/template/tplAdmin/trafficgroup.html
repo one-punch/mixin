@@ -1,0 +1,226 @@
+<div ng-controller="TrafficplanGroupCtrl">
+<!--流量分组管理-->
+<div  class="content">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="glyphicon glyphicon-cog"></i> 流量分组管理</h3>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-3 col-sm-3">
+					<div class="dropdown">
+						<select  ng-model="groupQuery.provider" class="form-control">
+							<option value="-1" placeholder="运营商"></option>
+							<option ng-repeat="provider in providers"  value="{{provider.id}}">
+								{{provider.name}}
+							</option>
+						</select>
+					</div>
+				</div>
+				<!--col-md-3 运营商-->
+				<div class="col-md-3 col-sm-3">
+					<div class="dropdown">
+						<select ng-model="groupQuery.province" class="form-control">
+							<option value="-1" placeholder="地区"></option>
+							<option ng-repeat="province in provinceList"  value="{{province.name}}">
+								{{province.name}}
+							</option>
+						</select>
+					</div>
+				</div>
+				<!--col-md-3 流量分组-->
+				<div class="col-md-3 col-sm-3">
+					<div class="dropdown">
+						<button ng-click="search()" class="btn btn-success"><i class="glyphicon glyphicon-search"></i> 查询</button>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-3">
+					<button ng-click="addShow()" class="btn btn-warning" data-toggle="modal" data-target="#addTrafficgroup"><i class="glyphicon glyphicon-plus"></i> 添加流量分组</button>
+				</div>
+				<!--col-md-3 流量分组-->
+				<div class="col-md-12 col-sm-12" style="margin-top:50px ;">
+					<div class="table-condensed">
+						<table class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th width="12%">流量分组名</th>
+									<th width="30%">描述</th>
+									<th width="5%">显示</th>
+									<th width="5%">排序</th>
+									<th width="9%">运营商</th>
+									<th width="5%">地区</th>
+									<th width="15%">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="group in tranfficGroupList">
+									<td>{{group.name}}</td>
+									<td>{{group.info}}</td>
+									<td><input ng-click="edit(group)" ng-model="group.display" type="checkbox" /></td>
+									<td>{{group.sort}}</td>
+									<td>{{providerNames[group.provider]}}</td>
+									<td>{{group.province}}</td>
+									<td>
+										<button ng-click="editShow(group)" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editTrafficgroup">
+											<i class="glyphicon glyphicon-edit"></i> 编辑
+										</button>
+										<a ui-sref="admin.home.addTrafficplan({'groupId':group.id,'groupName':group.name})" class="btn btn-primary btn-sm">
+											<i class="glyphicon glyphicon-plus"></i> 增加套餐
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<nav class="rightNav">
+						  <tm-pagination conf="paginationConf"></tm-pagination>
+						</nav>
+					</div>
+
+				</div>
+				<!--查询结果表格-->
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<!--添加 模态框 #addTrafficgroup-->
+<div class="modal fade" id="addTrafficgroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">添加流量分组</h4>
+			</div>
+			<div class="modal-body">
+				<form name="add_group_form" class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">流量分组名</label>
+						<div class="col-sm-9">
+							<input name="name" ng-model="group.name"
+								required
+								type="text" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">运营商</label>
+						<div class="col-sm-9">
+							<select ng-model="group.provider" class="form-control">
+								<option ng-repeat="provider in providers"  value="{{provider.id}}">
+									{{provider.name}}
+								</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">省份</label>
+						<div class="col-sm-9">
+							<select ng-model="group.province" class="form-control">
+								<option  ng-repeat="province in provinceList"  value="{{province.name}}">
+									{{province.name}}
+								</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">上架</label>
+						<div class="col-sm-9">
+							<input ng-model="group.display"
+								type="checkbox"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">排序</label>
+						<div class="col-sm-9">
+							<input name="sort" ng-model="group.sort"
+								required
+								type="number" min="0" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">详情</label>
+						<div class="col-sm-9">
+							<textarea name="info" ng-model="group.info"
+							 	required
+							 	class="form-control" rows="7"></textarea>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button ng-click="add()" type="submit" class="btn btn-primary">提交</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--编辑 模态框 #editTrafficgroup-->
+<div class="modal fade" id="editTrafficgroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">编辑流量分组</h4>
+			</div>
+			<div class="modal-body">
+				<form name="edit_group_form" class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">流量分组名</label>
+						<div class="col-sm-9">
+							<input name="name" ng-model="group.name"
+								required
+								type="text" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">运营商</label>
+						<div class="col-sm-9">
+							<select ng-model="group.provider"
+									ng-options="provider.id as provider.name for provider in providers"
+									class="form-control">
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">省份</label>
+						<div class="col-sm-9">
+							<select ng-model="group.province" class="form-control">
+								<option  ng-repeat="province in provinceList"  value="{{province.name}}">
+									{{province.name}}
+								</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">上架</label>
+						<div class="col-sm-9">
+							<input ng-model="group.display"
+								type="checkbox" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">排序</label>
+						<div class="col-sm-9">
+							<input name="sort" ng-model="group.sort"
+								required
+								type="number" min="0" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label">详情</label>
+						<div class="col-sm-9">
+							<textarea name="info" ng-model="group.info"
+							 	required
+							 	class="form-control" rows="7"></textarea>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button ng-click="edit()" type="submit" class="btn btn-primary">提交</button>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

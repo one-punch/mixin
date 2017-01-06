@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <!-- 引入属性文件,多个config.properties位于src/main/resources目录下 -->
+    <context:property-placeholder location="classpath*:config-*.properties" />
+<!-- 
+	  自动扫描dao和service包(自动注入) 
+	<context:component-scan base-package="com.wteam" >
+		<context:include-filter type="annotation"  expression="org.springframework.stereotype.Service"/>
+		<context:include-filter type="annotation"  expression="org.springframework.stereotype.Repository"/>
+	 控制层在spingmvc的配置文件中加载
+		<context:exclude-filter type="aspectj"  expression="com.wteam..controler.*"/>
+	</context:component-scan>
+	 -->
+	<!-- 订单ID生成器 -->
+	<bean id="orderIdWorker" class="com.wteam.mixin.utils.IdWorker" >
+		<property name="workerId" value="0"/>
+		<property name="datacenterId" value="0"/>
+	</bean>
+	
+	
+	<!-- 定时器调度器 -->
+	<task:scheduler id="taskScheduler" pool-size="10"/>
+	<!-- 定时器任务 -->
+	<bean id="alipayTask" class="com.wteam.mixin.task.AlipayTask"></bean>
+	<task:scheduled-tasks scheduler="taskScheduler">
+	    <task:scheduled ref="alipayTask" method="addBalance" fixed-delay="5000" initial-delay="1000"/>
+	</task:scheduled-tasks>
+	
+</beans>

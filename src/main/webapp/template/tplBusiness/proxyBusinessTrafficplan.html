@@ -1,0 +1,119 @@
+<!--会员的流量折扣-->
+<div class="content" ng-controller="ProxyBusinessTranfficplanCtrl">
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<h3 class="panel-title">代理 {{proxyBusinessId}} 的折扣流量</h3>
+		</div>
+		<div class="panel-body">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<td>流量名</td>
+						<td>值(M)</td>
+						<td>代理成本价</td>
+<!-- 						<td>系统成本价</td> -->
+						<td>零售价</td>
+						<td>运营商</td>
+						<td>操作</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="plan in proxy.tranfficplanList">
+						<td>{{plan.name}}</td>
+						<td>{{plan.value}}</td>
+						<td><input type="text" ng-model="plan.cost"></td>
+<!-- 						<td>{{plan.cost}}</td> -->
+						<td>{{plan.retailPrice}}</td>
+						<td>{{providerNames[plan.provider]}}</td>
+						<td>
+							<button ng-click="editProxyTranfficPlan(plan)" class="btn btn-info btn-xs">提交</button>
+							<button ng-click="deleteProxyTranfficPlan(plan)"class="btn btn-danger btn-xs">删除</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+						<nav class="rightNav">
+							<tm-pagination conf="proxy.paginationConf"></tm-pagination>
+						</nav>
+		</div>
+	</div>
+	<div class="panel panel-warning">
+		<div class="panel-heading">
+			<h3 class="panel-title">我的流量成本价</h3>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-3 col-sm-3">
+					<div class="dropdown">
+						<select ng-model="groupQuery.provider" ng-change="queryChange()"  class="form-control">
+							<option placeholder="运营商"></option>
+							<option ng-repeat="provider in providers"  value="{{provider.id}}">
+								{{provider.name}}
+							</option>
+						</select>
+					</div>
+				</div>
+				<!--col-md-3 运营商-->
+				<div class="col-md-3 col-sm-3">
+					<div class="dropdown">
+						<select ng-model="groupQuery.province" ng-change="queryChange()" class="form-control">
+							<option placeholder="地区"></option>
+							<option ng-repeat="province in provinceList"  value="{{province.name}}">
+								{{province.name}}
+							</option>
+						</select>
+					</div>
+				</div>
+				<!--col-md-3 地区-->
+				<div class="col-md-3 col-sm-3">
+					<div class="dropdown">
+						<select ng-model="planQuery.trafficgroupId"class="form-control">
+							<option placeholder="流量分组"></option>
+							<option ng-repeat="group in tranfficGroupList"  value="{{group.id}}">
+								{{group.name}}
+							</option>
+						</select>
+					</div>
+				</div>
+				<!--col-md-3 流量分组-->
+				<div class="col-md-3 col-sm-3">
+					<div class="dropdown">
+						<button ng-click="searchPlan()" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
+					</div>
+				</div>
+				<!--col-md-3 流量分组-->
+				<div class="col-md-12 col-sm-12" style="margin-top:50px ;">
+					<div class="table-condensed">
+						<table class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>套餐名</th>
+									<th>值(M)</th>
+									<th>你的成本价</th>
+									<th>零售价</th>
+									<th>运营商</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="plan in tranfficplanList">
+									<td>{{plan.name}}</td>
+									<td>{{plan.value}}</td>
+									<td>{{plan.cost}}</td>
+									<td>{{plan.retailPrice}}</td>
+									<td>{{providerNames[plan.provider]}}</td>
+									<td><button ng-click="addProxyTranfficPlan(plan)" class="btn btn-info btn-xs" >加入</button></td>
+								</tr>
+							</tbody>
+						</table>
+						<nav class="rightNav">
+							<tm-pagination conf="paginationConf"></tm-pagination>
+						</nav>
+					</div>
+
+				</div>
+				<!--查询结果表格-->
+			</div>
+		</div>
+	</div>
+</div>

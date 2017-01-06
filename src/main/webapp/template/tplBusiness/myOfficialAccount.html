@@ -1,0 +1,29 @@
+<!--我的公众号-->
+<div ng-controller="WechatOfficialAccountCtrl" class="content">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="glyphicon glyphicon-home"></i> 我的公众号</h3>
+		</div>
+		<div class="panel-body">
+			
+			<form>
+				<div class="form-group">
+					<label class="text-success">公众号</label>
+					<span class="form-control ">{{wechatInfo.authorizer_info.nick_name}}</span>
+				</div>
+				<div class="form-group">
+					<label class="text-success">公众号类型</label>
+					<span class="form-control ">{{service_types[wechatInfo.authorizer_info.service_type_info.id]}}</span>
+				</div>
+				<div class="form-group">
+					<label class="text-success">认证类型</label>
+					<span class="form-control ">{{verify_types[wechatInfo.authorizer_info.verify_type_info.id]}}</span>
+				</div>
+				<div class="form-group">
+					<label class="text-success">ApppID</label>
+					<span class="form-control ">{{business.authorizerAppid}}</span>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

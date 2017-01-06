@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <!-- 引入属性文件,多个config.properties位于src/main/resources目录下 -->
+    <context:property-placeholder location="classpath*:config-*.properties" />
+
+    <!-- 自动扫描dao和service包(自动注入) -->
+	<context:component-scan base-package="com.wteam" >
+		<context:include-filter type="annotation"  expression="org.springframework.stereotype.Service"/>
+		<context:include-filter type="annotation"  expression="org.springframework.stereotype.Repository"/>
+		<!-- 控制层在spingmvc的配置文件中加载 -->
+		<context:exclude-filter type="aspectj"  expression="com.wteam..controler.*"/>
+	</context:component-scan>
+	
+	<!-- 订单ID生成器 -->
+	<bean id="orderIdWorker" class="com.wteam.mixin.utils.IdWorker" >
+		<property name="workerId" value="0"/>
+		<property name="datacenterId" value="0"/>
+	</bean>
+	
+	<!-- 线程调度器 -->
+	<task:executor id="taskExecutor" pool-size="10"/>
+	<!-- 线程任务 -->
+	<bean id="orderSettlementTask" class="com.wteam.mixin.task.OrderSettlementTask"></bean>
+	<bean id="orderShouDanRechargeTask" class="com.wteam.mixin.task.OrderShouDanRechargeTask"></bean>
+
+	
+	<!-- Kaptcha验证码生成器 -->
+	<bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
+	    <property name="config">
+	        <bean class="com.google.code.kaptcha.util.Config">
+	            <constructor-arg>
+	                <props>
+	                    <prop key="kaptcha.border">yes</prop>
+	                    <prop key="kaptcha.border.color">105,179,90</prop>
+	                    <prop key="kaptcha.textproducer.font.color">blue</prop>
+	                    <prop key="kaptcha.obscurificator.impl">com.google.code.kaptcha.impl.ShadowGimpy</prop>
+	                    <prop key="kaptcha.image.width">125</prop>
+	                    <prop key="kaptcha.image.height">60</prop>
+	                    <prop key="kaptcha.textproducer.font.size">45</prop>
+	                    <prop key="kaptcha.session.key">code</prop>
+	                    <prop key="kaptcha.textproducer.char.length">4</prop>
+	                    <prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>
+	                </props>
+	            </constructor-arg>
+	        </bean>
+	    </property>
+	</bean>
+</beans>

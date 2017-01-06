@@ -1,0 +1,28 @@
+<div ng-controller="LoginCtrl">
+		<div class="login">
+			<div class="loginTitle">
+				<h1>商家登录</h1>
+				<img src="img/bgimage/img2.png" />
+				<hr />
+			</div>
+			<form name="login_form" ng-submit="login(login_form.$valid)">
+				<div class="form-group">
+					<label>帐号</label>
+					<input name="principal" ng-model="user.principal" 
+							required
+							type="text" class="form-control">
+				</div>
+				<div class="form-group">
+					<label>密码</label>
+					<input name="credential" ng-model="user.credential"
+						required ng-minlength="6"
+						type="password" class="form-control">
+					<p class="alert alert-danger" ng-show="login_form.credential.$error.minlength" >密码要大于6位</p>
+				</div>
+				<p>没有帐号？&nbsp;<a ui-sref="register">去注册</a></p>
+				<button type="submit" class="btn btn-success btn-block">登录</button>
+<!-- 				<a ui-sref="register" class="btn btn-warning btn-block">注册</a> -->
+			</form>
+		</div>
+</div>
+<div class="bgImg"><img src="img/bgimage/bg1.jpg" /></div>

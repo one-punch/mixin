@@ -1,0 +1,30 @@
+<!--会员的流量折扣-->
+<div class="content" ng-controller="MemberTranfficplanCtrl">
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="glyphicon glyphicon-tags"></i> &nbsp;会员   {{memberName}} 的折扣流量</h3>
+		</div>
+		<div class="panel-body">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<td>流量名</td>
+						<td>值(M)</td>
+						<td>会员成本价</td>
+						<td>零售价</td>
+						<td>运营商</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr  ng-repeat="plan in memberTranfficplanList">
+						<td>{{plan.name}}</td>
+						<td>{{plan.value}}</td>
+						<td>{{plan.memberCost}}</td>
+						<td>{{plan.retailPrice}}</td>
+						<td>{{providerNames[plan.provider]}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

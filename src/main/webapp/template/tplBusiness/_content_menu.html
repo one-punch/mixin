@@ -1,0 +1,49 @@
+<ul ng-controller="ContentMenuCtrl" class=" pageNav">
+	<li  ng-show="!business.proxyParentId || business.isAllowBalanceRecharge ">
+		<a ui-sref="business.home.platformAccount"  ui-sref-active="active">
+			<i class="glyphicon glyphicon-adjust"></i> 平台账户充值</a></li>
+	<li><a ui-sref="business.home.trafficplan"  ui-sref-active="active"><i class="glyphicon glyphicon-cog"></i> 流量产品设置</a></li>
+	<li><a ui-sref-active="active" ><i class="glyphicon glyphicon-download"></i> 流量充值</a>
+		<ul>
+			<li><a ui-sref="business.home.trafficRecharge"  ui-sref-active="active">后台流量充值</a></li>
+			<li><a ui-sref="business.home.trafficAPIRecharge"  ui-sref-active="active">接口流量充值</a></li>
+		</ul>
+	</li>
+	<li><a ui-sref="business.home.orderCenter"  ui-sref-active="active"><i class="glyphicon glyphicon-tag"></i> 订单管理中心</a></li>
+	<li><a ui-sref="business.home.balanceCenter"  ui-sref-active="active" ><i class="glyphicon glyphicon-credit-card"></i> 财务管理中心</a>
+		<ul>
+			<li><a ui-sref="business.home.withdraw"  ui-sref-active="active">提现</a></li>
+		</ul>
+	</li>
+ 	<li><a ui-sref-active="active" ><i class="glyphicon glyphicon-home"></i>下级代理管理</a><span class="tips">NEW</span>
+		<ul>
+			<li><a ui-sref="business.home.proxyBusinessCenter"  ui-sref-active="active" >查看下级代理</a></li>
+			<li><a ui-sref="business.home.createProxyBusiness"  ui-sref-active="active" >创建下级代理</a></li>
+		</ul>
+	</li>
+	<li><a ui-sref-active="active"><i class="glyphicon glyphicon-cloud"></i>微信流量充值平台</a>
+<!-- 		<span class="tips">NEW</span> -->
+		<ul>
+			<li><a ui-sref="business.home.myOfficialAccount"  ui-sref-active="active" ><i class="glyphicon glyphicon-home"></i> 我的公众号</a></li>
+			<li><a ui-sref="business.home.addOfficialAccount"  ui-sref-active="active" ><i class="glyphicon glyphicon-plus"></i> 添加公众号</a></li>
+			<li><a ui-sref="business.home.theme"  ui-sref-active="active"><i class="glyphicon glyphicon-th"></i> 主题模版配置</a></li>
+			<li><a ui-sref="business.home.wechat"  ui-sref-active="active">微信通管理</a></li>
+			<li><a ng-click="wechatAllow('business.home.wechat_payconfig')"  ui-sref-active="active">微信支付</a></li>
+			<li><a ng-click="wechatAllow('business.home.wechat_menu')"  ui-sref-active="active">自定义菜单</a></li>
+			<li><a ng-click="wechatAllow('business.home.message_mass')"  ui-sref-active="active">群发消息</a></li>
+			<li><a ng-click="wechatAllow('business.home.keyword_autoreply')"  ui-sref-active="active">关键字回复</a></li>
+		</ul>
+	</li>
+	<li ng-show="!business.proxyParentId"><a ui-sref="business.home.member"  ui-sref-active="active"><i class="glyphicon glyphicon-user"></i> 我的会员</a>
+		<ul>
+<!-- 			<li><a ui-sref="business.home.meberTrafficplan"  ui-sref-active="active">会员流量折扣</a></li> -->
+		</ul>
+	</li>
+<!-- 	<li><a ui-sref="business.home.banner"  ui-sref-active="active"><i class="glyphicon glyphicon-flag"></i> 广告管理</a></li> -->
+	<li><a ui-sref="business.home.tutorial"  ui-sref-active="active"><i class="glyphicon glyphicon-book"></i> 教程指导中心</a></li>
+	<li><a ui-sref-active="active" ><i class="glyphicon glyphicon-star"></i> 商家设置</a>
+		<ul>
+			<li><a ui-sref="business.home.resetPassword"  ui-sref-active="active" >修改密码</a></li>
+		</ul>
+	</li>
+</ul>

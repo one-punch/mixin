@@ -1,0 +1,71 @@
+<!--商家信息中心-->
+<div ng-controller="ProxyBusinessCenterCtrl" class="content">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="glyphicon glyphicon-home"></i>代理商家信息中心</h3>
+		</div>
+		<div class="panel-body">
+		
+			<form ng-show="business.proxyParentId" class="form-horizontal ">
+				<div class="form-group">
+					<label  class="col-sm-1 control-label">上级账号</label>
+					<div class="col-sm-4"><span  class="form-control">{{business.proxyParentAccount}}</span></div>
+				</div>
+				<div class="form-group">
+					<label  class="col-sm-1 control-label">上级电话</label>
+					<div class="col-sm-4"><span class="form-control">{{business.proxyParentTel}}</span></div>
+				</div>
+			</form>
+			<hr />
+			<hr />
+			<form class="form-inline">
+				<div class="form-group">
+					<input ng-model="businessQuery.wechatOfficAccount"
+						type="text" class="form-control" placeholder="输入公众号">
+				</div>
+				<div class="form-group">
+					<input ng-model="businessQuery.businessId"
+						type="text" class="form-control" placeholder="输入代理编号">
+				</div>
+				<div class="form-group">
+					<input ng-model="businessQuery.tel"
+						type="text" class="form-control" placeholder="输入手机号码">
+				</div>
+				<button ng-click="search()" type="submit" class="btn btn-success"><i class="glyphicon glyphicon-search"></i> 查询</button>
+			</form>
+			<hr />
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<td>商家编号</td>
+						<td>手机号</td>
+						<td>用户名</td>
+						<td>微信公众号</td>
+						<td>代理佣金收入</td>
+						<td>允许代理商家在平台充值</td>
+						<td>操作</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="business in businessList">
+						<td>{{business.businessId}}</td>
+						<td>{{business.tel}}</td>
+						<td>{{business.account}}</td>
+						<td>{{business.wechatOfficAccount}}</td>
+						<td>{{business.proxyParentIncome}}</td>
+						<td><input ng-click="changeAllow(business)" ng-model="business.isAllowBalanceRecharge" type="checkbox" /></td>
+						<td>
+							<a ui-sref="business.home.proxyBalanceCenter({'businessId':business.businessId})" 
+								class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-search"></i> 查看商家账户</a>
+							<a ui-sref="business.home.proxyBusinessTrafficplan({'proxyBusinessId':business.businessId})" 
+								class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-search"></i>设置代理商家套餐</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<nav class="rightNav">
+				<tm-pagination conf="paginationConf"></tm-pagination>
+			</nav>
+		</div>
+	</div>
+</div>

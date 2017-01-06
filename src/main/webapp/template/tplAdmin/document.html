@@ -1,0 +1,20 @@
+<!--文档管理-->
+<div  ng-controller="DocumentCtrl"class="content">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="glyphicon glyphicon-folder-open"></i> 文档管理中心</h3>
+		</div>
+		<div class="panel-body">
+			<select class="form-control" style="width: 50%;"
+					ng-model="selectName"  
+					ng-change="selectChange()"
+					ng-options="doc.name as docNamesMapper[doc.name] for doc in docNames">
+			</select>
+			<button ng-click="edit()" class="btn btn-success" style="float:right;margin-top:-35px;">保存</button>
+			<br>
+<!-- 			<textarea id="editor" name="content" style="heigth: 50%;"></textarea> -->
+			<textarea ueditor ng-model="content"></textarea>
+		</div>
+	</div>
+</div>
+

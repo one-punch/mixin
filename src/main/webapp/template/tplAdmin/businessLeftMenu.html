@@ -1,0 +1,23 @@
+<!--商家左侧栏-->
+<div ng-controller="BusinessLeftMenuCtrl" class="content">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="glyphicon glyphicon-plus"></i> 商家左侧栏</h3>
+		</div>
+		<div class="panel-body">
+			<button type="button" ng-click="edit()" class="btn btn-info">修改</button>
+			<table class="table table-hover table-bordered bussinessLeftMenu">
+				<thead>
+					<tr>
+						<th>菜单名</th>
+						<th>醒目标志</th>
+					</tr>
+					<tr ng-repeat="menu in businessmenus">
+						<td>{{menu.name}}</td>
+						<td><input type="text" class="form-control" ng-model="menu.tip"/></td>
+					</tr>
+				</thead>
+			</table>
+		</div>
+	</div>
+</div>

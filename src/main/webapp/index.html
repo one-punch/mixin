@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<link href="framework/bootstrap-3.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+		<script src="js/jQuery-2.1.4.min.js" type="text/javascript"></script>
+		<script src="framework/bootstrap-3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
+		<script src="js/angular.min.js" type="text/javascript"></script>
+		<script src="js/angular-route.min.js" type="text/javascript"></script>
+
+		<link href="css/stylePage.css" rel="stylesheet" type="text/css" />
+		<script src="js/myapp.js" type="text/javascript"></script>
+
+		<title>商家管理端</title>
+	</head>
+
+	<body>
+		<div class="row"  ng-app="routeApp">
+				<div class="col-md-10 col-sm-10 col-md-offset-1 col-sm-offset-1">
+					<!--<div ng-include="tpls/business/_head.html"></div>-->
+				<div class="header">
+					<img src="image/bussinessUser/user1.png" />
+					<div class="userName">
+						<i class="glyphicon glyphicon-user"></i> 吴大山
+						<span class="mebberName">普通会员</span>
+					</div>
+					<div class="phoneNum">
+						<i class="glyphicon glyphicon-phone"></i> 18320376671
+					</div>
+					<div class="logOut">
+						<a href="#" class="btn btn-success btn-sm">
+							<i class="glyphicon glyphicon-log-out"></i> 注销
+						</a>
+					</div>
+				</div><!--header div end-->
+				<div class="contentPage">
+					<div class="row">
+						<div class="col-md-3 col-sm-3 col-xs-5">
+							<!--<div ng-include="tpls/_left_nav.html"></div>-->
+							<ul class=" pageNav">
+								<li><a href="#/myOfficialAccount"><i class="glyphicon glyphicon-home"></i> 我的公众号</a></li>
+								<li><a href="#/addOfficialAccount"><i class="glyphicon glyphicon-plus"></i> 添加公众号</a></li>
+								<li><a href="#/platformAccount"><i class="glyphicon glyphicon-adjust"></i> 平台账户充值</a></li>
+								<li><a href="#/trafficplan"><i class="glyphicon glyphicon-cog"></i> 流量产品设置</a></li>
+								<li><a href="#/theme"><i class="glyphicon glyphicon-th"></i> 主题模版配置</a></li>
+								<li><a href="#/member"><i class="glyphicon glyphicon-user"></i> 我的会员</a>
+									<ul>
+										<li><a href="#/meberTrafficplan">会员流量折扣</a></li>
+									</ul>
+								</li>
+								<li><a href="#/orderCenter"><i class="glyphicon glyphicon-tag"></i> 订单管理中心</a></li>
+								<li><a href="#/balanceCenter"><i class="glyphicon glyphicon-credit-card"></i> 财务管理中心</a>
+									<ul>
+										<li><a href="#/withdraw">提现</a></li>
+										<li><a href="#/trafficRecharge">流量充值</a></li>
+									</ul>
+								</li>
+								<li><a href="#/wechat"><i class="glyphicon glyphicon-cloud"></i> 微信通管理</a>
+									<ul>
+										<li><a href="#/wechat_menu">自定义菜单</a></li>
+										<li><a href="#/message_mass">群发消息</a></li>
+										<li><a href="#/keyword_autoreply">关键字回复</a></li>
+									</ul>
+								</li>
+								<li><a href="#/banner"><i class="glyphicon glyphicon-flag"></i> 广告管理</a></li>
+								<li><a href="#/tutorial"><i class="glyphicon glyphicon-book"></i> 教程指导中心</a></li>
+							</ul>
+						</div>
+						
+						<div class="col-md-9 col-sm-9 col-xs-7">
+							<div id="rightPanel" ng-view></div>
+						</div>
+					</div>
+						
+				</div>
+				<!--contentPage-->
+			</div>
+		</div><!--row-->
+	</body>
+</html>

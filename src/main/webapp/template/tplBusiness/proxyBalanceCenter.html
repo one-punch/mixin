@@ -1,0 +1,182 @@
+<!--代理商家财务管理中心-->
+<div  ng-controller="ProxyBalanceCenterCtrl">
+<div class="content">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="glyphicon glyphicon-credit-card"></i> 财务管理中心</h3>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+						<div class="col-md-6 col-sm-6">
+					<div class="balanceCell">
+						<div class="balanceCell-title">
+							<h3><i class="glyphicon glyphicon-tint"></i> 交易结算</h3>
+							<a ng-click="resetRecord()" class="btn btn-success"  data-toggle="modal" data-target="#addBalance">加款</a>
+						</div>
+						<div class="balanceCell-body">
+							<div class="alert alert-success">
+								<h5>账户余额</h5>
+								<p>{{ business.balance | number : 2}}元</p>
+							</div>
+							<div class="alert alert-success">
+								<h5>已结算</h5>
+								<p>{{ business.settlement | number : 2}}元</p>
+							</div>
+							<div class="alert alert-success">
+								<h5>未结算</h5>
+								<p>{{ business.unSettlement | number : 2}}元</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-6">
+					<div class="balanceCell">
+						<div class="balanceCell-title">
+							<h3><i class="glyphicon glyphicon-align-left"></i> 交易数据</h3>
+						</div>
+						<div class="balanceCell-body">
+							<div class="alert alert-warning">
+								<h5>订单收入</h5>
+								<p>{{ business.orderIncome | number : 2}}元</p>
+							</div>
+							<div class="alert alert-warning">
+								<h5>订单成本</h5>
+								<p>{{ business.orderCost | number : 2}}元</p>
+							</div>
+							<div class="alert alert-warning">
+								<h5>净利润</h5>
+								<p>{{ business.profits | number : 2}}元</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div class="col-md-11 col-sm-11">
+					<div class="balanceCell">
+						<div class="balanceCell-title">
+							<h3><i class="glyphicon glyphicon-inbox"></i> 账务记录</h3>
+							<div ng-include="'template/common/_balance_record_msg.html'"></div>
+						</div>
+						<div>
+							<form class="form-horizontal orderSearch" style="width: 90%;margin: 20px;">
+								<div class="form-group">
+									<label class="col-sm-2 control-label">开始时间</label>
+									<div class="col-sm-8">
+										<input ng-model="query.startAt" 
+											type="text" class="form-control form_datetime_task">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">结束时间</label>
+									<div class="col-sm-8">
+										<input ng-model="query.endAt"
+										  	type="text" class="form-control form_datetime_task">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">电话</label>
+									<div class="col-sm-8">
+										<input ng-model="query.tel"
+										  	type="text" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">来源</label>
+									<div class="col-sm-8">
+										<select ng-model="query.source"class="form-control">
+											<option placeholder="来源"></option>
+											<option ng-repeat="source in recordSource"  value="{{$index}}">
+												{{source}}
+											</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<button ng-click="search()" type="submit" class="btn btn-success">查询</button>
+										<button ng-click="download()"  ng-model="params"
+											down-file="{{downloadUrl}}" down-file-type="xls"
+											type="submit" class="btn btn-info">导出</button>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="balanceCell-body">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>代理商家编号</th>
+										<th>金额</th>
+										<th>来源</th>
+										<th>时间</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="record in recordList">
+										<td>{{record.businessId}}</td>
+										<td>{{record.money}}</td>
+										<td>{{recordSource[record.source]}}</td>
+										<td>{{record.createTime | date: format.datetime}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+							<nav class="rightNavdiv" style="float: right;">
+								<tm-pagination conf="paginationConf"></tm-pagination>
+							</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--加款 模态框 #addBalance-->
+<div class="modal fade" id="addBalance" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">加款</h4>
+            </div>
+            <div class="modal-body">
+                <form name="add_balance_form" class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">金额</label>
+                        <div class="col-sm-9">
+                            <input name="money" ng-model="record.money"
+                                required min="0"
+                                type="number" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">备注</label>
+                        <div class="col-sm-9">
+                            <input name="info" ng-model="record.info"
+                                type="text" class="form-control" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button ng-click="addBalance()" type="submit" class="btn btn-danger">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+		$('.form_datetime_task').datetimepicker({
+			language: 'zh-CN',
+			format: 'yyyy-mm-dd hh:ii',
+			startDate: '2016-04-19 05:00',
+			weekStart: 0,
+			todayBtn: 1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			minView: 0,
+			forceParse: 1,
+			keyboardNavigation: 1
+		});
+</script>

@@ -1,0 +1,379 @@
+<div ng-controller="TrafficplanCtrl">
+	<!--流量套餐管理-->
+	<div class="content">
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					<i class="glyphicon glyphicon-cog"></i> 流量套餐管理
+				</h3>
+			</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-md-3 col-sm-3">
+						<div class="dropdown">
+							<select ng-model="groupQuery.provider" ng-change="queryChange()"
+								class="form-control">
+								<option placeholder="运营商"></option>
+								<option ng-repeat="provider in providers"
+									value="{{provider.id}}">{{provider.name}}</option>
+							</select>
+						</div>
+					</div>
+					<!--col-md-3 运营商-->
+					<div class="col-md-3 col-sm-3">
+						<div class="dropdown">
+							<select ng-model="groupQuery.province" ng-change="queryChange()"
+								class="form-control">
+								<option placeholder="地区"></option>
+								<option ng-repeat="province in provinceList"
+									value="{{province.name}}">{{province.name}}</option>
+							</select>
+						</div>
+					</div>
+					<!--col-md-3 地区-->
+					<div class="col-md-3 col-sm-3">
+						<div class="dropdown">
+							<select ng-model="planQuery.trafficGroupId" class="form-control">
+								<option placeholder="流量分组"></option>
+								<option ng-repeat="group in tranfficGroupList"
+									value="{{group.id}}">{{group.name}}</option>
+							</select>
+						</div>
+					</div>
+					<!--col-md-3 流量分组-->
+					<div class="col-md-3 col-sm-3">
+						<div class="dropdown">
+							<button ng-click="searchPlan()" class="btn btn-success">
+								<i class="glyphicon glyphicon-search"></i> 查询
+							</button>
+							<button ng-click="addShow()" class="btn btn-info">
+								<i class="glyphicon glyphicon-search"></i>添加
+							</button>
+						</div>
+					</div>
+
+					<div class="col-md-12 col-sm-12" style="margin-top: 50px;">
+						<div class="form-group" style="text-align: center;">
+							<label class="col-sm-1 control-label">接口商</label>
+							<div class="col-sm-5">
+								<div class="dropdown">
+								<select ng-model="planQuery.apiProvider"
+									ng-options="api for api in apiProviders" class="form-control">
+									<option></option>
+								</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-group" style="text-align: center;">
+							<label class="col-sm-1 control-label">流量值(MB)</label>
+							<div class="col-sm-5">
+								<div class="dropdown">
+								<input ng-model="planQuery.value" type="number" >
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--col-md-3 流量分组-->
+					<div class="col-md-12 col-sm-12" style="margin-top: 50px;">
+						<div class="table-condensed">
+							<table class="table table-bordered table-hover">
+								<thead>
+									<tr>
+										<th>套餐名</th>
+										<th>值(MB)</th>
+										<th>默认零售价(元)</th>
+										<th>成本(元)</th>
+										<th>上架</th>
+										<th>维护中</th>
+										<th>流量分组</th>
+										<th>运营商</th>
+										<th>省份</th>
+										<th>接口商</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="plan in tranfficplanList">
+										<td>{{plan.name}}</td>
+										<td>{{plan.value}}</td>
+										<td>{{plan.retailPrice}}</td>
+										<td>{{plan.cost}}</td>
+										<td><input ng-click="editTranfficPlan(plan)"
+											ng-model="plan.display" type="checkbox" /></td>
+										<td><input ng-click="editTranfficPlan(plan)"
+											ng-model="plan.isMaintain" type="checkbox" /></td>
+										<td>{{plan.groupName}}</td>
+										<td>{{providerNames[plan.provider]}}</td>
+										<td>{{plan.province}}</td>
+										<td>{{plan.apiProvider}}</td>
+										<td>
+											<button ng-click="editShow(plan)" class="btn btn-info btn-sm">编辑</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<nav class="rightNav">
+								<tm-pagination conf="paginationConf"></tm-pagination>
+							</nav>
+						</div>
+
+					</div>
+					<!--查询结果表格-->
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!--编辑 模态框 #editTrafficplan-->
+	<div class="modal fade" id="editTrafficplan" tabindex="-1"
+		role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">编辑流量套餐</h4>
+				</div>
+				<div class="modal-body">
+					<form name="edit_plan_form" class="form-horizontal">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">流量套餐名</label>
+							<div class="col-sm-9">
+								<input name="name" ng-model="plan.name" required type="text"
+									class="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">流量值(MB)</label>
+							<div class="col-sm-9">
+								<input name="value" ng-model="plan.value" required type="number"
+									class="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">运营商</label>
+							<div class="col-sm-9">
+								<div class="dropdown">
+									<select ng-model="edit.groupQuery.provider"
+										ng-change="edit.queryChange()"
+										ng-options="provider.id as provider.name for provider in providers"
+										class="form-control">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">省份</label>
+							<div class="col-sm-9">
+								<div class="dropdown">
+									<select ng-model="edit.groupQuery.province"
+										ng-change="edit.queryChange()"
+										ng-options="province.name as province.name for province in provinceList"
+										class="form-control">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">分组</label>
+							<div class="col-sm-9">
+								<div class="dropdown">
+									<select ng-model="plan.trafficGroupId"
+										ng-options="group.id as group.name for group in edit.tranfficGroupList"
+										class="form-control">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">默认零售价</label>
+							<div class="col-sm-9">
+								<input name="retailPrice" ng-model="plan.retailPrice" required
+									type="number" step="0.01" class="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">成本</label>
+							<div class="col-sm-9">
+								<input name="cost" ng-model="plan.cost" required type="number"
+									step="0.01" class="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">上架</label>
+							<div class="col-sm-9">
+								<input ng-model="plan.display" type="checkbox" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">自动识别</label>
+							<div class="col-sm-9">
+								<input ng-model="plan.isAuto" type="checkbox" />
+								<p>流量分组为全国才有效</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">维护中</label>
+							<div class="col-sm-9">
+								<input ng-model="plan.isMaintain" type="checkbox" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">产品编号</label>
+							<div class="col-sm-9">
+								<input name="pid" ng-model="plan.pid" required type="text"
+									class="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">奖励积分</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" disabled
+									placeholder="暂时没有此功能" />
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button ng-click="editTranfficPlan()" type="submit"
+						class="btn btn-primary">提交</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--添加 模态框 #addTrafficplan-->
+	<div class="modal fade" id="addTrafficplan" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">添加流量套餐</h4>
+				</div>
+				<div class="modal-body">
+					<form name="add_plan_form" class="form-horizontal">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">流量套餐名</label>
+							<div class="col-sm-9">
+								<input name="name" ng-model="plan.name" required type="text"
+									class="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">流量值(MB)</label>
+							<div class="col-sm-9">
+								<input name="value" ng-model="plan.value" required type="number"
+									class="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">运营商</label>
+							<div class="col-sm-9">
+								<div class="dropdown">
+									<select ng-model="add.groupQuery.provider"
+										ng-change="add.queryChange()"
+										ng-options="provider.id as provider.name for provider in providers"
+										class="form-control">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">省份</label>
+							<div class="col-sm-9">
+								<div class="dropdown">
+									<select ng-model="add.groupQuery.province"
+										ng-change="add.queryChange()"
+										ng-options="province.name as province.name for province in provinceList"
+										class="form-control">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">流量分组</label>
+							<div class="col-sm-9">
+								<div class="dropdown">
+									<select ng-model="plan.trafficGroupId"
+										ng-options="group.id as group.name for group in add.tranfficGroupList"
+										class="form-control">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">接口商</label>
+							<div class="col-sm-9">
+								<div class="dropdown">
+									<select ng-model="plan.apiProvider"
+										ng-options="api for api in apiProviders" class="form-control">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">默认零售价</label>
+							<div class="col-sm-9">
+								<input name="retailPrice" ng-model="plan.retailPrice" required
+									type="number" step="0.01" class="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">成本</label>
+							<div class="col-sm-9">
+								<input name="cost" ng-model="plan.cost" required type="number"
+									step="0.01" class="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">上架</label>
+							<div class="col-sm-9">
+								<input ng-model="plan.display" type="checkbox" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">自动识别</label>
+							<div class="col-sm-9">
+								<input ng-model="plan.isAuto" type="checkbox" />
+								<p>流量分组为全国才有效</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">维护中</label>
+							<div class="col-sm-9">
+								<input ng-model="plan.isMaintain" type="checkbox" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">产品编号</label>
+							<div class="col-sm-9">
+								<input name="pid" ng-model="plan.pid" required type="text"
+									class="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">奖励积分</label>
+							<div class="col-sm-9">
+								<input name="integral" ng-model="plan.integral" type="number"
+									min="0" class="form-control" disabled placeholder="暂时没有此功能" />
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button ng-click="addTranfficPlan()" type="submit"
+						class="btn btn-primary">提交</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,88 @@
+<!--商家信息中心-->
+<div ng-controller="BusinessCtrl" class="content">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="glyphicon glyphicon-home"></i> 商家信息中心</h3>
+		</div>
+		<div class="panel-body">
+			<form class="form-inline">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="输入公众号">
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="输入商家编号">
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="输入手机号码">
+				</div>
+				<button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-search"></i> 查询</button>
+			</form>
+			<hr />
+			<table class="table table-hover table-bordered">
+				<thead>
+					<tr>
+						<td>商家编号</td>
+						<td>手机号</td>
+						<td>用户名</td>
+						<td>微信公众号</td>
+						<td>会员编号</td>
+						<td>操作</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>201608123712</td>
+						<td>18320376671</td>
+						<td>吴大山</td>
+						<td>wuliMountain</td>
+						<td>2874545078675</td>
+						<td>
+							<a ui-sref="business.home.businessBalance" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-search"></i> 查看商家账户</a>
+						</td>
+					</tr>
+					<tr>
+						<td>201608123712</td>
+						<td>18320376671</td>
+						<td>吴大山</td>
+						<td>wuliMountain</td>
+						<td>2874545078675</td>
+						<td>
+							<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#businessInfo">
+								<i class="glyphicon glyphicon-search"></i> 查看商家账户
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<nav class="rightNav">
+				<ul class="pagination">
+					<li>
+						<a href="#" aria-label="Previous">
+							<span aria-hidden="true">&laquo;</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">1</a>
+					</li>
+					<li>
+						<a href="#">2</a>
+					</li>
+					<li>
+						<a href="#">3</a>
+					</li>
+					<li>
+						<a href="#">4</a>
+					</li>
+					<li>
+						<a href="#">5</a>
+					</li>
+					<li>
+						<a href="#" aria-label="Next">
+							<span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>

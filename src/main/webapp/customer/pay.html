@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<link type="text/css" rel="stylesheet" href="/customer/css/weui.min.css" />
+		<link type="text/css" rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css">
+		<link type="text/css" rel="stylesheet" href="/customer/css/pay.css" />
+	</head>
+
+	<body ng-app="payApp" ng-controller="PayCtrl">
+		<header class="head text-primary" style="position: fixed;">
+			<a href="#" class="left text-primary"><i class="fa fa-chevron-left"></i></a>
+			<h4>订单支付</h4>
+			<i class="fa fa-user right"></i>
+		</header>
+		<div class="partLine">&nbsp;</div>
+
+		<div class="page">
+			<div class="bd">
+				<div class="weui_cells">
+					<div class="weui_cell">
+						<div class="weui_cell_bd weui_cell_primary">
+							<p>订单编号</p>
+						</div>
+						<div class="weui_cell_ft">{{}}</div>
+					</div>
+					<div class="weui_cell">
+						<div class="weui_cell_bd weui_cell_primary">
+							<p>充值号码</p>
+						</div>
+						<div class="weui_cell_ft">18318186217</div>
+					</div>
+					<div class="weui_cell">
+						<div class="weui_cell_bd weui_cell_primary">
+							<p>订单名称</p>
+						</div>
+						<div class="weui_cell_ft">30M</div>
+					</div>
+					<div class="weui_cell">
+						<div class="weui_cell_bd weui_cell_primary">
+							<p>订单说明</p>
+						</div>
+						<div class="weui_cell_ft">全国流量，当月有效</div>
+					</div>
+					<div class="weui_cell">
+						<div class="weui_cell_bd weui_cell_primary">
+							<p>微信支付</p>
+						</div>
+						<div class="weui_cell_ft">4.75元</div>
+					</div>
+
+					<div class="weui_cells weui_cells_radio">
+						<label class="weui_cell weui_check_label" for="pay1">
+			                <div class="weui_cell_bd weui_cell_primary">
+			                    <p ><i class="fa fa-weixin fa-lg text-success"></i> 微信支付</p>
+			                </div>
+			                <div class="weui_cell_ft">
+			                    <input type="radio" class="weui_check" name="radio1" id="pay1" checked="checked">
+			                    <span class="weui_icon_checked"></span>
+			                </div>
+			            </label>
+<!-- 						<label class="weui_cell weui_check_label" for="pay2">
+			                <div class="weui_cell_bd weui_cell_primary">
+			                    <p><i class="fa fa-credit-card fa-lg text-primary"></i> 余额支付</p>
+			                </div>
+			                <div class="weui_cell_ft">
+			                    <input type="radio" name="radio1" class="weui_check" id="pay2">
+			                    <span class="weui_icon_checked"></span>
+			                </div>
+			            </label>
+						<label class="weui_cell weui_check_label" for="pay3">
+			                <div class="weui_cell_bd weui_cell_primary">
+			                    <p><i class="fa fa-gg-circle fa-lg text-warning"></i> 分销奖励</p>
+			                </div>
+			                <div class="weui_cell_ft">
+			                    <input type="radio" name="radio1" class="weui_check" id="pay3" >
+			                    <span class="weui_icon_checked"></span>
+			                </div>
+			            </label> -->
+					</div>
+
+				</div>
+				<div class="weui_btn_area">
+					<button type="button" class="btn-primary">微信支付</button>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script type="text/javascript" src="/customer/js/angular.min.js"></script>
+	<script type="text/javascript" src="/customer/js/angular-ui-router.js"></script>
+	<script type="text/javascript" src="/customer/js/service/wt.action.js"></script>
+	<script type="text/javascript" src="/customer/js/service/wt.utils.js"></script>
+	
+<script  type="text/javascript" >
+var app_dependencies = [
+    'wt.UtilsModule', 		// 工具类
+	'wt.ActionModule', 		// 交互接口
+]
+var app_pay = angular.module("payApp", app_dependencies);
+
+app_pay.controller('PayCtrl',[
+'$scope',
+'$rootScope',
+'$timeout',
+'ActionService',
+'UtilsService',
+function($scope, $rootScope, $timeout, Action, Utils){
+	// 1473068622271
+	var token = Utils.Request['token']
+	var str = window.localStorage[token]
+	if(!str) {
+		window.location.href = ''
+	}
+	var data = angular.fromJson(str)
+	$scope.order = data.order;
+	$scope.plan = data.plan;
+	
+	
+}]);
+/* 
+ * 
+app_pay.controller('PayCtrl',['$scope','$rootScope','$timeout','ActionService','UtilsService',
+function($scope, $rootScope, $timeout, Action, Utils){
+	// 1473068622271
+	var token = Utils.Request['token']
+	var str = window.localStorage[token]
+	console.log(str)
+	$scope.payInfo = angular.fromJson(str);
+	
+	
+}]);
+     */
+</script>
+</html>

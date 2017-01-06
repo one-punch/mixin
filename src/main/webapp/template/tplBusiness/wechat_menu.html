@@ -1,0 +1,57 @@
+<!--自定义菜单-->
+<div ng-controller="WechaMenuCtrl" class="content">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> 自定义菜单</h3>
+		</div>
+		<div class="panel-body">
+		<button ng-click="change()" type="button" class="btn btn-info " style="float: right;"><i class="glyphicon glyphicon-send"></i> 提交自定义菜单</button>
+			<div class="wechatMenu">
+				<div class="row">
+					<div ng-repeat="parent in menuList"  class="col-md-12 col-sm-12 col-xs-12">		
+					<h3 class="text-success" style="text-align: center;">菜单组{{ ['一','二','三'][$index] }}</h3>
+					<table class="table table-hover table-bordered">
+					<thead>
+						<tr>
+							<td width="8%">级别</td>
+							<td width="20%">菜单名</td>
+							<td width="15%">类型</td>
+							<td width="55%">链接/key</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>一级</td>
+							<td><input ng-model="parent.name" type="text" class="form-control" /></td>
+							<td>
+								<div class="dropdown">
+									<select ng-model="parent.type"  class="form-control" >
+										<option value="click">Click</option>
+										<option value="view">视图</option>
+									</select>
+								</div>
+							</td>
+							<td><input ng-model="parent.value" type="text" class="form-control" /></td>
+						</tr>
+						<tr ng-repeat="sub in parent.sub_button">
+							<td style="text-indent: 0.5em;">二级</td>
+							<td><input ng-model="sub.name" type="text" class="form-control" /></td>
+							<td>
+								<div class="dropdown">
+									<select ng-model="sub.type" class="form-control">
+										<option value="click">Click</option>
+										<option value="view">视图</option>
+									</select>
+								</div>
+							</td>
+							<td><input ng-model="sub.value" type="text" class="form-control" /></td>
+						</tr>
+					</tbody>
+					</table>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

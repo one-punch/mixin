@@ -1,0 +1,92 @@
+<!--财务管理中心-->
+<div  ng-controller="BalanceCenterCtrl" class="content">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="glyphicon glyphicon-credit-card"></i> 财务管理中心</h3>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+						<div class="col-md-6 col-sm-6">
+					<div class="balanceCell">
+						<div class="balanceCell-title">
+							<h3><i class="glyphicon glyphicon-tint"></i> 交易结算</h3>
+<!-- 							<a ui-sref class="btn btn-success"> 提现 </a> -->
+							<button ng-click="refrash()" class="btn btn-success"> 修正商家的汇总数据 </button>
+							<button ng-click="refrashRecord()" class="btn btn-success"> 修正商家的账户记录数据 </button>
+						</div>
+						<div class="balanceCell-body">
+							<div class="alert alert-success">
+								<h5>账户余额</h5>
+								<p>{{ platform.balance | number : 2}}元</p>
+							</div>
+							<div class="alert alert-success">
+								<h5>已结算</h5>
+								<p>{{ platform.settlement | number : 2}}元</p>
+							</div>
+							<div class="alert alert-success">
+								<h5>未结算</h5>
+								<p>{{ platform.unSettlement | number : 2}}元</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-6">
+					<div class="balanceCell">
+						<div class="balanceCell-title">
+							<h3><i class="glyphicon glyphicon-align-left"></i> 交易数据</h3>
+						</div>
+						<div class="balanceCell-body">
+							<div class="alert alert-warning">
+								<h5>订单收入</h5>
+								<p>{{ platform.orderIncome | number : 2}}元</p>
+							</div>
+							<div class="alert alert-warning">
+								<h5>订单成本</h5>
+								<p>{{ platform.orderCost | number : 2}}元</p>
+							</div>
+							<div class="alert alert-warning">
+								<h5>净利润</h5>
+								<p>{{ platform.profits | number : 2}}元</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div class="col-md-11 col-sm-11">
+					<div class="balanceCell">
+						<div class="balanceCell-title">
+							<h3><i class="glyphicon glyphicon-inbox"></i> 账务记录</h3>
+						</div>
+						<div class="balanceCell-body">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>商家编号</th>
+										<th>金额</th>
+										<th>来源</th>
+										<th>来源编号</th>
+										<th>电话</th>
+										<th>时间</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr  ng-repeat="record in recordList">
+										<td>{{record.businessId}}</td>
+										<td>{{record.money}}</td>
+										<td>{{recordSource[record.source]}}</td>
+										<td>{{record.sourceId}}</td>
+										<td>{{record.tel}}</td>
+										<td>{{record.createTime | date: format.datetime}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+								<nav class="rightNavdiv" style="float: right;">
+									<tm-pagination conf="paginationConf"></tm-pagination>
+								</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

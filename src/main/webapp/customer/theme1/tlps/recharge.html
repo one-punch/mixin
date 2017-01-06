@@ -1,0 +1,130 @@
+<div class="btn-group">
+	<center>
+		<button type="button" class="btnItem btn-action">中国移动</button>
+		<button type="button" class="btnItem">中国联通</button>
+		<button type="button" class="btnItem">中国电信</button>
+	</center>
+</div>
+<div class="weui_cell" style="background: #ffffff;">
+	<div class="weui_cell_hd">
+		<label class="weui_label"><i class="fa fa-volume-control-phone" aria-hidden="true"></i></label>
+	</div>
+	<div class="weui_cell_bd weui_cell_primary">
+		<input class="weui_input" type="number" pattern="[0-9]*" placeholder="请输入手机号" />
+	</div>
+</div>
+<div class="weui_cells_tips text-warning">温馨提示：4G流量王号码请勿充值，成功概不退款！客服电话4001098039。</div>
+
+<!---->
+<div class="weui_panel weui_panel_access">
+	<div class="weui_panel_hd flowDetail">
+		广东移动&nbsp;省内流量
+		<a href="javascript:;" ng-click="showDialog1()">
+			<span><i class="fa fa-question-circle fa-lg"></i> 流量详情&nbsp;</span>
+		</a>
+	</div>
+	<div class="weui_panel_bd">
+		<div class="weui_grids flowCell">
+			<a href="javascript:;" class="weui_grid">
+				<h4>100M</h4>
+				<p>￥8.80</p>
+			</a>
+			<a href="javascript:;" class="weui_grid">
+				<h4>100M</h4>
+				<p>￥8.80</p>
+			</a>
+			<a href="javascript:;" class="weui_grid">
+				<h4>100M</h4>
+				<p>￥8.80</p>
+			</a>
+		</div>
+	</div>
+
+</div>
+<!---->
+<div class="weui_panel weui_panel_access">
+	<div class="weui_panel_hd flowDetail">
+		<a href="javascript:;" ng-click="showDialog2()">
+			广东移动&nbsp;省内流量
+			<span><i class="fa fa-question-circle fa-lg"></i> 流量详情&nbsp;</span>
+		</a>
+	</div>
+	<div class="weui_panel_bd">
+		<div class="weui_grids flowCell">
+			<a href="javascript:;" class="weui_grid">
+				<h4>500M</h4>
+				<p>￥22.80</p>
+			</a>
+			<a href="javascript:;" class="weui_grid">
+				<h4>1G</h4>
+				<p>￥37.50</p>
+			</a>
+			<a href="javascript:;" class="weui_grid">
+				<h4>2G</h4>
+				<p>￥52.50</p>
+			</a>
+			<a href="javascript:;" class="weui_grid">
+				<h4>100M</h4>
+				<p>￥8.80</p>
+			</a>
+			<a href="javascript:;" class="weui_grid">
+				<h4>100M</h4>
+				<p>￥8.80</p>
+			</a>
+			<a href="javascript:;" class="weui_grid">
+				<h4>100M</h4>
+				<p>￥8.80</p>
+			</a>
+		</div>
+	</div>
+</div>
+<!--BEGIN dialog1-->
+<div class="weui_dialog_confirm" id="dialog1" ng-if="isShowDialog1">
+	<div class="weui_mask"></div>
+	<div class="weui_dialog">
+		<div class="weui_dialog_hd"><strong class="weui_dialog_title">广东移动省内流量慢充介绍</strong></div>
+		<div class="weui_dialog_bd">
+			<ul class="text-xs dadetail">
+				<li><span>[充值对象]:</span>仅限广东移动手机用户;</li>
+				<li><span>[有效期限]:</span>自生效当天起20天有效;;</li>
+				<li><span>[流量类型]:</span>广东省内通用2G/3G/4G流量，全天24小时,不分时段;</li>
+				<li><span>[到账时间]:</span>流量慢充，24小时到账（流量急用者请谨慎下单）;</li>
+				<li><span>[充值限制]:</span>可无限充值和叠加;</li>
+				<li><span>[查询方式]:</span>发送<span>cxll</span>到<span>10086</span>，或上移动网上营业厅查询;</li>
+				<li><span>[注意事项]:</span>请务必填写正确的手机号码，如填写错误造成损失须用户自行负责;</li>
+				<li><span>[特别注意]:</span>4G流量王、广东移动中山号码、随心王套餐、万花筒、用户状态异常、欠费或停机等运营商限制的号码无法充值，请勿购买！</li>
+			</ul>
+		</div>
+		<div class="weui_dialog_ft">
+			<a href="javascript:;" class="weui_btn_dialog default" ng-click="btnCancel()">取消</a>
+			<a href="javascript:;" class="weui_btn_dialog primary" ng-click="btnOk()">确定</a>
+		</div>
+	</div>
+</div>
+<!--END dialog1-->
+<!--BEGIN dialog2-->
+<div class="weui_dialog_alert" id="dialog2" ng-if="isShowDialog2">
+	<div class="weui_mask"></div>
+	<div class="weui_dialog">
+		<div class="weui_dialog_hd"><strong class="weui_dialog_title">广东移动省内流量慢充介绍</strong></div>
+		<div class="weui_dialog_bd">
+			<ul class="text-xs dadetail">
+				<li><span>[充值对象]:</span>仅限广东移动手机用户;</li>
+				<li><span>[有效期限]:</span>自生效当天起20天有效;;</li>
+				<li><span>[流量类型]:</span>广东省内通用2G/3G/4G流量，全天24小时,不分时段;</li>
+				<li><span>[到账时间]:</span>流量慢充，24小时到账（流量急用者请谨慎下单）;</li>
+				<li><span>[充值限制]:</span>可无限充值和叠加;</li>
+				<li><span>[查询方式]:</span>发送<span>cxll</span>到<span>10086</span>，或上移动网上营业厅查询;</li>
+				<li><span>[注意事项]:</span>请务必填写正确的手机号码，如填写错误造成损失须用户自行负责;</li>
+				<li><span>[特别注意]:</span>4G流量王、广东移动中山号码、随心王套餐、万花筒、用户状态异常、欠费或停机等运营商限制的号码无法充值，请勿购买！</li>
+			</ul>
+		</div>
+		<div class="weui_dialog_ft">
+			<a href="javascript:;" class="weui_btn_dialog primary" ng-click="btnOk()">确定</a>
+		</div>
+	</div>
+</div>
+<!--END dialog2-->
+
+<div class="partLine">&nbsp;</div>
+<script type="text/javascript" src="/customer/theme1/js/script.js"></script>

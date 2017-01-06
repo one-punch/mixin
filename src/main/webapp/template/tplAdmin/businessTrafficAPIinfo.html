@@ -1,0 +1,90 @@
+<!--接口流量充值-->
+<div ng-controller="BusinessTrafficApiInfoCtrl">
+<div class="content">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="glyphicon glyphicon-download"></i> 接口流量充值</h3>
+		</div>
+		<div class="panel-body">
+			<div class="trafficAPI-add">
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">状态：</label>
+						<div class="col-sm-7">
+							<input value="{{config.isApiRechargeAuthorized ? '己授权' : '未授权' }}" class="form-control" disabled/>
+						</div>
+						<div class="col-sm-2">
+							<button ng-click="authoried()" type="button" class="btn btn-success">
+								授权/取消授权
+							</button>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">appid：</label>
+						<div class="col-sm-7">
+							<input ng-model="config.apiRechargeAppId" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">key：</label>
+						<div class="col-sm-7">
+							<input ng-model="config.apiRechargeKey" class="form-control" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">IP白名单：</label>
+						<div class="col-sm-7">
+							<textarea ng-model="config.apiRechargeIp"class="form-control" />
+						</div>
+						<div class="col-sm-2">
+							<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addWhiteList">
+								<i class="glyphicon glyphicon-plus"></i> 添加白名单
+							</button>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">回调地址：</label>
+						<div class="col-sm-7">
+							<input  ng-model="config.apiRechargeCallbackUrl" class="form-control" />
+						</div>
+						<div class="col-sm-2">
+							<button ng-click="update()"  type="button" class="btn btn-success">
+								修改回调
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!--编辑 模态框 #editTrafficplan-->
+<div class="modal fade" id="addWhiteList" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">添加白名单</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">ip</label>
+						<div class="col-sm-10">
+							<textarea ng-model="config.apiRechargeIp" type="text" class="form-control" rows="8"></textarea>
+							<div class="alert alert-warning" style="margin-top: 15px;">
+								<i class="glyphicon glyphicon-warning-sign"></i> 回车键隔开不同的ip，最多5个ip</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button ng-click="update()" type="submit" class="btn btn-success">提交</button>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

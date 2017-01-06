@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+    http://www.springframework.org/schema/beans/spring-beans.xsd    
+    http://www.springframework.org/schema/context   
+    http://www.springframework.org/schema/context/spring-context.xsd 
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd  
+    http://www.springframework.org/schema/mvc   
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task.xsd">
+
+	<!-- 加载默认properties常量 -->
+    <context:property-placeholder location="classpath*:config-*.properties" />
+	<!-- mvc的注解驱动 -->
+	<context:component-scan base-package="com.wteam" >
+		<!-- 控制层在spingmvc的配置文件中加载 -->
+		<context:include-filter type="aspectj"  expression="com.wteam..controler.*"/>
+		<!-- springmvc构造上下文时，不重复加载Service和Dao层的bean, 防止hibernate的事务失效 -->
+		<context:exclude-filter type="annotation"  expression="org.springframework.stereotype.Service"/>
+		<context:exclude-filter type="annotation"  expression="org.springframework.stereotype.Repository"/>
+	</context:component-scan>
+
+	<!-- 前缀+ viewName +后缀 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value=""></property>
+		<property name="suffix" value=".html"></property>
+	</bean>
+
+
+
+	<!-- 启用注解驱动 -->
+	<mvc:annotation-driven
+		conversion-service="conversionService"
+		validator="validator">
+		<mvc:message-converters register-defaults="true">
+			<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/> 
+			<!-- 使用fastjson转换json -->
+			<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+				<property name="supportedMediaTypes" value="application/json;charset=UTF-8" />
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	<!-- 自定义数据转换器 -->
+	<bean id="conversionService"
+		class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean class="${wt.package}.converter.JsonToVoConverterFactory" />
+			</list>
+		</property>
+	</bean>
+	<!-- 数据校验器 -->
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+ 		<!-- 不设置则默认为classpath下的 ValidationMessages.properties -->
+		<property name="validationMessageSource" ref="validatemessageSource" />
+	</bean>
+	<!-- 数据校验信息国际化资源 -->
+	<bean id="validatemessageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:validate/messages" />
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="cacheSeconds" value="120" />
+	</bean>
+	
+	<!-- 配置上传文件 -->
+	<bean id="multipartResolver" 
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
+		<property name="maxUploadSize" value="52428800"/><!-- 50MB -->
+		<property name="defaultEncoding" value="utf-8"/>
+	</bean>
+	
+	
+	<mvc:default-servlet-handler />
+	
+	<!-- 拦截器，多个拦截器,顺序执行 -->
+	<mvc:interceptors>
+		<bean class="${wt.package}.intercepter.ValidateIntercepter" />
+
+		<!-- <mvc:interceptor> <mvc:mapping path="/**" /> <mvc:exclude-mapping 
+			path="/admin/**"/> <bean class="com.imicke.interceptor.NormalIntercepor"></bean> 
+			</mvc:interceptor> <mvc:interceptor> <mvc:mapping path="/s/**" /> <bean class="com.imicke.interceptor.SecurityIntercepor"></bean> 
+			</mvc:interceptor> -->
+	</mvc:interceptors>
+
+
+</beans> 

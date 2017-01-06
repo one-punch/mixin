@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta HTTP-EQUIV="Pragma" CONTENT="no-cache"> 
+		<meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache,no-store, must-revalidate"> 
+		<meta HTTP-EQUIV="Expires" CONTENT="0">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title></title>
+		<link type="text/css" rel="stylesheet" href="/customer/css/weui.min.css" />
+		<link type="text/css" rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css">
+		<link type="text/css" rel="stylesheet" href="/customer/theme2/css/style2.css" />
+	</head>
+
+	<body ng-app="customerThTwoApp">
+		<div ui-view="page" class="page"></div>
+		
+		<div ng-controller="ToastCtrl">
+		<div id="toast" ng-if="toast.hide" class="aweui-show">
+	        <div class="weui_mask_transparent"></div>
+	        <div class="weui_toast">
+	            <i class="weui_icon_toast"></i>
+	            <p class="weui_toast_content">已完成</p>
+	        </div>
+	    </div>
+	    <!--end toast-->
+	    <!-- loading toast -->
+	    <div id="loadingToast" ng-if="loading.hide" class="weui_loading_toast aweui-show">
+	        <div class="weui_mask_transparent"></div>
+	        <div class="weui_toast">
+	            <div class="weui_loading">
+	                <div class="weui_loading_leaf weui_loading_leaf_0"></div>
+	                <div class="weui_loading_leaf weui_loading_leaf_1"></div>
+	                <div class="weui_loading_leaf weui_loading_leaf_2"></div>
+	                <div class="weui_loading_leaf weui_loading_leaf_3"></div>
+	                <div class="weui_loading_leaf weui_loading_leaf_4"></div>
+	                <div class="weui_loading_leaf weui_loading_leaf_5"></div>
+	                <div class="weui_loading_leaf weui_loading_leaf_6"></div>
+	                <div class="weui_loading_leaf weui_loading_leaf_7"></div>
+	                <div class="weui_loading_leaf weui_loading_leaf_8"></div>
+	                <div class="weui_loading_leaf weui_loading_leaf_9"></div>
+	                <div class="weui_loading_leaf weui_loading_leaf_10"></div>
+	                <div class="weui_loading_leaf weui_loading_leaf_11"></div>
+	            </div>
+	            <p class="weui_toast_content">数据加载中</p>
+	        </div>
+	    </div>
+	     </div>
+	</body>
+	
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<!-- 基本依赖 -->
+		<script type="text/javascript" src="/customer/js/jQuery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="/customer/js/qrcode.min.js"></script>
+		
+		<script type="text/javascript" src="/customer/theme2/js/superslide.2.1.js"></script>
+		<script type="text/javascript" src="/customer/js/actionsheet.js"></script>
+		<!-- angularjs -->
+		<script type="text/javascript" src="/customer/js/angular.min.js"></script>
+		<script type="text/javascript" src="/customer/js/angular-ui-router.js"></script>
+		
+		<script type="text/javascript" src="/customer/js/service/wt.action.js"></script>
+		<script type="text/javascript" src="/customer/js/service/wt.utils.js"></script>
+<!-- 		<script type="text/javascript" src="/customer/js/toast.js"></script> -->
+		<script type="text/javascript" src="/customer/theme2/js/service/wt.toast.js"></script>
+<!-- 		<script type="text/javascript" src="/customer/theme2/js/dialog.js"></script> -->
+		<!-- 入口 -->
+		<script type="text/javascript" src="/customer/theme2/js/main.js"></script>
+		<script type="text/javascript" src="/customer/theme2/js/app.js"></script>
+		
+		<!-- controllers -->
+		<script type="text/javascript" src="/customer/theme2/js/controller/recharge.js"></script>
+		<script type="text/javascript" src="/customer/theme2/js/controller/myorders.js"></script>
+		<script type="text/javascript" src="/customer/theme2/js/controller/pay.js"></script>
+
+</html>

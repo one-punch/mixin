@@ -1,0 +1,69 @@
+<!--微信管理-->
+<div ng-controller="WechatCtrl" class="content">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				<img src="img/wechat/wechat.png" width="26px" height="23px" />
+				 微信通管理
+			</h3>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-6 col-sm-6">
+					<div class="balanceCell">
+						<div class="balanceCell-title">
+							<h3>
+								<img src="img/wechat/wechat.png" width="26px" height="23px" />
+								{{ business.isAuthorized ? wechatInfo.authorizer_info.nick_name : '未绑定公众号'  }}
+							</h3>
+
+						</div>
+						<div class="balanceCell-body">
+							<center>
+								<div ng-show="!business.isAuthorized" class="wechatNo">
+									<a ui-sref="business.home.addOfficialAccount" class="btn btn-success"> 未绑定公众号 </a>
+								</div>
+							</center>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-sm-6">
+					<div class="balanceCell">
+						<div class="balanceCell-title">
+							<h3><i class="glyphicon glyphicon-th-large text-primary"></i> 已提供功能</h3>
+						</div>
+						<div class="balanceCell-body">
+							<center>
+								<a ng-click="wechatAllow('business.home.wechat_menu')" class="btn btn-primary"> 自定义菜单 </a>
+								<a ng-click="wechatAllow('business.home.message_mass')" class="btn btn-primary"> 群发消息 </a>
+								<a ng-click="wechatAllow('business.home.keyword_autoreply')" class="btn btn-primary"> 关键字回复 </a>
+							</center>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-11 col-sm-11">
+					<div class="balanceCell">
+						<div class="balanceCell-title">
+							<h3><i class="glyphicon glyphicon-link text-warning"></i> 系统功能链接</h3><br />
+							<small>系统功能链接可设置在自定义菜单中，类型为“视图”</small>
+						</div>
+						<div class="balanceCell-body">
+							<center>
+								<a href="" class="btn btn-warning">流量充值</a>
+								<div class="form-group">
+									<input type="text" disabled="disabled"  class="form-control" value="{{links.recharge}}">
+								</div>
+							</center>
+							<center>
+								<a href="" class="btn btn-warning">我的订单</a>
+								<div class="form-group">
+									<input type="text" disabled="disabled" class="form-control" value="{{links.myorders}}">
+								</div>
+							</center>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

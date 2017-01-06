@@ -1,0 +1,164 @@
+<!--<div ng-controller="dialogCtrl">-->
+<div class="slideBox">
+	<div class="bd">
+		<ul style="list-style: none;">
+			<li>
+				<a href="#"><img src="/customer/images/banner/banner1.jpg" /></a>
+			</li>
+			<li>
+				<a href="#"><img src="/customer/images/banner/banner2.jpg" /></a>
+			</li>
+			<li>
+				<a href="#"><img src="/customer/images/banner/banner3.jpg" /></a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<div class="weui_cell" style="background: #ffffff;">
+	<div class="weui_cell_hd">
+		<label class="weui_label"><i class="fa fa-volume-control-phone" aria-hidden="true"></i></label>
+	</div>
+	<div class="weui_cell_bd weui_cell_primary">
+		<input class="weui_input" type="number" pattern="[0-9]*" placeholder="请输入手机号" />
+	</div>
+</div>
+<div class="th3-tips text-xs">
+	<p class="text-primary">广东号码省内流量</p>
+	<a href="javascript:;" ng-click="showDialog1()" class="text-gray">常见问题 <i class="fa fa-question-circle text-primary"></i></a>
+	<a href="javascript:;" ng-click="showDialog2()" class="text-gray">流量说明 <i class="fa fa-question-circle text-primary"></i></a>
+</div>
+<div class="btn-group">
+	<center>
+		<button type="button" class="btnItem btn-action">中国移动</button>
+		<button type="button" class="btnItem">中国联通</button>
+		<button type="button" class="btnItem">中国电信</button>
+	</center>
+</div>
+
+<div class="nav2-th3">
+	<ul class="text-xs">
+		<li class="nav2-th3-item">
+			<a href="#" class="weui_bar_item_on">广东号码 全国流量</a>
+		</li>
+		<li class="nav2-th3-item">
+			<a href="#">广东号码 省内流量</a>
+		</li>
+		<li class="nav2-th3-item">
+			<a href="#">全国号码 全国流量</a>
+		</li>
+		<li class="nav2-th3-item">
+			<a href="#">广东号码 全国流量</a>
+		</li>
+
+	</ul>
+</div>
+<div class="weui_cells inform">
+	<div class="weui_cell">
+		<div class="weui_cell_hd text-warning"><i class="fa fa-bullhorn" aria-hidden="true"></i></div>
+		<div class="weui_cell_bd weui_cell_primary">
+			<marquee class="text-xs text-primary">
+				<div class="info-cell">
+					<p><i class="fa fa-flag"></i> 有效</p>
+					<p class="text-warning">可垮月</p>
+					<p>400M分两次200M到达，以此类推</p>
+				</div>
+			</marquee>
+		</div>
+	</div>
+</div>
+<div class="weui_cells">
+	<div class="weui_cell">
+		<div class="cellTips">
+			<div class="extra-red"></div>
+			<p class="extra-font">热销</p>
+		</div>
+		<div class="weui_cell_bd weui_cell_primary flowList">
+			<h4>100M</h4>
+			<label>自到账日起30天有效</label>
+		</div>
+		<div class="weui_cell_ft">
+			<p class="text-primary">￥9.50</p>
+			<button href="javascript:;" ng-click="showDialogDetail1()" class="btn-detail text-xs">详情</button>
+			<button class="btn-buy text-xs">购买</button>
+		</div>
+	</div>
+	<div class="weui_cell">
+		<div class="cellTips">
+			<div class="extra-yellow"></div>
+			<p class="extra-font2">爆品</p>
+		</div>
+		<div class="weui_cell_bd weui_cell_primary flowList">
+			<h4>100M</h4>
+			<label>自到账日起30天有效</label>
+		</div>
+		<div class="weui_cell_ft">
+			<p class="text-primary">￥9.50</p>
+			<button class="btn-detail text-xs">详情</button>
+			<button class="btn-buy text-xs">购买</button>
+		</div>
+	</div>
+</div>
+<!--</div>-->
+
+<!--BEGIN dialog1-->
+<div class="weui_dialog_confirm" id="dialog1" ng-if="isShowDialog1">
+	<div class="weui_mask"></div>
+	<div class="weui_dialog">
+		<div class="weui_dialog_hd"><strong class="weui_dialog_title">常见问题</strong></div>
+		<div class="weui_dialog_bd">自定义弹窗内容，居左对齐显示，告知需要确认的信息等</div>
+		<div class="weui_dialog_ft">
+			<a href="javascript:;" class="weui_btn_dialog default" ng-click="btnCancel()">取消</a>
+			<a href="javascript:;" class="weui_btn_dialog primary" ng-click="btnOk()">确定</a>
+		</div>
+	</div>
+</div>
+<!--END dialog1-->
+<!--BEGIN dialog2-->
+<div class="weui_dialog_alert" id="dialog2" ng-if="isShowDialog2">
+	<div class="weui_mask"></div>
+	<div class="weui_dialog">
+		<div class="weui_dialog_hd"><strong class="weui_dialog_title">流量说明</strong></div>
+		<div class="weui_dialog_bd">
+			<ul class="text-xs dadetail">
+				<li><span>[充值对象]:</span>仅限广东移动手机用户;</li>
+				<li><span>[有效期限]:</span>自生效当天起20天有效;;</li>
+				<li><span>[流量类型]:</span>广东省内通用2G/3G/4G流量，全天24小时,不分时段;</li>
+				<li><span>[到账时间]:</span>流量慢充，24小时到账（流量急用者请谨慎下单）;</li>
+				<li><span>[充值限制]:</span>可无限充值和叠加;</li>
+				<li><span>[查询方式]:</span>发送<span>cxll</span>到<span>10086</span>，或上移动网上营业厅查询;</li>
+				<li><span>[注意事项]:</span>请务必填写正确的手机号码，如填写错误造成损失须用户自行负责;</li>
+				<li><span>[特别注意]:</span>4G流量王、广东移动中山号码、随心王套餐、万花筒、用户状态异常、欠费或停机等运营商限制的号码无法充值，请勿购买！</li>
+			</ul>
+		</div>
+		<div class="weui_dialog_ft">
+			<a href="javascript:;" class="weui_btn_dialog primary" ng-click="btnOk()">确定</a>
+		</div>
+	</div>
+</div>
+<!--END dialog2-->
+
+<!--BEGIN dialogDetail1-->
+<div class="weui_dialog_alert" id="dialogDetail1" ng-if="isShowDialogDetail1">
+	<div class="weui_mask"></div>
+	<div class="weui_dialog">
+		<div class="weui_dialog_hd"><strong class="weui_dialog_title">详情</strong></div>
+		<div class="weui_dialog_bd">
+			<ul class="text-xs dadetail">
+				<li><span>[全国流量]:</span>广东移动用户充值的全国流量，可在全国所有省份使用(港澳台除外);</li>
+				<li><span>[全国流量]:</span>充值成功后，<span>月末清零</span>;</li>
+				<li><span>[到账时间]:</span>1-10分钟内到账，24小时可充值;</li>
+				<li><span>[充值对象]:</span>限广东省移动用户充值，2G/3G/4G通用流量;</li>
+				<li><span>[流量使用]:</span>发送<span>cxll</span>至<span>10086</span>查询流量到账后方可使用，若超过24小时仍未查询到流量到账即联系客服处理;</li>
+				<li><span>[系统承诺]：</span>若充值失败，系统全额退款;</li>
+			</ul>
+		</div>
+		<div class="weui_dialog_ft">
+			<a href="javascript:;" class="weui_btn_dialog primary" ng-click="btnOk()">确定</a>
+		</div>
+	</div>
+</div>
+<!--END dialog2-->
+
+<div class="partLine">&nbsp;</div>
+<script type="text/javascript" src="/customer/theme3/js/script.js"></script>

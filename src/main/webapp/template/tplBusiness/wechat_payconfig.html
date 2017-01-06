@@ -1,0 +1,56 @@
+<!--接口流量充值-->
+<div ng-controller="WechatPayConfigCtrl">
+<div  class="content">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="glyphicon glyphicon-download"></i> 接口流量充值</h3>
+		</div>
+		<div class="panel-body">
+			<div class="trafficAPI-add">
+				<form class="form-horizontal" name="edit_form" role="form">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">是否使用自己微信支付：</label>
+						<div class="col-sm-7">
+							<label class="checkbox"><input type="checkbox" ng-model="payconfig.useBusinessPay"/></label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">微信公众号的appid：</label>
+						<div   class="col-sm-7">
+							<input ng-model="payconfig.authorizerAppid"
+							  		required type="text" disabled class="form-control" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">微信支付商户号：</label>
+						<div class="col-sm-7">
+							<input ng-model="payconfig.mch_id" required class="form-control" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">微信支付的key：</label>
+						<div class="col-sm-7">
+							<input ng-model="payconfig.payKey" required class="form-control" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">微信支付证书 apiclient_cert.p12：</label>
+						<div class="col-sm-7">
+							<wt-upload fid="payconfig.apiclient_cert_id" text="点击上传文件" type="OTHERS"  class="col-sm-8 btn btn-primary"/>
+							<div class="col-sm-4 checkbox"><span>{{payconfig.apiclient_cert_id? '已上传' : ''}}</span></div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label"></label>
+						<div class="col-sm-4">
+							<button type="button" class="btn btn-success" ng-click="edit()">
+								<i class="glyphicon glyphicon-plus"></i> 提交编辑
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>

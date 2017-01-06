@@ -1,0 +1,91 @@
+<!--主题模板配置-->
+<div  ng-controller="ThemeCtrl" class="content">
+	<div class="panel panel-success">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> 主题模板配置</h3>
+		</div>
+		<div class="panel-body">
+			<div>
+				<!-- Nav tabs -->
+				<div class="btn-group" data-toggle="buttons">
+					<label ng-click="changeShowThemes(1)" class="btn btn-info active">
+					    <input type="radio" name="options" autocomplete="off" checked> 我的主题
+					</label>
+					<label ng-click="changeShowThemes(2)" class="btn btn-info">
+					    <input type="radio" name="options" autocomplete="off"> 发现主题
+					</label>
+				</div>
+				<br>
+				<!-- Tab panes -->
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active">
+						<table ng-show="utils.showTheme == 1" class="table themeTable">
+							<tr ng-repeat="group in myThemeList">
+								<td ng-repeat="theme in group track by $index">
+									<div ng-if="theme != 1" class="thumbnail theme">
+										<img ng-src="{{ theme.imgId? file.see(theme.imgId) : 'img/theme/theme1.png'}}">
+										<div class="caption">
+											<h4>{{theme.name}}</h4>
+											<hr />
+											<p>价格: <span>{{ theme.cost == 0 ? '免费' : theme.cost + '元' }}</span></p>
+											<p>到期时间: <span>{{ utils.vaildity(theme.startAt, theme.vaildity)  }}</span></p>
+											<p>
+												<button ng-if="theme.actived" type="button" class="btn btn-success btn-sm">正在使用中</button>
+												<button ng-if="!theme.actived" ng-click="choose(theme.themeId)" type="button" class="btn btn-info btn-sm">使用</button>
+												<button ng-if="theme.cost!=0" ng-click="buy(theme.themeId)" type="button" class="btn btn-warning btn-sm">续费</button>
+											</p>
+										</div>
+									</div>
+									<div></div>
+								</td>
+							</tr>
+						</table>
+						<table ng-show="utils.showTheme == 2" class="table themeTable">
+							<tr ng-repeat="group in themeList ">
+								<td ng-repeat="theme in group track by $index">
+									<div ng-if="theme != 1" class="thumbnail theme">
+										<img ng-src="{{ theme.imgId? file.see(theme.imgId) : 'img/theme/theme1.png'}}">
+										<div class="caption">
+											<h4>{{theme.name}}</h4>
+											<hr />
+											<p>价格: <span>{{ theme.cost == 0 ? '免费' : theme.cost + '元' }}</span></p>
+											<p>可用天数: <span>{{ theme.vaildity == vaildity_forever ? '永久' : theme.vaildity || '永久'  }}</span></p>
+											<p>
+												<button ng-if="theme.cost != 0" ng-click="buyShow(theme)" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#payThem">购买</button>
+											</p>
+										</div>
+									</div>
+									<div></div>
+								</td>
+							</tr>
+							
+						</table>
+						
+						<nav ng-show="utils.showTheme == 2" class="rightNav">
+						  <tm-pagination conf="paginationConf"></tm-pagination>
+						</nav>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	
+<!--购买 模态框 #payThem -->
+<div class="modal fade" id="payThem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close"  data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">购买主题</h4>
+			</div>
+			<div class="modal-body">
+				<p class="alert alert-danger">确定购买“{{theme.name}}”主题吗？</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button ng-click="buy()" type="submit" class="btn btn-danger">确定购买</button>
+			</div>
+		</div>
+	</div>
+</div>
