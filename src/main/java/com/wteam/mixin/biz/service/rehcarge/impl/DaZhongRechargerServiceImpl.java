@@ -15,17 +15,22 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.wteam.mixin.biz.service.BaseRechargeHandleService;
+import com.wteam.mixin.biz.service.impl.RechargeServiceImpl;
 import com.wteam.mixin.model.po.CustomerOrderPo;
 import com.wteam.mixin.model.po.TrafficPlanPo;
 import com.wteam.mixin.recharge.DaZhongRecharger;
 
 @Service("dazhongRechargerService")
 public class DaZhongRechargerServiceImpl extends BaseRechargeHandleService{
+	private static Logger LOG = LogManager.getLogger(RechargeServiceImpl.class.getName());
+
 	static final List<String> successList = Arrays.asList("1", "2", "3", "4", "6");
 	private boolean isSuccess(DaZhongRecharger.Response response){
 		return "success".equalsIgnoreCase(response.getAck()) && (successList.contains(response.getShippingStatus()));
@@ -42,16 +47,13 @@ public class DaZhongRechargerServiceImpl extends BaseRechargeHandleService{
 	
 	@Override
 	protected void doRecharge(CustomerOrderPo orderPo, TrafficPlanPo trafficPlanPo, Result result) {
-
 		Optional<String> optional = getRecharger().recharge(orderPo.getPhone(), trafficPlanPo.getPid());
 		optional.ifPresent(resStr -> {
 			DaZhongRecharger.Response response = JSON.parseObject(resStr, DaZhongRecharger.Response.class);
-			if(response.getOrder()!=null){
-				result.setServiceSuccess(isOrderSuccess(response));
-				result.setMsg(getMessage(response));
-			}else{
-				result.setMsg(getMessage(response));
-			}
+			LOG.debug("{}:{}", resStr, isSuccess(response));
+			result.setServiceSuccess(isSuccess(response));
+			result.setOrderNum(response.getOrderNumber());
+			result.setMsg(response.getShippingStatusMessage());
 		});
 	}
 
@@ -60,11 +62,14 @@ public class DaZhongRechargerServiceImpl extends BaseRechargeHandleService{
 		Optional<String> optional = getRecharger().instance().orderQuery(orderPo.getOrderNum());
 		optional.ifPresent(resStr -> {
 			DaZhongRecharger.Response response = JSON.parseObject(resStr, DaZhongRecharger.Response.class);
-			result.setServiceSuccess(isSuccess(response));
-			result.setOrderNum(response.getOrderNumber());
-			result.setMsg(response.getShippingStatusMessage());
+			LOG.debug("{}:orderid:{}, {}", resStr, orderPo.getId(), isOrderSuccess(response));
+			if(response.getOrder()!=null){
+				result.setServiceSuccess(isOrderSuccess(response));
+				result.setMsg(getMessage(response));
+			}else{
+				result.setMsg(getMessage(response));
+			}
 		});
-
 	}
 
 	@Override
