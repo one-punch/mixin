@@ -208,7 +208,7 @@ public class RechargeServiceImpl implements IRechargeService {
                         yikuaiHandleService.recharge(orderPo, trafficPlanPo);
                         break;
                     case DaZhong:
-                    	dazhongRechargerService.reCallback(orderPo, trafficPlanPo);
+                    	dazhongRechargerService.recharge(orderPo, trafficPlanPo);
                     	break;
                     case NULL:
                         orderPo.setState(State.CustomerOrder.rechargeSubmit);
