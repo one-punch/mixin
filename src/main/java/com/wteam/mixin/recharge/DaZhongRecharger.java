@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -46,12 +47,18 @@ public class DaZhongRecharger {
         return headers;
     }
 
-    public String recharge(String phone, String productId) {
+    public Optional<String> recharge(String phone, String productId) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("phone_number", phone);
         params.put("product_id", productId);
         params.put("notify_url", notifyUrl);
-        return execute(params, "OrderCreate");
+        return Optional.ofNullable(execute(params, "OrderCreate"));
+    }
+
+    public Optional<String> orderQuery(String orderNum){
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("order_number", orderNum);
+        return Optional.ofNullable(execute(params, "OrderQuery"));
     }
 
     public String getProducts(){
@@ -91,6 +98,11 @@ public class DaZhongRecharger {
 
 
     public static class Response {
+    	@JSONField(name = "ack")
+    	String ack;
+    	@JSONField(name = "message")
+    	String message;
+    	
         @JSONField(name = "order_number")
         String orderNumber;
 
@@ -106,6 +118,9 @@ public class DaZhongRecharger {
         @JSONField(name = "shipping_status_message")
         String shippingStatusMessage;
         
+        @JSONField(name = "order")
+        ResponseOrder order;
+
         public String getOrderNumber() {
 			return orderNumber;
 		}
@@ -145,6 +160,31 @@ public class DaZhongRecharger {
 		public void setShippingStatusMessage(String shippingStatusMessage) {
 			this.shippingStatusMessage = shippingStatusMessage;
 		}
+
+		public String getAck() {
+			return ack;
+		}
+
+		public void setAck(String ack) {
+			this.ack = ack;
+		}
+
+		public ResponseOrder getOrder() {
+			return order;
+		}
+
+		public void setOrder(ResponseOrder order) {
+			this.order = order;
+		}
+
+		public String getMessage() {
+			return message;
+		}
+
+		public void setMessage(String message) {
+			this.message = message;
+		}
+
     }
 
     public static class ResponseOrder {

@@ -3,14 +3,14 @@
 <configuration status="OFF">
 	<Properties>
         <!-- 生产部署路径 -->
-        <!-- <Property name="debug-log-path">/yjdata/programs/tomcat-7/mixin/WEB-INF/logs/debug-logs</Property>
+ 		<Property name="debug-log-path">/yjdata/programs/tomcat-7/mixin/WEB-INF/logs/debug-logs</Property>
         <Property name="info-log-path">/yjdata/programs/tomcat-7/mixin/WEB-INF/logs/info-logs</Property>
         <Property name="error-log-path">/yjdata/programs/tomcat-7/mixin/WEB-INF/logs/error-logs</Property>
- -->
- <!-- 本地测试部署路径 -->
+
+ <!-- 本地测试部署路径 
         <Property name="debug-log-path">${web:rootDir}/WEB-INF/logs/debug-logs</Property>
         <Property name="info-log-path">${web:rootDir}/WEB-INF/logs/info-logs</Property>
-        <Property name="error-log-path">${web:rootDir}/WEB-INF/logs/error-logs</Property>
+        <Property name="error-log-path">${web:rootDir}/WEB-INF/logs/error-logs</Property>-->
 <!--         测试部署路径 -->
 <!--         <Property name="debug-log-path">/var/tomcat/tomcat-7-test/webapps/mixin/WEB-INF/logs/debug-logs</Property>    -->
 <!--         <Property name="info-log-path">/var/tomcat/tomcat-7-test/webapps/mixin/WEB-INF/logs/info-logs</Property>    -->

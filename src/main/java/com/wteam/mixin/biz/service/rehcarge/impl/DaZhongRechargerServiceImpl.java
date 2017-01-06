@@ -11,6 +11,11 @@
 
 package com.wteam.mixin.biz.service.rehcarge.impl;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
@@ -21,16 +26,44 @@ import com.wteam.mixin.recharge.DaZhongRecharger;
 
 @Service("dazhongRechargerService")
 public class DaZhongRechargerServiceImpl extends BaseRechargeHandleService{
-
+	static final List<String> successList = Arrays.asList("1", "2", "3", "4", "6");
+	private boolean isSuccess(DaZhongRecharger.Response response){
+		return "success".equalsIgnoreCase(response.getAck()) && (successList.contains(response.getShippingStatus()));
+	}
+	
+	private boolean isOrderSuccess(DaZhongRecharger.Response response){
+		return "success".equalsIgnoreCase(response.getAck()) && response.getOrder()!=null && 
+				(successList.contains(response.getOrder().getShippingStatus()));
+	}
+	
+	private String getMessage(DaZhongRecharger.Response response){
+		return (response.getShippingStatusMessage() == null || "".equals(response.getShippingStatusMessage().trim())) ? response.getMessage() : response.getShippingStatusMessage() ;
+	}
+	
 	@Override
 	protected void doRecharge(CustomerOrderPo orderPo, TrafficPlanPo trafficPlanPo, Result result) {
-		// TODO Auto-generated method stub
 
+		Optional<String> optional = getRecharger().recharge(orderPo.getPhone(), trafficPlanPo.getPid());
+		optional.ifPresent(resStr -> {
+			DaZhongRecharger.Response response = JSON.parseObject(resStr, DaZhongRecharger.Response.class);
+			if(response.getOrder()!=null){
+				result.setServiceSuccess(isOrderSuccess(response));
+				result.setMsg(getMessage(response));
+			}else{
+				result.setMsg(getMessage(response));
+			}
+		});
 	}
 
 	@Override
 	protected void doReCallback(CustomerOrderPo orderPo, TrafficPlanPo trafficPlanPo, Result result) {
-		// TODO Auto-generated method stub
+		Optional<String> optional = getRecharger().instance().orderQuery(orderPo.getOrderNum());
+		optional.ifPresent(resStr -> {
+			DaZhongRecharger.Response response = JSON.parseObject(resStr, DaZhongRecharger.Response.class);
+			result.setServiceSuccess(isSuccess(response));
+			result.setOrderNum(response.getOrderNumber());
+			result.setMsg(response.getShippingStatusMessage());
+		});
 
 	}
 
@@ -38,7 +71,7 @@ public class DaZhongRechargerServiceImpl extends BaseRechargeHandleService{
 	protected void doCallback(String callback, Result result) {
 		DaZhongRecharger.Response response = JSON.parseObject(callback, DaZhongRecharger.Response.class);
 		response.getShippingStatus();
-		
+
 		result.setServiceSuccess(response.getShippingStatus().equals("4"));
 		result.setOrderNum(response.getOrderNumber());
 		result.setMsg(response.getShippingStatusMessage());
