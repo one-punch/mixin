@@ -26,7 +26,7 @@ public class DaZhongRecharger {
 
 	private static final String userName = "9V3ISSK8PY";
     private static final String cert = "39SNWCGNP19BKTSLVRGX96XLROYH3E6Z";
-    private static final String notifyUrl = "http://mixinwang.com/dazhong/callback";
+    private static final String notifyUrl = "http://mixinwang.com/recharge/dazhong/callback";
     private static final String uri = "http://cztim.oms88.com/api/v1.php";
 
     private DaZhongRecharger() {}
@@ -102,7 +102,7 @@ public class DaZhongRecharger {
     	String ack;
     	@JSONField(name = "message")
     	String message;
-    	
+
         @JSONField(name = "order_number")
         String orderNumber;
 
@@ -117,7 +117,7 @@ public class DaZhongRecharger {
 
         @JSONField(name = "shipping_status_message")
         String shippingStatusMessage;
-        
+
         @JSONField(name = "order")
         ResponseOrder order;
 

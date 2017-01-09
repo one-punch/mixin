@@ -35,16 +35,16 @@ public class DaZhongRechargerServiceImpl extends BaseRechargeHandleService{
 	private boolean isSuccess(DaZhongRecharger.Response response){
 		return "success".equalsIgnoreCase(response.getAck()) && (successList.contains(response.getShippingStatus()));
 	}
-	
+
 	private boolean isOrderSuccess(DaZhongRecharger.Response response){
-		return "success".equalsIgnoreCase(response.getAck()) && response.getOrder()!=null && 
+		return "success".equalsIgnoreCase(response.getAck()) && response.getOrder()!=null &&
 				(successList.contains(response.getOrder().getShippingStatus()));
 	}
-	
+
 	private String getMessage(DaZhongRecharger.Response response){
 		return (response.getShippingStatusMessage() == null || "".equals(response.getShippingStatusMessage().trim())) ? response.getMessage() : response.getShippingStatusMessage() ;
 	}
-	
+
 	@Override
 	protected void doRecharge(CustomerOrderPo orderPo, TrafficPlanPo trafficPlanPo, Result result) {
 		Optional<String> optional = getRecharger().recharge(orderPo.getPhone(), trafficPlanPo.getPid());
@@ -52,7 +52,7 @@ public class DaZhongRechargerServiceImpl extends BaseRechargeHandleService{
 			DaZhongRecharger.Response response = JSON.parseObject(resStr, DaZhongRecharger.Response.class);
 			LOG.debug("{}:{}", resStr, isSuccess(response));
 			result.setServiceSuccess(isSuccess(response));
-			result.setOrderNum(response.getOrderNumber());
+			result.setOutOrderId(response.getOrderNumber());
 			result.setMsg(response.getShippingStatusMessage());
 		});
 	}
