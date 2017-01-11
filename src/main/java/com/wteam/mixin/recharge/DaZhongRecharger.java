@@ -24,8 +24,8 @@ public class DaZhongRecharger {
 
 	private static Logger LOG = LogManager.getLogger(FileUtils.class.getName());
 
-	private static final String userName = "9V3ISSK8PY";
-    private static final String cert = "39SNWCGNP19BKTSLVRGX96XLROYH3E6Z";
+	private static final String userName = "GWI6T9HUGJ";
+    private static final String cert = "OVZHN97AJ8NIBAWJT51J7RYQZ4ZOMRJS";
     private static final String notifyUrl = "http://mixinwang.com/recharge/dazhong/callback";
     private static final String uri = "http://cztim.oms88.com/api/v1.php";
 
