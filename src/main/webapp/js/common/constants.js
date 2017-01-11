@@ -20,7 +20,7 @@ mixin.providers = [
 mixin.providerNames = ['中国移动','中国联通','中国电信']
 
 //接口运营商
-mixin.apiProviders = ['手动','易赛', '新号吧', '进业', '小猪', '流量', '快充', '得力','尚通', '大汉','友信','友信2','三网','宜快']
+mixin.apiProviders = ['手动', '大众','易赛', '新号吧', '进业', '小猪', '流量', '快充', '得力','尚通', '大汉','友信','友信2','三网','宜快']
 // 数据格式化
 mixin.format = {
 		'datetime' : 'yyyy-MM-dd HH:mm:ss',
