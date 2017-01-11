@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.wteam.mixin.biz.controler.handler.SystemModelHandler;
 import com.wteam.mixin.biz.service.IOrderService;
 import com.wteam.mixin.biz.service.IRechargeHandleService;
@@ -35,6 +36,7 @@ import com.wteam.mixin.model.vo.CustomerOrderVo;
 import com.wteam.mixin.model.vo.TrafficApiRechargeInfoVo;
 import com.wteam.mixin.model.vo.TrafficApiRequestParams;
 import com.wteam.mixin.model.vo.UserVo;
+import com.wteam.mixin.recharge.DaZhongRecharger;
 import com.wteam.mixin.recharge.JingYieRecharge;
 import com.wteam.mixin.recharge.LiuLiangRecharge;
 import com.wteam.mixin.recharge.JingYieRecharge.Json;
@@ -85,9 +87,52 @@ public class RechargeController {
     IRechargeHandleService shanWangHandleService;
     @Autowired
     IRechargeHandleService yikuaiHandleService;
-
+    @Autowired
+    IRechargeHandleService dazhongRechargerService;
     // 2016-09-20 08-54-53
     public static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+    /**
+     * 大众
+     * @param request
+     * @param response
+     */
+    private void dazhong_callback(HttpServletRequest request, HttpServletResponse response){
+    	try {
+            String params = HttpRequest.inToString(request.getInputStream());
+            if ("".equals(params)) {
+                JSONObject jsonObject = new JSONObject();
+                request.getParameterMap().forEach(
+                    (key,values) -> jsonObject.put(key, values.length > 1 ? values : values[0]));
+                params = jsonObject.toJSONString();
+            }
+            LOG.debug(params);
+            if (params == null || "".equals(params)) return;
+            DaZhongRecharger.Response dResponse = JSON.parseObject(params, DaZhongRecharger.Response.class);
+            CustomerOrderQuery query = new CustomerOrderQuery();
+            query.setOutOrderId(dResponse.getOrderNumber());
+            CustomerOrderVo orderVo = orderService.find(query);
+            if(orderVo == null) return;
+            String orderNum = orderVo.getOrderNum();
+            if(dResponse.getShippingStatus().equals("4")){
+            	orderVo = orderService.chageOrderState(orderNum, State.CustomerOrder.success);
+            }else{
+            	orderService.chageOrderState(orderNum, State.CustomerOrder.failure);
+                orderVo = orderService.chageOrderState(orderNum, State.CustomerOrder.refunded);
+                orderVo.setFailedInfo(dResponse.getShippingStatusMessage());
+            }
+            orderVo.setIsCallback(true);
+            orderService.update(orderVo, orderNum);
+            //
+            rechargeService.apiCallback(orderVo);
+            
+            response.getWriter().write("success");
+            response.getWriter().flush();
+            response.getWriter().close();
+        }
+        catch (Exception e) {
+            LOG.error("",e);
+        }
+    }
     /**
      * 进业
      * @return
@@ -229,6 +274,8 @@ public class RechargeController {
                 shanWangHandleService.callback(request, response);break;
             case "yikuai": // 宜快
                 yikuaiHandleService.callback(request, response);break;
+            case "dazhong": // 大众
+            	dazhong_callback(request, response);break;
         }
 
     }

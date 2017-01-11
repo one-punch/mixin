@@ -114,6 +114,8 @@ public class RechargeServiceImpl implements IRechargeService {
     IRechargeHandleService shanWangHandleService;
     @Autowired
     IRechargeHandleService yikuaiHandleService;
+    @Autowired
+    IRechargeHandleService dazhongRechargerService;
 
 
 
@@ -205,6 +207,9 @@ public class RechargeServiceImpl implements IRechargeService {
                     case YiKuai:
                         yikuaiHandleService.recharge(orderPo, trafficPlanPo);
                         break;
+                    case DaZhong:
+                    	dazhongRechargerService.recharge(orderPo, trafficPlanPo);
+                    	break;
                     case NULL:
                         orderPo.setState(State.CustomerOrder.rechargeSubmit);
                         break;

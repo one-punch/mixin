@@ -96,6 +96,17 @@ public class HttpRequest {
         return null;
     }
     
+    public static String sendPost(String url, Map<String, Object> params, Map<String, Object> headers){
+    	try {
+            headers = headers != null ? headers : Collections.emptyMap();
+            return HttpClient.post(url, headers, params);
+        }
+        catch (UnsupportedEncodingException e){
+        	LOG.error(e);
+        }
+    	return HttpClient.EMPTY_STR;
+    }
+    
     public static String sendPostJSON(String url, String param) {
         return HttpClient.postJson(url, param);
     }

@@ -21,7 +21,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;  
   
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;  
-import org.apache.http.message.BasicNameValuePair;  
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;  
@@ -45,7 +46,7 @@ public class HttpClient {
      */  
     public static String get(String url) {  
         if(LOG.isDebugEnabled()) LOG.debug("url:{}", url);
-        HttpGet httpGet = new HttpGet(url);  
+        HttpGet httpGet = new HttpGet(url);
         return getResult(httpGet);  
     }  
   
@@ -220,7 +221,7 @@ public class HttpClient {
             HttpEntity entity = response.getEntity();  
             if (entity != null) {  
                 // long len = entity.getContentLength();// -1 表示长度未知  
-                String result = EntityUtils.toString(entity);  
+                String result = EntityUtils.toString(entity, UTF_8);  
                 response.close();  
                 // httpClient.close();  
                 return result;  

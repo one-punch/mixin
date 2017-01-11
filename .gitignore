@@ -4,3 +4,4 @@ src/main/resources/alipay
 src/main/resources/user-config
 src/main/resources/wechat
 .svn/
+**/.DS_Store
