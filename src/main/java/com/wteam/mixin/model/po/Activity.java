@@ -2,25 +2,22 @@ package com.wteam.mixin.model.po;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Data;
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Data
 @Entity
 @Table(name = "activities")
-@MappedSuperclass
 public class Activity extends BasePo {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
 	public Long id;
 	
 	public String name;
@@ -43,6 +40,5 @@ public class Activity extends BasePo {
 	void updatedAt() {
 	    this.updatedAt = new Date();
 	}
-
 	  
 }

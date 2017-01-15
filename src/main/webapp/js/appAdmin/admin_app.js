@@ -3,12 +3,12 @@
 app_admin.config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
 	function($stateProvider, $urlRouterProvider, $httpProvider) {
 		$urlRouterProvider.when('/', '/login').otherwise('/login');
-    	
+
 		// 强制刷新
     	function url(url) {
 			return url + '?' + new Date().getTime()
 		}
-    	
+
 		$stateProvider
 			.state('login', {
 				url: '/login',
@@ -90,6 +90,24 @@ app_admin.config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
 				views: {
 					'contentDetail@admin': {
 						templateUrl: url('template/tplAdmin/theme.html')
+					},
+				}
+			})
+			//		营销活动
+			.state('admin.home.activity', {
+				url: '/activity',
+				views: {
+					'contentDetail@admin': {
+						templateUrl: url('template/tplAdmin/activity.html')
+					},
+				}
+			})
+			//		砍价管理
+			.state('admin.home.bargainirg', {
+				url: '/bargainirg',
+				views: {
+					'contentDetail@admin': {
+						templateUrl: url('template/tplAdmin/business_activity.html')
 					},
 				}
 			})

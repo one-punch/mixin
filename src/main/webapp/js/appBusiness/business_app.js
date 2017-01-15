@@ -2,12 +2,12 @@
 app_business.config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
 	function($stateProvider, $urlRouterProvider, $httpProvider) {
     	$urlRouterProvider.when('/','/login').otherwise('/login');
-    	
+
     	// 强制刷新
     	function url(url) {
 			return url + '?' + new Date().getTime()
 		}
-    	
+
 		$stateProvider
 			.state('login', {
 				url: '/login',
@@ -164,7 +164,7 @@ app_business.config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
 					},
 				}
 			})
-			
+
 //			自定义菜单
 			.state('business.home.wechat_menu', {
 				url: '/wechat_menu',
