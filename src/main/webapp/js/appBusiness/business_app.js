@@ -243,6 +243,14 @@ app_business.config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
 					},
 				}
 			})
+			.state('business.home.bargainirgProduct', {
+				url: '/bargainirgProduct',
+				views: {
+					'contentDetail@business': {
+						templateUrl: url('template/tplBusiness/bargainirgProduct.html')
+					},
+				}
+			})
 			.state('business.home.proxyBalanceCenter', {
 				url: '/proxyBalanceCenter?businessId',
 				views: {
