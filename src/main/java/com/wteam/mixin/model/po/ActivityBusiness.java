@@ -23,8 +23,8 @@ public class ActivityBusiness extends BasePo {
     @GeneratedValue(strategy = IDENTITY)
     public Long id;
 
-    @Column(name="business_id")
-    public Long businessId;
+    @Column(name="user_id")
+    public Long userId;
 
     @Column(name="active_id")
     public Long acticeId;

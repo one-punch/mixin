@@ -24,8 +24,8 @@ class TrafficPlanActivity extends BasePo{
     @Column(name="traffic_paln_id")
     public Long trafficPalnId;
 
-    @Column(name="business_id")
-    public Long businessId;
+    @Column(name="user_id")
+    public Long userId;
 
     @Column(name="active_id")
     public Long bargainirgId;
