@@ -44,7 +44,7 @@ public class ActivityController {
                                    ResultMessage resultMessage){
 
         String sql = "SELECT userId, acount FROM UserPo WHERE userId != :adminId AND userId NOT IN (SELECT userId FROM ActivityBusiness)";
-        List<Long> preselectionIds = baseDao.get(sql, new Object[]{user.getUserId()});
-        return resultMessage.setSuccessInfo("").putParam("preselectionIds", preselectionIds);
+        List<UserVo> preselectionUsers = baseDao.get(sql, new Object[]{user.getUserId()});
+        return resultMessage.setSuccessInfo("").putParam("preselectionIds", preselectionUsers);
     }
 }
