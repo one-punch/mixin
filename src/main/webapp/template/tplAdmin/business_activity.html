@@ -80,9 +80,9 @@
               <label class="col-sm-3 control-label">商家</label>
               <div class="col-sm-9">
                 <div class="dropdown">
-                  <select ng-model="add.businessQuery.users"
-                    ng-change="add.queryChange()"
-                    ng-options="user.id as user.name for user in users"
+                  <select ng-model="businessSelected"
+                    ng-change="queryChange()"
+                    ng-options="user.userId as user.tel for user in users"
                     class="form-control">
                   </select>
                 </div>

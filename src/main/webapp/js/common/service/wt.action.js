@@ -1751,6 +1751,31 @@ function ActionService($http, $rootScope,toaster){
 	this.alipayDirectUrl = url("/alipay/direct/alipayapi.jsp?orderNum=");
 
 
+  /**
+    获取未设置砍价的商家user id
+  */
+  this.preselection = function(){
+    return new Promise(function(resolve, reject){
+        var http = $http({
+          url : url("/business/preselection"),
+          method : 'GET'
+        });
+        httpHandle(http, resolve, reject);
+      })
+  }
+
+
+  this.addBargainirgBusiness = function(userId){
+    return new Promise(function(resolve, reject){
+        var http = $http({
+          url : url("/business/bargainirg/create"),
+          params: {userId: userId},
+          method : 'POST'
+        });
+        httpHandle(http, resolve, reject);
+    })
+  }
+
 	return ;
     //将时间格式的字符串转化成时间戳
     function timetostring(string1){

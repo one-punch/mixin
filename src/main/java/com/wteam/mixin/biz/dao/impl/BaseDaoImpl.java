@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
@@ -32,29 +33,33 @@ public class BaseDaoImpl implements IBaseDao{
     private SessionFactory sessionFactory;
 
 
+   	private Session getSession(){
+  		return sessionFactory.openSession();
+    }
+
 	@Override
 	public <T> Serializable save(T po) {
-		return sessionFactory.getCurrentSession().save(po);
+		return getSession().save(po);
 	}
 
 	@Override
 	public <T> T find(Class<T> poClass, long id) {
-		return (T) sessionFactory.getCurrentSession().get(poClass, id);
+		return (T) getSession().get(poClass, id);
 	}
 
 	@Override
 	public <T> void delete(T po) {
-		sessionFactory.getCurrentSession().delete(po);
+		getSession().delete(po);
 	}
 
 	@Override
 	public <T> void update(T po) {
-		 sessionFactory.getCurrentSession().update(po);
+		 getSession().update(po);
 	}
 
 	@Override
 	public <T> void saveOrUpdate(T po) {
-		sessionFactory.getCurrentSession().saveOrUpdate(po);
+		getSession().saveOrUpdate(po);
 	}
 
 	@Override
@@ -79,7 +84,7 @@ public class BaseDaoImpl implements IBaseDao{
 	 */
 	@SuppressWarnings("rawtypes")
 	public Criteria createCriteria(Class cls, Criterion... criterions) {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(cls);
+		Criteria criteria = getSession().createCriteria(cls);
 		for (Criterion c : criterions) {
 			criteria.add(c);
 		}
@@ -94,7 +99,7 @@ public class BaseDaoImpl implements IBaseDao{
 	 */
 	@Override
 	public <T> List<T> find(String hql) {
-		 return sessionFactory.getCurrentSession().createQuery(hql).list();
+		 return getSession().createQuery(hql).list();
 	}
 
 	/**
@@ -107,7 +112,7 @@ public class BaseDaoImpl implements IBaseDao{
 	 */
 	@Override
 	public <T> List<T> find(String hql, Object[] param) {
-		Query q = sessionFactory.getCurrentSession().createQuery(hql);
+		Query q = getSession().createQuery(hql);
 		if (param != null && param.length > 0) {
 			for (int i = 0; i < param.length; i++) {
 				q.setParameter(i, param[i]);
@@ -125,7 +130,7 @@ public class BaseDaoImpl implements IBaseDao{
 	 */
 	@Override
 	public <T> List<T> find(String hql, List<Object> param) {
-		Query q = sessionFactory.getCurrentSession().createQuery(hql);
+		Query q = getSession().createQuery(hql);
 		if (param != null && param.size() > 0) {
 			for (int i = 0; i < param.size(); i++) {
 				q.setParameter(i, param.get(i));
@@ -154,7 +159,7 @@ public class BaseDaoImpl implements IBaseDao{
 		if (rows == null || rows < 1) {
 			rows = 10;
 		}
-		Query q = sessionFactory.getCurrentSession().createQuery(hql);
+		Query q = getSession().createQuery(hql);
 		if (param != null && param.length > 0) {
 			for (int i = 0; i < param.length; i++) {
 				q.setParameter(i, param[i]);
@@ -181,7 +186,7 @@ public class BaseDaoImpl implements IBaseDao{
 		if (rows == null || rows < 1) {
 			rows = 10;
 		}
-		Query q = sessionFactory.getCurrentSession().createQuery(hql);
+		Query q = getSession().createQuery(hql);
 		if (param != null && param.size() > 0) {
 			for (int i = 0; i < param.size(); i++) {
 				q.setParameter(i, param.get(i));
@@ -229,7 +234,7 @@ public class BaseDaoImpl implements IBaseDao{
 	 */
 	@Override
 	public <T> T getOnly(String hql) {
-		return (T) sessionFactory.getCurrentSession().createQuery(hql).uniqueResult();
+		return (T) getSession().createQuery(hql).uniqueResult();
 	}
 
 	/**
@@ -240,7 +245,7 @@ public class BaseDaoImpl implements IBaseDao{
 	 */
 	@Override
 	public <T> T getOnly(String hql, List<?> param) {
-		Query q = sessionFactory.getCurrentSession().createQuery(hql);
+		Query q = getSession().createQuery(hql);
 		if (param != null && param.size() > 0) {
 			for (int i = 0; i < param.size(); i++) {
 				q.setParameter(i, param.get(i));
@@ -256,7 +261,7 @@ public class BaseDaoImpl implements IBaseDao{
 	 */
 	@Override
 	public Integer executeHql(String hql) {
-		return sessionFactory.getCurrentSession().createQuery(hql).executeUpdate();
+		return getSession().createQuery(hql).executeUpdate();
 	}
 
 	/**
@@ -267,7 +272,7 @@ public class BaseDaoImpl implements IBaseDao{
 	 */
 	@Override
 	public Integer executeHql(String hql, List<Object> param) {
-		Query q = sessionFactory.getCurrentSession().createQuery(hql);
+		Query q = getSession().createQuery(hql);
 		if (param != null && param.size() > 0) {
 			for (int i = 0; i < param.size(); i++) {
 				q.setParameter(i, param.get(i));
@@ -278,6 +283,6 @@ public class BaseDaoImpl implements IBaseDao{
 
 	@Override
 	public void flush() {
-		sessionFactory.getCurrentSession().flush();
+		getSession().flush();
 	}
 }

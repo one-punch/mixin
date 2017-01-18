@@ -18,6 +18,7 @@ public class ActivityBusiness extends BasePo {
     /**
      *
      */
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = IDENTITY)
