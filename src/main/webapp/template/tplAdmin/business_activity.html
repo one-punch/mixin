@@ -33,13 +33,13 @@
                 </thead>
                 <tbody>
                   <tr ng-repeat="business in businessActivites">
-                    <td>{{business.id}}</td>
-                    <td>{{business.phone}}</td>
-                    <td>{{business.name}}</td>
-                    <td>{{business.wechat}}</td>
+                    <td>{{business.userId}}</td>
+                    <td>{{business.tel}}</td>
+                    <td>{{business.account}}</td>
+                    <td>{{business.wechatOfficAccount}}</td>
                     <td>
                       <input ng-click="editBusinessActivity(business)"
-                      ng-model="business.is_active" type="checkbox" /></td>
+                      ng-model="business.isActive" type="checkbox" /></td>
                     </td>
                     <td>
                       <button ng-click="editShow(business)" class="btn btn-info btn-sm">编辑</button>

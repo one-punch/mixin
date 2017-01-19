@@ -1764,7 +1764,9 @@ function ActionService($http, $rootScope,toaster){
       })
   }
 
-
+  /**
+    增加砍价商家
+  **/
   this.addBargainirgBusiness = function(userId){
     return new Promise(function(resolve, reject){
         var http = $http({
@@ -1773,6 +1775,31 @@ function ActionService($http, $rootScope,toaster){
           method : 'POST'
         });
         httpHandle(http, resolve, reject);
+    })
+  }
+
+  /**
+    砍价商家列表
+  **/
+  this.bargainirgIndex = function(page){
+    return new Promise(function(resolve, reject){
+        var http = $http({
+          url : url("/business/bargainirg/index"),
+          params: {pageNo: page.pageNo, pageSize: page.pageSize},
+          method : 'GET'
+        });
+        httpHandle(http, resolve, reject);
+    })
+  }
+
+  this.editbusinessActivites = function(activity_business){
+    return new Promise(function(resolve, reject){
+      var http = $http({
+          url : url("/business/bargainirg/edit"),
+          params: {activity_business: activity_business},
+          method : 'POST'
+        });
+      httpHandle(http, resolve, reject);
     })
   }
 

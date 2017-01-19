@@ -6,11 +6,32 @@ function($scope, $rootScope, toaster, Action, _mixin){
   function errorHandler(err){
     toaster.pop({ type: 'error', body: err.message, timeout: 3000 })
   }
+
+  function loadPreselection(){
+    Action.preselection().then(function(data){
+      $scope.users = data.preselectionIds
+    }).catch(function(err){
+      console.log(err)
+    })
+  }
+
+  function loadBargainirgIndex(){
+    Action.bargainirgIndex(_pagination).then(function(data){
+      $scope.businessActivites = data.page.list
+      $scope.paginationConf.totalItems = data.page.totalCount;
+    }).catch(errorHandler);
+  }
+
+  function update(activity_business){
+    Action.editbusinessActivites(activity_business).then(function(data){
+      toaster.pop({ type: 'success', body: "更新成功", timeout: 3000 })
+    }).catch(errorHandler)
+  }
   var failure = Action.failure // 默认失败回调
   $scope.businessActivites = [] //砍价商家
   $scope.users = []
 
-  // // 分页信息
+  // 分页信息
   $scope.paginationConf = {
             currentPage: 1,
             totalItems: 0,
@@ -22,7 +43,7 @@ function($scope, $rootScope, toaster, Action, _mixin){
 
               _pagination.pageNo = $scope.paginationConf.currentPage;
               // TODO获取商家列表
-              // Action.getTrafficplans($scope.planQuery,_pagination, tranfficPlanSuccess, failure);
+              loadBargainirgIndex();
             }
     };
   // 分页请求参数
@@ -31,22 +52,11 @@ function($scope, $rootScope, toaster, Action, _mixin){
       pageNo : $scope.paginationConf.currentPage, // 请求页数
   }
 
-  // TODO获取分组的套餐
-  // Action.getTrafficplansByGroup(_groupId, tranfficPlanOfGroupSuccess, failure)
-
   /** 添加显示事件*/
   $scope.addShow =  function() {
     $("#addBusiness").modal('show');
   }
-  Action.preselection().then(function(data){
-    $scope.users = data.preselectionIds
-  }).catch(function(err){
-    console.log(err)
-  })
-  /** 添加显示事件*/
-  $scope.editShow = function(business) {
-
-  }
+  loadPreselection();
 
   $scope.queryChange = function(){
     console.log($scope.businessSelected)
@@ -55,7 +65,9 @@ function($scope, $rootScope, toaster, Action, _mixin){
   $scope.addBusiness = function(){
     if($scope.businessSelected && $scope.businessSelected !== ""){
       Action.addBargainirgBusiness($scope.businessSelected).then(function(data){
-        toaster.pop({ type: data.isSuccess ? 'success' : 'error', body: data.resultInfo, timeout: 3000 })
+        toaster.pop({ type: data.resultCode ? 'success' : 'error', body: data.msg, timeout: 3000 })
+        loadPreselection();
+        loadBargainirgIndex();
         $("#addBusiness").modal('hide');
       }).catch(errorHandler)
     }
@@ -63,11 +75,7 @@ function($scope, $rootScope, toaster, Action, _mixin){
 
   /**修改商家砍价活动*/
   $scope.editBusinessActivity = function(business) {
-    // if(!plan && $scope.add_business_activity_form.$invalid){
-    //   toaster.pop({ type: 'error', body: '表单数据格式有误，不能提交', timeout: 3000 })
-    //   return;
-    // }
-    // Action.editTrafficplanBySuper(plan || $scope.plan, editTranfficPlanSuccess, failure)
+    update(business)
   }
 
 }])

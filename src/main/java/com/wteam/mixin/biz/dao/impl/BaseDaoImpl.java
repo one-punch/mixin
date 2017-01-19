@@ -11,6 +11,7 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.wteam.mixin.biz.dao.IBaseDao;
@@ -23,6 +24,7 @@ import com.wteam.mixin.biz.dao.IBaseDao;
  */
 @SuppressWarnings("unchecked")
 @Repository("baseDao")
+@Transactional
 public class BaseDaoImpl implements IBaseDao{
 
 
@@ -33,7 +35,7 @@ public class BaseDaoImpl implements IBaseDao{
     private SessionFactory sessionFactory;
 
 
-   	private Session getSession(){
+   	public Session getSession(){
   		return sessionFactory.openSession();
     }
 

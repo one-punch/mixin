@@ -1,5 +1,7 @@
 package com.wteam.mixin.biz.dao;
 
+import org.hibernate.Session;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.function.BiFunction;
@@ -8,6 +10,8 @@ import java.util.function.Function;
 
 public interface IBaseDao {
 
+
+	Session getSession();
     /**
      * 功能：保存po
      * @param po
