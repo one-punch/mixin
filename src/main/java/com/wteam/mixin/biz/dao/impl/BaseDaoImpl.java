@@ -36,7 +36,7 @@ public class BaseDaoImpl implements IBaseDao{
 
 
    	public Session getSession(){
-  		return sessionFactory.openSession();
+  		return sessionFactory.getCurrentSession();
     }
 
 	@Override
