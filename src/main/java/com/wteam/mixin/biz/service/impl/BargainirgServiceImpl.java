@@ -31,7 +31,7 @@ public class BargainirgServiceImpl implements IBargainirgService {
     }
 
     public ActivityBusiness create(Long userId){
-        bargainirgDao.created(userId);
+        return bargainirgDao.created(userId);
     }
 
     public Pagination getActivityBusinessByPage(Object[] params, Integer pageNo, Integer pageSize){

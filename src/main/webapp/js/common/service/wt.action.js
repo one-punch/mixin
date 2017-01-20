@@ -1803,6 +1803,16 @@ function ActionService($http, $rootScope,toaster){
     })
   }
 
+  this.preselectionPlanIds = function(){
+    return new Promise(function(resolve, reject){
+      var http = $http({
+          url : url("/traffic_plan_activities/preselectids"),
+          method : 'GET'
+        });
+      httpHandle(http, resolve, reject);
+    });
+  }
+
 	return ;
     //将时间格式的字符串转化成时间戳
     function timetostring(string1){

@@ -1,6 +1,6 @@
 <!--砍价产品管理-->
-<div>
-  <div  class="content">
+<div ng-controller='BargainirgProductCtrl'>
+  <div class="content">
     <div class="panel panel-success">
       <div class="panel-heading">
         <h3 class="panel-title"><i class="glyphicon glyphicon-download"></i> 砍价产品管理</h3>
@@ -66,7 +66,7 @@
           <h4 class="modal-title" id="myModalLabel">添加砍价套餐</h4>
         </div>
         <div class="modal-body">
-          <form class="form-horizontal">
+          <form name="edit_plan_form" class="form-horizontal">
             <div class="form-group">
               <label class="col-sm-3 control-label">套 餐</label>
               <div class="col-sm-9">
@@ -81,7 +81,7 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">参与人数</label>
               <div class="col-sm-9">
-                <input name="limit_number" ng-model="tpa.limit_number" required="" type="text" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required">
+                <input name="limit_number" ng-model="tpa.limit_number" required="" type="number" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required">
               </div>
             </div>
             <div class="form-group">
@@ -112,9 +112,25 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-          <button ng-click="update()" type="submit" class="btn btn-success">提交</button>
+          <button ng-click="update(tpa)" type="submit" class="btn btn-success">提交</button>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+    $('.form_datetime_task').datetimepicker({
+      language: 'zh-CN',
+      format: 'yyyy-mm-dd hh:ii',
+      startDate: '2016-04-19 05:00',
+      weekStart: 0,
+      todayBtn: 1,
+      autoclose: 1,
+      todayHighlight: 1,
+      startView: 2,
+      minView: 0,
+      forceParse: 1,
+      keyboardNavigation: 1
+    });
+</script>

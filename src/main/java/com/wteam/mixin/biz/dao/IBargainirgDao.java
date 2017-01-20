@@ -1,5 +1,6 @@
 package com.wteam.mixin.biz.dao;
 
+import com.wteam.mixin.model.po.ActivityBusiness;
 import com.wteam.mixin.model.vo.BargainirgUserVo;
 import com.wteam.mixin.model.vo.UserVo;
 

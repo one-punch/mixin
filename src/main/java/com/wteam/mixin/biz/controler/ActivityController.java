@@ -1,7 +1,6 @@
 package com.wteam.mixin.biz.controler;
 
 import com.wteam.mixin.biz.controler.handler.SystemModelHandler;
-import com.wteam.mixin.biz.dao.IBaseDao;
 import com.wteam.mixin.biz.service.IBargainirgService;
 import com.wteam.mixin.define.IValueObject;
 import com.wteam.mixin.define.ResultMessage;
@@ -12,16 +11,10 @@ import com.wteam.mixin.model.vo.BargainirgUserVo;
 import com.wteam.mixin.model.vo.UserVo;
 import com.wteam.mixin.pagination.Pagination;
 import lombok.Data;
-import org.dozer.DozerBeanMapper;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 /**
  * Created by zbin on 17/1/17.
