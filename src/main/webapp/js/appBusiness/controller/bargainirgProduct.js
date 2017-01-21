@@ -51,6 +51,15 @@ function($scope, $rootScope, toaster, Action, _mixin){
       toaster.pop({ type: 'error', body: '表单数据格式有误，不能提交', timeout: 3000 })
       return;
     }
+    Action.addBargainirgProduct(tpa).then(function(data){
+      console.log(data)
+      if(data.code){
+        errorHandler(new Error(data.msg))
+      }else{
+        toaster.pop({ type: 'success', body: data.msg, timeout: 3000 })
+      }
+      loadPreselectIds();
+    }).catch(errorHandler)
   }
 
 

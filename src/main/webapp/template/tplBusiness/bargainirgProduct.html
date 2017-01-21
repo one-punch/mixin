@@ -81,19 +81,19 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">参与人数</label>
               <div class="col-sm-9">
-                <input name="limit_number" ng-model="tpa.limit_number" required="" type="number" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required">
+                <input name="limitNumber" ng-model="tpa.limitNumber" required="" type="number" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required">
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">底  价</label>
               <div class="col-sm-9">
-                <input name="low_price" ng-model="tpa.low_price" required="" type="text" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required">
+                <input name="lowPrice" ng-model="tpa.lowPrice" required="" type="text" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required">
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">激活</label>
               <div class="col-sm-9">
-                 <input name="is_active" ng-model="tpa.is_active" type="checkbox" class="ng-pristine ng-valid ng-empty ng-touched">
+                 <input name="isActive" ng-model="tpa.isActive" type="checkbox" class="ng-pristine ng-valid ng-empty ng-touched">
               </div>
             </div>
             <div class="form-group">
@@ -122,7 +122,7 @@
 <script type="text/javascript">
     $('.form_datetime_task').datetimepicker({
       language: 'zh-CN',
-      format: 'yyyy-mm-dd hh:ii',
+      format: 'yyyy-mm-dd HH:mm:ss',
       startDate: '2016-04-19 05:00',
       weekStart: 0,
       todayBtn: 1,

@@ -14,7 +14,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Data
 @Entity
 @Table(name = "traffic_plan_activities")
-class TrafficPlanActivity extends BasePo{
+public class TrafficPlanActivity extends BasePo{
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -27,9 +27,6 @@ class TrafficPlanActivity extends BasePo{
     @Column(name="user_id")
     public Long userId;
 
-    @Column(name="active_id")
-    public Long bargainirgId;
-
     @Column(name="is_active")
     public boolean isActive;
 
@@ -38,6 +35,15 @@ class TrafficPlanActivity extends BasePo{
 
     @Column(name="limit_number")
     public Integer limitNumber;
+
+    @Column(name="active_id")
+    public Long activeId;
+
+    @Column(name = "startTime")
+    public Date startTime;
+
+    @Column(name = "endTime")
+    public Date endTime;
 
     @Column(name = "createdAt")
     @Temporal(TemporalType.TIMESTAMP)

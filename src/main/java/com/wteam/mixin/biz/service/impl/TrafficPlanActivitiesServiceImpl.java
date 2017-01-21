@@ -4,11 +4,15 @@ import com.wteam.mixin.biz.dao.IBaseDao;
 import com.wteam.mixin.biz.dao.ITrafficPlanActivitiesDao;
 import com.wteam.mixin.biz.dao.impl.TrafficPlanActivitiesDaoImpl;
 import com.wteam.mixin.biz.service.ITrafficPlanActivitiesService;
+import com.wteam.mixin.model.po.TrafficPlanActivity;
 import com.wteam.mixin.model.vo.ActivityPlanVo;
+import com.wteam.mixin.model.vo.TrafficPlanActivityVo;
+import com.wteam.mixin.model.vo.UserVo;
 import com.wteam.mixin.pagination.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -39,6 +43,22 @@ public class TrafficPlanActivitiesServiceImpl implements ITrafficPlanActivitiesS
                 +" activityPlan.userId = ? )";
         String orderBy = "";
         return trafficPlanActivitiesDao.preSelectPlan(sql, businessId);
+    }
+
+    public TrafficPlanActivity create(TrafficPlanActivityVo trafficPlanActivityVo, UserVo user){
+        TrafficPlanActivity trafficPlanActivity = new TrafficPlanActivity();
+        trafficPlanActivity.setUpdatedAt(new Date());
+        trafficPlanActivity.setTrafficPalnId(trafficPlanActivityVo.getTrafficPlanId());
+        trafficPlanActivity.setCreatedAt(new Date());
+        trafficPlanActivity.setActive(Optional.ofNullable(trafficPlanActivityVo.getIsActive()).orElse(false));
+        trafficPlanActivity.setUserId(user.getUserId());
+        trafficPlanActivity.setActiveId(1L);
+        trafficPlanActivity.setLowPrice(trafficPlanActivityVo.getLowPrice());
+        trafficPlanActivity.setLimitNumber(trafficPlanActivityVo.getLimitNumber());
+        trafficPlanActivity.setStartTime(trafficPlanActivityVo.getStartTime());
+        trafficPlanActivity.setEndTime(trafficPlanActivityVo.getEndTime());
+        baseDao.save(trafficPlanActivity);
+        return trafficPlanActivity;
     }
 
 }
