@@ -31,20 +31,24 @@
                 <th>结束时间</th>
                 <th>参与人数</th>
                 <th>底   价</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
               <tr ng-repeat="bargainirgProduct in bargainirgProductList">
-                    <td>{{bargainirgProduct.name}}</td>
+                    <td>{{bargainirgProduct.apiProvider}} {{bargainirgProduct.name}}</td>
                     <td>{{bargainirgProduct.retailPrice}}</td>
                     <td>{{bargainirgProduct.cost}}</td>
-                    <td><input ng-disabled ng-model="bargainirgProduct.is_active" type="checkbox" /></td>
-                    <td>{{providerNames[bargainirgProduct.provider]}}</td>
+                    <td><input ng-disabled ng-model="bargainirgProduct.isActive" type="checkbox" /></td>
+                    <td>{{bargainirgProduct.providerName}}</td>
                     <td>{{bargainirgProduct.province}}</td>
                     <td>{{ bargainirgProduct.startTime | date: format.datetime}}</td>
                     <td>{{ bargainirgProduct.endTime | date: format.datetime}}</td>
-                    <td>{{ bargainirgProduct.limit_number }}</td>
-                    <td>{{ bargainirgProduct.low_price }}</td>
+                    <td>{{ bargainirgProduct.limitNumber }}</td>
+                    <td>{{ bargainirgProduct.lowPrice }}</td>
+                    <td>
+                      <button ng-click="editShow(bargainirgProduct)" class="btn btn-info btn-sm">编辑</button>
+                    </td>
               </tr>
             </tbody>
           </table>
@@ -57,7 +61,7 @@
   </div>
 
 
-  <!--编辑 模态框 #editTrafficplan-->
+  <!--编辑 模态框 #add-->
   <div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -66,7 +70,7 @@
           <h4 class="modal-title" id="myModalLabel">添加砍价套餐</h4>
         </div>
         <div class="modal-body">
-          <form name="edit_plan_form" class="form-horizontal">
+          <form name="add_plan_form" class="form-horizontal">
             <div class="form-group">
               <label class="col-sm-3 control-label">套 餐</label>
               <div class="col-sm-9">
@@ -112,7 +116,65 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-          <button ng-click="update(tpa)" type="submit" class="btn btn-success">提交</button>
+          <button ng-click="add(tpa)" type="submit" class="btn btn-success">提交</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--编辑 模态框 #edit-->
+  <div class="modal fade" id="editProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">添加砍价套餐</h4>
+        </div>
+        <div class="modal-body">
+          <form name="edit_plan_form" class="form-horizontal">
+            <div class="form-group">
+              <label class="col-sm-3 control-label">套 餐</label>
+              <div class="col-sm-9">
+                <div class="dropdown">
+                  <label>{{editTpa.apiProvider}} {{editTpa.name}}</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">参与人数</label>
+              <div class="col-sm-9">
+                <input name="limitNumber" ng-model="editTpa.limitNumber" required="" type="number" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">底  价</label>
+              <div class="col-sm-9">
+                <input name="lowPrice" ng-model="editTpa.lowPrice" required="" type="text" class="form-control ng-pristine ng-untouched ng-empty ng-invalid ng-invalid-required">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">激活</label>
+              <div class="col-sm-9">
+                 <input name="isActive" ng-model="editTpa.isActive" type="checkbox" class="ng-pristine ng-valid ng-empty ng-touched">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">开始时间</label>
+              <div class="col-sm-9">
+                <input name="startTime" ng-model="editTpa.startTime" type="text" class="form-control form_datetime_task">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">结束时间</label>
+              <div class="col-sm-9">
+                <input name="endTime" ng-model="editTpa.endTime" type="text" class="form-control form_datetime_task">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button ng-click="update(editTpa)" type="submit" class="btn btn-success">提交</button>
         </div>
       </div>
     </div>

@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:tx="http://www.springframework.org/schema/tx" 
-	xmlns:aop="http://www.springframework.org/schema/aop" 
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="
-	http://www.springframework.org/schema/beans 
-	http://www.springframework.org/schema/beans/spring-beans.xsd 
-	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/tx
 	http://www.springframework.org/schema/tx/spring-tx.xsd
-	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop
 	http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- JNDI方式配置数据源 -->
-    <!-- 
+    <!--
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-         <property name="jndiName" value="${jndiName}"></property> 
-    </bean> 
+         <property name="jndiName" value="${jndiName}"></property>
+    </bean>
     -->
-	
-	
+
+
     <!-- 配置数据源 -->
     <bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <property name="url" value="${jdbc_url}" />
@@ -118,11 +118,11 @@
     </tx:advice>
     <!-- 切面，将事务用在哪些对象上 -->
     <aop:config>
-    	
+
         <aop:pointcut id="transactionPointcut" expression="execution(* ${wt.package}.biz.service..*Impl.*(..))" />
 <!--         <aop:pointcut id="transactionInitPointcut" expression="execution(* com.wteam.aninext.listener.InitListener.onApplicationEvent(..))" /> -->
-        <aop:pointcut id="LogPointcut" expression="execution(* ${wt.package}.biz.service..*Impl.*(..))" />       
-       
+        <aop:pointcut id="LogPointcut" expression="execution(* ${wt.package}.biz.service..*Impl.*(..))" />
+
         <!-- 配置事务的作用域 -->
         <aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />
     	<!-- 配置日志的作用域 -->
@@ -131,8 +131,8 @@
       		<aop:after method="logAfterQuitTheMethod" pointcut-ref="LogPointcut"/>
     	</aop:aspect>
     </aop:config>
-    
-    
+
+
     <!-- 应用开始监听器，初始化数据库表 -->
     <bean id="initListener" class="${wt.package}.listener.InitListener"></bean>
 </beans>

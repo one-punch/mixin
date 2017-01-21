@@ -5,6 +5,7 @@ import com.wteam.mixin.biz.service.ITrafficPlanActivitiesService;
 import com.wteam.mixin.define.ResultMessage;
 import com.wteam.mixin.model.po.TrafficPlanActivity;
 import com.wteam.mixin.model.vo.ActivityPlanVo;
+import com.wteam.mixin.model.vo.BargainirgPlanVo;
 import com.wteam.mixin.model.vo.TrafficPlanActivityVo;
 import com.wteam.mixin.model.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,8 @@ public class BusinesssActivityController {
                                @RequestParam("pageNo") Integer pageNo,
                                @RequestParam("pageSize") Integer pageSize,
                                        ResultMessage resultMessage) {
-        return resultMessage.setSuccessInfo("成功");
+        List<BargainirgPlanVo> bargainirgPlanVoList = trafficPlanActivitiesService.getList(user.getUserId(), pageNo, pageSize);
+        return resultMessage.setSuccessInfo("成功").putParam("list", bargainirgPlanVoList);
     }
 
     @RequestMapping(value="/preselectids", method={RequestMethod.GET})

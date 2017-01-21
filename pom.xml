@@ -331,7 +331,6 @@
 		    <artifactId>kaptcha</artifactId>
 		    <version>0.0.9</version>
 		</dependency>
-		
 		<!--支付宝服务SDK-->
 		<dependency>
 			<groupId>com.alipay</groupId>

@@ -21,8 +21,8 @@ public class TrafficPlanActivity extends BasePo{
     @GeneratedValue(strategy = IDENTITY)
     public Long id;
 
-    @Column(name="traffic_paln_id")
-    public Long trafficPalnId;
+    @Column(name="traffic_plan_id")
+    public Long trafficplanId;
 
     @Column(name="user_id")
     public Long userId;
