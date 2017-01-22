@@ -68,12 +68,4 @@ public class ActivityController {
         return resultMessage.setSuccessInfo("成功").putParam("activity_business", bargainirgUserVo);
     }
 
-
-    @Data
-    static class BargainirgUser extends UserPo implements IValueObject {
-
-        Long userId;
-    }
-
-
 }

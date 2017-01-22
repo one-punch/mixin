@@ -34,6 +34,8 @@ public class BargainirgPlanVo implements IValueObject {
 
     BigDecimal retailPrice;
 
+    Long id;
+
     public BargainirgPlanVo(){
 
     }

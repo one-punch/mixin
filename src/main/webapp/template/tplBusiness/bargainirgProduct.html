@@ -161,13 +161,14 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">开始时间</label>
               <div class="col-sm-9">
-                <input name="startTime" ng-model="editTpa.startTime" type="text" class="form-control form_datetime_task">
+                <input name="startTime" ng-model="editTpa.startTime" type="text" class="form-control form_datetime_task" mo-date-input="YYYY-MM-DD HH:mm:ss">
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">结束时间</label>
               <div class="col-sm-9">
-                <input name="endTime" ng-model="editTpa.endTime" type="text" class="form-control form_datetime_task">
+                <input name="endTime" class="form-control form_datetime_task" type="text" ng-model="editTpa.endTime"
+                       mo-date-input="YYYY-MM-DD HH:mm:ss"/>
               </div>
             </div>
           </form>

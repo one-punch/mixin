@@ -68,12 +68,22 @@ public class TrafficPlanActivitiesServiceImpl implements ITrafficPlanActivitiesS
     public List<BargainirgPlanVo> getList(Long userId, Integer pageNo, Integer pageSize){
         String sql = "SELECT plan.name, plan.cost, plan.provider, plan.apiProvider, planGroup.province, activity_plan.isActive, "
                 +"activity_plan.startTime, activity_plan.endTime, activity_plan.lowPrice, activity_plan.limitNumber, "
-                +"business_plan.retailPrice FROM TrafficPlanPo AS plan, TrafficPlanActivity AS activity_plan, "
+                +"business_plan.retailPrice, activity_plan.id FROM TrafficPlanPo AS plan, TrafficPlanActivity AS activity_plan, "
                 +"BusinessTrafficPlanPo AS business_plan, TrafficGroupPo AS planGroup "
                 +"WHERE activity_plan.trafficplanId = plan.id AND plan.trafficGroupId = planGroup.id AND "
                 +"business_plan.trafficplanId = plan.id AND plan.isDelete = 0"
                 +"AND business_plan.businessId = ? ";
         String orderBy = "ORDER BY activity_plan.createdAt DESC";
         return trafficPlanActivitiesDao.getList(sql + orderBy, new Object[]{userId}, pageNo, pageSize);
+    }
+
+    @Override
+    public TrafficPlanActivity findByUser(Long userId, Long id) {
+        return trafficPlanActivitiesDao.findByUser(userId, id);
+    }
+
+    @Override
+    public void update(TrafficPlanActivity trafficPlanActivity) {
+        baseDao.update(trafficPlanActivity);
     }
 }

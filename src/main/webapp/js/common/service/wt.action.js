@@ -1840,6 +1840,18 @@ function ActionService($http, $rootScope,toaster){
     });
   }
 
+	this.updateBusinessPlans = function(plan){
+		return new Promise(function(resolve, reject){
+			// traffic_plan_activities
+			var http = $http({
+				url : url("/traffic_plan_activities/update"),
+				params: {plan: plan},
+				method : 'POST'
+			});
+			httpHandle(http, resolve, reject);
+		})
+	}
+
 	return ;
     //将时间格式的字符串转化成时间戳
     function timetostring(string1){

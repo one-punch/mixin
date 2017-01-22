@@ -19,4 +19,8 @@ public interface ITrafficPlanActivitiesService {
     TrafficPlanActivity create(TrafficPlanActivityVo trafficPlanActivityVo, UserVo user);
 
     List<BargainirgPlanVo> getList(Long userId, Integer pageNo, Integer pageSize);
+
+    TrafficPlanActivity findByUser(Long userId, Long id);
+
+    void update(TrafficPlanActivity trafficPlanActivity);
 }

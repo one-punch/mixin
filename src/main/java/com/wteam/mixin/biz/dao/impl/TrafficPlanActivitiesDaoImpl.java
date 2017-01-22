@@ -3,19 +3,15 @@ package com.wteam.mixin.biz.dao.impl;
 import com.wteam.mixin.biz.dao.IBaseDao;
 import com.wteam.mixin.biz.dao.ITrafficPlanActivitiesDao;
 import com.wteam.mixin.constant.Provider;
+import com.wteam.mixin.model.po.TrafficPlanActivity;
 import com.wteam.mixin.model.vo.ActivityPlanVo;
 import com.wteam.mixin.model.vo.BargainirgPlanVo;
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.sql2o.Connection;
-import org.sql2o.Query;
-import org.sql2o.Sql2o;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -56,7 +52,13 @@ public class TrafficPlanActivitiesDaoImpl implements ITrafficPlanActivitiesDao {
                     bargainirgPlanVo.setLowPrice((BigDecimal)Optional.ofNullable(o[8]).orElse(BigDecimal.ZERO));
                     bargainirgPlanVo.setLimitNumber((Integer) Optional.ofNullable(o[9]).orElse(0));
                     bargainirgPlanVo.setRetailPrice((BigDecimal) Optional.ofNullable(o[10]).orElse(BigDecimal.ZERO));
+                    bargainirgPlanVo.setId((Long)o[11]);
                     return bargainirgPlanVo;
                 }).collect(Collectors.toList());
+    }
+
+    @Override
+    public TrafficPlanActivity findByUser(Long userId, Long id) {
+        return baseDao.get("FROM TrafficPlanActivity as ta WHERE ta.userId = ? AND ta.id = ?", new Object[]{userId, id});
     }
 }
