@@ -5,10 +5,7 @@ import com.wteam.mixin.biz.dao.ITrafficPlanActivitiesDao;
 import com.wteam.mixin.biz.dao.impl.TrafficPlanActivitiesDaoImpl;
 import com.wteam.mixin.biz.service.ITrafficPlanActivitiesService;
 import com.wteam.mixin.model.po.TrafficPlanActivity;
-import com.wteam.mixin.model.vo.ActivityPlanVo;
-import com.wteam.mixin.model.vo.BargainirgPlanVo;
-import com.wteam.mixin.model.vo.TrafficPlanActivityVo;
-import com.wteam.mixin.model.vo.UserVo;
+import com.wteam.mixin.model.vo.*;
 import com.wteam.mixin.pagination.Pagination;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,5 +82,23 @@ public class TrafficPlanActivitiesServiceImpl implements ITrafficPlanActivitiesS
     @Override
     public void update(TrafficPlanActivity trafficPlanActivity) {
         baseDao.update(trafficPlanActivity);
+    }
+
+    @Override
+    public boolean allowBargainirg(CustomerOrderVo order) {
+        TrafficPlanActivity trafficPlanActivity = this.getAvailable(order);
+        return Optional.of(trafficPlanActivity).isPresent();
+    }
+
+    @Override
+    public TrafficPlanActivity getAvailable(CustomerOrderVo order){
+        String sql = "SELECT plan_activity.is_active, plan_activity.low_price, plan_activity.traffic_plan_id, "
+                +"plan_activity.limit_number, plan_activity.startTime, plan_activity.endTime, plan_activity.user_id "
+                +"FROM traffic_plan_activities as plan_activity "
+                +"WHERE plan_activity.user_id = ? AND plan_activity.is_active = true "
+                +"AND plan_activity.active_id = 1 "
+                +"AND plan_activity.traffic_plan_id = ? AND plan_activity.startTime <= CURDATE() " +
+                "AND plan_activity.endTime >= CURDATE() LIMIT 1 ";
+        return trafficPlanActivitiesDao.getAvailable(sql, new Object[]{order.getBusinessId(), order.getProductId()});
     }
 }

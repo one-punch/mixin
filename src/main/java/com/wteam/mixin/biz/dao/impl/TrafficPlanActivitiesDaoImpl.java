@@ -61,4 +61,9 @@ public class TrafficPlanActivitiesDaoImpl implements ITrafficPlanActivitiesDao {
     public TrafficPlanActivity findByUser(Long userId, Long id) {
         return baseDao.get("FROM TrafficPlanActivity as ta WHERE ta.userId = ? AND ta.id = ?", new Object[]{userId, id});
     }
+
+    @Override
+    public TrafficPlanActivity getAvailable(String sql, Object[] objects) {
+        return baseDao.get(sql, objects);
+    }
 }

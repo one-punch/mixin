@@ -21,4 +21,7 @@ public class PaymentMethod {
 
     /** 支付通 */
     public static final  Integer EasyPay = 4;
+
+    /** 砍价 */
+    public static final  Integer Cut = 5;
 }

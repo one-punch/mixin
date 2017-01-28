@@ -77,6 +77,7 @@ mixin.PaymentMethod =  {
 		'Wechat':0,  // 微信支付
 		'Balance':1, // 余额支付
 		'EasyPay':4, // 支付通
+    'Cut': 5,
 }
 // 产品类型
 mixin.ProductType = {

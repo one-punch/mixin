@@ -7,12 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -75,6 +70,8 @@ public class WechatController
     private static final Logger LOG = LogManager.getLogger(WechatServiceImpl.class.getName());
 
     private static Properties prop = WechatConfigs.prop;
+
+	public static String ENV;
 	
 //	/**
 //	 * 首次认证的签名处理，用于开发者认证，签名所用
@@ -342,7 +339,6 @@ public class WechatController
 	/**
 	 * 公众号自定义菜单的链接匹配
 	 * 微信公众号网页授权
-	 * @param appId
 	 * @param req
 	 * @param resp
 	 */
@@ -352,13 +348,17 @@ public class WechatController
 			, HttpServletRequest req
 			, HttpServletResponse resp){
 
+
+
 	    // 根据会话ID从缓存中获取openId
         Cache<Object, Object> wechatCache = cacheManager.getCache("wechatCache");
         String sessionId = (String) req.getSession(true).getId();
 //        String openId = (String) req.getSession().getAttribute("openId");
         String openId = (String)wechatCache.get(sessionId+"_openId"); // 从缓存中获取openId
         openId = openId != null ? openId : (String) req.getSession().getAttribute("openId"); // 如果没有,从会话中获取openId
-
+		if(Optional.ofNullable(ENV).orElse("dev").equals("dev")){
+			openId = "ofdM-wKzG9-qID2_X1oQ04lB-Wm0";
+		}
         LOG.debug("sessionId->{}, openid->{}, businessId->{}, menu->{}",sessionId, openId, businessId, menu);
 //		System.out.println("cutomer request mapping ------appId: "+ appId);
         // 获取商家信息

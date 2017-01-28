@@ -6,12 +6,12 @@ function($scope, $rootScope, $timeout, Action, Utils,_mixin,_user){
 	$scope.business = _user.business // 商户信息
 	var PaymentMethod = _mixin.PaymentMethod // 支付方式
 	var ProductType = _mixin.ProductType // 产品类型
-	
+
 	var failure = Action.failure // 默认失败回调
-	
+
 	$scope.payInfo = angular.copy(_user.payInfo)
 	_user.payInfo = {}; // 重置
-	
+
 	// 二维码显示隐藏事件
 	var qr_coder = new QRCode(document.getElementById('qrcode'), {text: '',width: 180,height: 180,});
 	$scope.qrcode = {
@@ -25,22 +25,33 @@ function($scope, $rootScope, $timeout, Action, Utils,_mixin,_user){
 				$scope.qrcode.show = false;
 			}
 	}
-	
+
 	$scope.pay = function() {
 		var order = { 'id':$scope.payInfo.order.id, 'paymentMethod' : PaymentMethod.Wechat }
 		Action.orderPay(order, paySuccess, failure)
+	}
+
+	$scope.cut = function() {
+		var order = { 'id':$scope.payInfo.order.id, 'paymentMethod' : PaymentMethod.Cut }
+		Action.orderBargainirg(order).then(function(data){
+			if(data.code){
+				toaster.pop({ type: 'error', body: data.msg, timeout: 3000 })
+			}else{
+				data.plan
+			}
+		}).catch(failure)
 	}
 	return;
 
 	/**订单支付成功回调*/
 	function paySuccess(data) {
-		
+
 		if (data && data.wechat_pay_params) {
 			// 扫码支付
 			if(data.wechat_pay_params.code_url){
 				$scope.qrcode.showDialog(data.wechat_pay_params.code_url)
 			} else {
-				// 公众号支付			
+				// 公众号支付
 				//data.wechat_pay_params.timeStamp = data.wechat_pay_params.timeStamp + '';
 				// 微信js授权
 				Action.wechatConfig(function() {
@@ -56,7 +67,7 @@ function($scope, $rootScope, $timeout, Action, Utils,_mixin,_user){
 					});
 				});
 			}
-			
+
 		} else {
 			alert("支付失败，请重试")
 		}

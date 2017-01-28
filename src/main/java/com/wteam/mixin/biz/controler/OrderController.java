@@ -5,11 +5,15 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.wteam.mixin.biz.service.ITrafficPlanActivitiesService;
+import com.wteam.mixin.model.po.TrafficPlanActivity;
+import com.wteam.mixin.model.vo.TrafficPlanActivityVo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +78,9 @@ public class OrderController {
 
     @Autowired
     IRechargeService rechargeService;
+
+    @Autowired
+    ITrafficPlanActivitiesService trafficPlanActivitiesService;
 
     /**
      * 超级管理员按条件分页查询订单
@@ -329,8 +336,10 @@ public class OrderController {
     /**
      * 提交订单
      *
-     * @param order
-     * @param result1
+     * @param req
+     * @param orderId
+     * @param money
+     * @param paymentMethod
      * @param resultMessage
      * @return
      */
@@ -360,6 +369,30 @@ public class OrderController {
 
         return resultMessage.setSuccessInfo("提交订单成功").putParam(ORDER, order).putParam(
             "wechat_pay_params", wechat_pay_params);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/bargainirg")
+    public Result bargainirg(HttpServletRequest req, @RequestParam("orderId") Long orderId,
+                      @RequestParam("paymentMethod") Integer paymentMethod,
+                      ResultMessage resultMessage) {
+        CustomerOrderVo order = new CustomerOrderVo();
+        order.setId(orderId);
+
+        order = orderService.pay(order);
+        order.getProductId();
+        TrafficPlanActivity trafficPlanActivity = trafficPlanActivitiesService.getAvailable(order);
+        if(Optional.of(trafficPlanActivity).isPresent()){
+            TrafficPlanActivityVo trafficPlanActivityVo = new TrafficPlanActivityVo(trafficPlanActivity.getTrafficplanId(), trafficPlanActivity.getLimitNumber(),
+                    trafficPlanActivity.getLowPrice(), trafficPlanActivity.isActive(), trafficPlanActivity.getStartTime(), trafficPlanActivity.getEndTime());
+            return resultMessage.setSuccessInfo("提交订单成功").putParam(ORDER, order)
+                    .putParam("code", 0)
+                    .putParam("plan", trafficPlanActivityVo);
+        }else{
+            return resultMessage.setSuccessInfo("砍价活动已失效").putParam(ORDER, order)
+                    .putParam("code", 1)
+                    .putParam("msg", "砍价活动已失效");
+        }
     }
 
     @ResponseBody

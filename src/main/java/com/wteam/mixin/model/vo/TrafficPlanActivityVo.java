@@ -33,10 +33,11 @@ public class TrafficPlanActivityVo implements IValueObject {
 
     }
 
-    public TrafficPlanActivityVo(Long trafficPlanId, Integer limitNumber, BigDecimal lowPrice, Date startTime, Date endTime){
+    public TrafficPlanActivityVo(Long trafficPlanId, Integer limitNumber, BigDecimal lowPrice, boolean isActive, Date startTime, Date endTime){
         this.trafficPlanId = trafficPlanId;
         this.limitNumber = limitNumber;
         this.lowPrice = lowPrice;
+        this.isActive = isActive;
         this.startTime = startTime;
         this.endTime = endTime;
     }

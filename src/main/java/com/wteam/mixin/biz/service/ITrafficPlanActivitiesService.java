@@ -1,10 +1,7 @@
 package com.wteam.mixin.biz.service;
 
 import com.wteam.mixin.model.po.TrafficPlanActivity;
-import com.wteam.mixin.model.vo.ActivityPlanVo;
-import com.wteam.mixin.model.vo.BargainirgPlanVo;
-import com.wteam.mixin.model.vo.TrafficPlanActivityVo;
-import com.wteam.mixin.model.vo.UserVo;
+import com.wteam.mixin.model.vo.*;
 import org.apache.poi.ss.formula.functions.T;
 
 import java.util.List;
@@ -23,4 +20,8 @@ public interface ITrafficPlanActivitiesService {
     TrafficPlanActivity findByUser(Long userId, Long id);
 
     void update(TrafficPlanActivity trafficPlanActivity);
+
+    boolean allowBargainirg(CustomerOrderVo order);
+
+    TrafficPlanActivity getAvailable(CustomerOrderVo order);
 }
