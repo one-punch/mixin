@@ -94,7 +94,7 @@ public class TrafficPlanActivitiesServiceImpl implements ITrafficPlanActivitiesS
     public TrafficPlanActivity getAvailable(CustomerOrderVo order){
         String sql = "SELECT plan_activity.is_active, plan_activity.low_price, plan_activity.traffic_plan_id, "
                 +"plan_activity.limit_number, plan_activity.startTime, plan_activity.endTime, plan_activity.user_id "
-                +"FROM traffic_plan_activities as plan_activity "
+                +"FROM TrafficPlanActivity as plan_activity "
                 +"WHERE plan_activity.user_id = ? AND plan_activity.is_active = true "
                 +"AND plan_activity.active_id = 1 "
                 +"AND plan_activity.traffic_plan_id = ? AND plan_activity.startTime <= CURDATE() " +

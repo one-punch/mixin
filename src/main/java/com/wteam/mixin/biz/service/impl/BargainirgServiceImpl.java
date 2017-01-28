@@ -4,11 +4,15 @@ import com.wteam.mixin.biz.dao.IBargainirgDao;
 import com.wteam.mixin.biz.dao.IBaseDao;
 import com.wteam.mixin.biz.service.IBargainirgService;
 import com.wteam.mixin.model.po.ActivityBusiness;
+import com.wteam.mixin.model.po.Bargainirg;
+import com.wteam.mixin.model.po.TrafficPlanActivity;
+import com.wteam.mixin.model.vo.CustomerOrderVo;
 import com.wteam.mixin.model.vo.UserVo;
 import com.wteam.mixin.pagination.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,6 +57,19 @@ public class BargainirgServiceImpl implements IBargainirgService {
     public ActivityBusiness update(ActivityBusiness activityBusiness){
         baseDao.update(activityBusiness);
         return activityBusiness;
+    }
+
+    @Override
+    public Bargainirg createByOrder(CustomerOrderVo order, TrafficPlanActivity trafficPlanActivity) {
+        Bargainirg bargainirg = new Bargainirg();
+        bargainirg.setUpdatedAt(new Date());
+        bargainirg.setCreatedAt(new Date());
+        bargainirg.setCustomerId(order.getCustomerId());
+        bargainirg.setCustomerOrderId(order.getId());
+        bargainirg.setState();
+        bargainirg.setTrafficPlanActivityId(trafficPlanActivity.getId());
+
+        return bargainirg;
     }
 
 

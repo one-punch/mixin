@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import com.wteam.mixin.biz.service.ITrafficPlanActivitiesService;
+import com.wteam.mixin.biz.service.*;
 import com.wteam.mixin.model.po.TrafficPlanActivity;
 import com.wteam.mixin.model.vo.TrafficPlanActivityVo;
 import org.apache.logging.log4j.LogManager;
@@ -25,9 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wteam.mixin.biz.controler.handler.SystemModelHandler;
-import com.wteam.mixin.biz.service.IOrderService;
-import com.wteam.mixin.biz.service.IRechargeService;
-import com.wteam.mixin.biz.service.IWechatService;
 import com.wteam.mixin.constant.PaymentMethod;
 import com.wteam.mixin.constant.ProductType;
 import com.wteam.mixin.constant.State;
@@ -81,6 +78,10 @@ public class OrderController {
 
     @Autowired
     ITrafficPlanActivitiesService trafficPlanActivitiesService;
+
+
+    @Autowired
+    IBargainirgService bargainirgService;
 
     /**
      * 超级管理员按条件分页查询订单
@@ -385,6 +386,7 @@ public class OrderController {
         if(Optional.of(trafficPlanActivity).isPresent()){
             TrafficPlanActivityVo trafficPlanActivityVo = new TrafficPlanActivityVo(trafficPlanActivity.getTrafficplanId(), trafficPlanActivity.getLimitNumber(),
                     trafficPlanActivity.getLowPrice(), trafficPlanActivity.isActive(), trafficPlanActivity.getStartTime(), trafficPlanActivity.getEndTime());
+            bargainirgService.createByOrder(order, trafficPlanActivity);
             return resultMessage.setSuccessInfo("提交订单成功").putParam(ORDER, order)
                     .putParam("code", 0)
                     .putParam("plan", trafficPlanActivityVo);

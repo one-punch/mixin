@@ -14,7 +14,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Data
 @Entity
 @Table(name = "bargainirg_record")
-class BargainirgRecord extends BasePo{
+public class BargainirgRecord extends BasePo{
 
     private static final long serialVersionUID = 1L;
     @Id

@@ -13,9 +13,10 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Data
 @Entity
 @Table(name = "bargainirg")
-class Bargainirg extends BasePo {
+public class Bargainirg extends BasePo {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = IDENTITY)
     public Long id;
@@ -50,4 +51,29 @@ class Bargainirg extends BasePo {
     void updatedAt() {
         this.updatedAt = new Date();
     }
+
+    public void setState(State state){
+        switch (state) {
+            case INIT:
+                this.state = 0;
+                break;
+
+            case FINISH:
+                this.state = 1;
+                break;
+
+            case CLOSE:
+                this.state = 2;
+                break;
+
+            default:
+                this.state = 0;
+                break;
+        }
+    }
+
+    public  enum State {
+        INIT, FINISH, CLOSE
+    }
+
 }

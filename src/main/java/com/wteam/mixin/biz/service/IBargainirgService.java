@@ -1,6 +1,9 @@
 package com.wteam.mixin.biz.service;
 
 import com.wteam.mixin.model.po.ActivityBusiness;
+import com.wteam.mixin.model.po.Bargainirg;
+import com.wteam.mixin.model.po.TrafficPlanActivity;
+import com.wteam.mixin.model.vo.CustomerOrderVo;
 import com.wteam.mixin.model.vo.UserVo;
 import com.wteam.mixin.pagination.Pagination;
 
@@ -20,4 +23,6 @@ public interface IBargainirgService {
     ActivityBusiness findById(Long id);
 
     ActivityBusiness update(ActivityBusiness activityBusiness);
+
+    Bargainirg createByOrder(CustomerOrderVo order, TrafficPlanActivity trafficPlanActivity);
 }
