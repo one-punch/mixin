@@ -72,6 +72,20 @@ public class Bargainirg extends BasePo {
         }
     }
 
+    public State getState(State defaultValue){
+        switch (this.state){
+            case 0:
+                return State.INIT;
+            case 1:
+                return State.FINISH;
+            case 2:
+                return State.CLOSE;
+            default:
+                return defaultValue;
+        }
+
+    }
+
     public  enum State {
         INIT, FINISH, CLOSE
     }

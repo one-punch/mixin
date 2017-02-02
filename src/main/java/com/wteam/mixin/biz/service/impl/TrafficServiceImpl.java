@@ -50,6 +50,15 @@ public class TrafficServiceImpl implements ITrafficService{
 	@Autowired
 	private DozerBeanMapper mapper;
 
+	public TrafficPlanPo find(Long id){
+		return baseDao.find(TrafficPlanPo.class, id);
+	}
+
+	public BusinessTrafficPlanPo findBusinessPlan(Long id, Long businessId){
+		return baseDao.get("FROM BusinessTrafficPlanPo WHERE businessId = ? AND trafficplanId = ? AND isDelete = 0",
+				new Object[]{businessId, id});
+	}
+
     /**套餐转换处理*/
     private Function<TrafficPlanPo, TrafficPlanVo> _planToVo = po -> {
         TrafficPlanVo vo = mapper.map(po, TrafficPlanVo.class);

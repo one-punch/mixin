@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Optional;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -62,5 +63,14 @@ public class TrafficPlanActivity extends BasePo{
     @PreUpdate
     void updatedAt() {
         this.updatedAt = new Date();
+    }
+
+    public boolean isAvailable(){
+        if(!this.isActive || !Optional.of(this.startTime).isPresent() || !Optional.of(this.endTime).isPresent()){
+            return false;
+        }else{
+            Date now = new Date();
+            return now.before(this.endTime) && now.after(this.startTime);
+        }
     }
 }

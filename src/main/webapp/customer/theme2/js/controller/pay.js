@@ -1,8 +1,8 @@
 /**
  * 我的订单模块
  */
-ctrls_customer.controller('PayCtrl',['$scope','$rootScope','$timeout','ActionService','UtilsService','mixin','user',
-function($scope, $rootScope, $timeout, Action, Utils,_mixin,_user){
+ctrls_customer.controller('PayCtrl',['$scope', '$location', '$rootScope','$timeout','ActionService','UtilsService','mixin','user',
+function($scope, $location, $rootScope, $timeout, Action, Utils,_mixin,_user){
 	$scope.business = _user.business // 商户信息
 	var PaymentMethod = _mixin.PaymentMethod // 支付方式
 	var ProductType = _mixin.ProductType // 产品类型
@@ -37,7 +37,7 @@ function($scope, $rootScope, $timeout, Action, Utils,_mixin,_user){
 			if(data.code){
 				toaster.pop({ type: 'error', body: data.msg, timeout: 3000 })
 			}else{
-				data.plan
+				$location.url("/home/cut?id="+data.bargainirg)
 			}
 		}).catch(failure)
 	}

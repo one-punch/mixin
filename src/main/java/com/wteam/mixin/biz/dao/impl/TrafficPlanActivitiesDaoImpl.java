@@ -6,6 +6,7 @@ import com.wteam.mixin.constant.Provider;
 import com.wteam.mixin.model.po.TrafficPlanActivity;
 import com.wteam.mixin.model.vo.ActivityPlanVo;
 import com.wteam.mixin.model.vo.BargainirgPlanVo;
+import com.wteam.mixin.model.vo.TrafficPlanActivityVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -38,23 +39,24 @@ public class TrafficPlanActivitiesDaoImpl implements ITrafficPlanActivitiesDao {
 
     public List<BargainirgPlanVo> getList(String sql, Object[] params, Integer pageNo, Integer pageSize){
         return baseDao.find(sql, params, pageNo, pageSize).parallelStream()
-                .map(p -> {
-                    BargainirgPlanVo bargainirgPlanVo = new BargainirgPlanVo();
-                    Object[] o = (Object[]) p;
-                    bargainirgPlanVo.setName(Optional.ofNullable(o[0]).orElse("").toString());
-                    bargainirgPlanVo.setCost((BigDecimal)Optional.ofNullable(o[1]).orElse(BigDecimal.ZERO));
-                    bargainirgPlanVo.setProviderName(Provider.get((Integer)o[2]).name);
-                    bargainirgPlanVo.setApiProvider(Optional.ofNullable(o[3]).orElse("").toString());
-                    bargainirgPlanVo.setProvince(Optional.ofNullable(o[4]).orElse("").toString());
-                    bargainirgPlanVo.setIsActive((Boolean) Optional.ofNullable(o[5]).orElse(Boolean.FALSE));
-                    bargainirgPlanVo.setStartTime((Date)Optional.ofNullable(o[6]).orElse(new Date()));
-                    bargainirgPlanVo.setEndTime((Date)Optional.ofNullable(o[7]).orElse(new Date()));
-                    bargainirgPlanVo.setLowPrice((BigDecimal)Optional.ofNullable(o[8]).orElse(BigDecimal.ZERO));
-                    bargainirgPlanVo.setLimitNumber((Integer) Optional.ofNullable(o[9]).orElse(0));
-                    bargainirgPlanVo.setRetailPrice((BigDecimal) Optional.ofNullable(o[10]).orElse(BigDecimal.ZERO));
-                    bargainirgPlanVo.setId((Long)o[11]);
-                    return bargainirgPlanVo;
-                }).collect(Collectors.toList());
+                .map(p -> generator((Object[]) p)).collect(Collectors.toList());
+    }
+
+    private BargainirgPlanVo generator(Object[] o){
+        BargainirgPlanVo bargainirgPlanVo = new BargainirgPlanVo();
+        bargainirgPlanVo.setName(Optional.ofNullable(o[0]).orElse("").toString());
+        bargainirgPlanVo.setCost((BigDecimal)Optional.ofNullable(o[1]).orElse(BigDecimal.ZERO));
+        bargainirgPlanVo.setProviderName(Provider.get((Integer)o[2]).name);
+        bargainirgPlanVo.setApiProvider(Optional.ofNullable(o[3]).orElse("").toString());
+        bargainirgPlanVo.setProvince(Optional.ofNullable(o[4]).orElse("").toString());
+        bargainirgPlanVo.setIsActive((Boolean) Optional.ofNullable(o[5]).orElse(Boolean.FALSE));
+        bargainirgPlanVo.setStartTime((Date)Optional.ofNullable(o[6]).orElse(new Date()));
+        bargainirgPlanVo.setEndTime((Date)Optional.ofNullable(o[7]).orElse(new Date()));
+        bargainirgPlanVo.setLowPrice((BigDecimal)Optional.ofNullable(o[8]).orElse(BigDecimal.ZERO));
+        bargainirgPlanVo.setLimitNumber((Integer) Optional.ofNullable(o[9]).orElse(0));
+        bargainirgPlanVo.setRetailPrice((BigDecimal) Optional.ofNullable(o[10]).orElse(BigDecimal.ZERO));
+        bargainirgPlanVo.setId((Long)o[11]);
+        return bargainirgPlanVo;
     }
 
     @Override
@@ -63,7 +65,24 @@ public class TrafficPlanActivitiesDaoImpl implements ITrafficPlanActivitiesDao {
     }
 
     @Override
-    public TrafficPlanActivity getAvailable(String sql, Object[] objects) {
-        return baseDao.get(sql, objects);
+    public TrafficPlanActivityVo getAvailable(String sql, Object[] objects) {
+//        plan_activity.isActive, plan_activity.lowPrice, plan_activity.trafficplanId, "
+//                +"plan_activity.limitNumber, plan_activity.startTime, plan_activity.endTime, plan_activity.userId
+        Object[] o = (Object[]) baseDao.get(sql, objects);
+        TrafficPlanActivityVo trafficPlanActivityVo = new TrafficPlanActivityVo();
+        trafficPlanActivityVo.setIsActive((Boolean) Optional.ofNullable(o[0]).orElse(Boolean.TRUE));
+        trafficPlanActivityVo.setLowPrice((BigDecimal) Optional.ofNullable(o[1]).orElse(BigDecimal.ZERO));
+        trafficPlanActivityVo.setTrafficPlanId((Long) Optional.of(o[2]).get());
+        trafficPlanActivityVo.setLimitNumber((Integer) Optional.ofNullable(o[3]).orElse(0));
+        trafficPlanActivityVo.setStartTime((Date) Optional.ofNullable(o[4]).orElse(new Date()));
+        trafficPlanActivityVo.setEndTime((Date) Optional.ofNullable(o[5]).orElse(new Date()));
+        trafficPlanActivityVo.setUserId((Long) Optional.of(o[6]).get());
+        trafficPlanActivityVo.setId((Long) Optional.of(o[7]).get());
+        return  trafficPlanActivityVo;
+    }
+
+    @Override
+    public BargainirgPlanVo get(String sql, Object[] objects) {
+        return baseDao.find(sql, objects).parallelStream().map(p -> generator((Object[]) p)).collect(Collectors.toList()).get(0);
     }
 }

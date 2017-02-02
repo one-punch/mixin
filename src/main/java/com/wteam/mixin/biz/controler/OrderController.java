@@ -6,23 +6,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import com.wteam.mixin.biz.service.*;
-import com.wteam.mixin.model.po.TrafficPlanActivity;
-import com.wteam.mixin.model.vo.TrafficPlanActivityVo;
+import com.wteam.mixin.model.po.*;
+import com.wteam.mixin.model.vo.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.wteam.mixin.biz.controler.handler.SystemModelHandler;
 import com.wteam.mixin.constant.PaymentMethod;
@@ -35,8 +33,6 @@ import com.wteam.mixin.define.ResultMessage;
 import com.wteam.mixin.exception.ServiceException;
 import com.wteam.mixin.model.query.CustomerOrderQuery;
 import com.wteam.mixin.model.query.TrafficPlanQuery;
-import com.wteam.mixin.model.vo.CustomerOrderVo;
-import com.wteam.mixin.model.vo.UserVo;
 import com.wteam.mixin.pagination.Pagination;
 import com.wteam.mixin.utils.ExcelExportDataFactory;
 import com.wteam.mixin.utils.ExcelUtils;
@@ -79,9 +75,15 @@ public class OrderController {
     @Autowired
     ITrafficPlanActivitiesService trafficPlanActivitiesService;
 
-
     @Autowired
     IBargainirgService bargainirgService;
+
+    @Autowired
+    IBargainirgRecordService bargainirgRecordService;
+
+    @Autowired
+    ITrafficService trafficService;
+
 
     /**
      * 超级管理员按条件分页查询订单
@@ -374,26 +376,88 @@ public class OrderController {
 
     @ResponseBody
     @RequestMapping(value = "/bargainirg")
-    public Result bargainirg(HttpServletRequest req, @RequestParam("orderId") Long orderId,
-                      @RequestParam("paymentMethod") Integer paymentMethod,
-                      ResultMessage resultMessage) {
+    public Result bargainirg(@ModelAttribute(SystemModelHandler.CURRENT_USER) UserVo user,
+                             HttpServletRequest req, @RequestParam("orderId") Long orderId,
+                             @RequestParam("paymentMethod") Integer paymentMethod,
+                             ResultMessage resultMessage) {
         CustomerOrderVo order = new CustomerOrderVo();
         order.setId(orderId);
+        order.setPaymentMethod(paymentMethod);
 
         order = orderService.pay(order);
-        order.getProductId();
-        TrafficPlanActivity trafficPlanActivity = trafficPlanActivitiesService.getAvailable(order);
-        if(Optional.of(trafficPlanActivity).isPresent()){
-            TrafficPlanActivityVo trafficPlanActivityVo = new TrafficPlanActivityVo(trafficPlanActivity.getTrafficplanId(), trafficPlanActivity.getLimitNumber(),
-                    trafficPlanActivity.getLowPrice(), trafficPlanActivity.isActive(), trafficPlanActivity.getStartTime(), trafficPlanActivity.getEndTime());
-            bargainirgService.createByOrder(order, trafficPlanActivity);
+        TrafficPlanActivityVo trafficPlanActivity = trafficPlanActivitiesService.getAvailable(order);
+        if(Optional.ofNullable(trafficPlanActivity).isPresent()){
+            TrafficPlanActivityVo trafficPlanActivityVo = new TrafficPlanActivityVo(trafficPlanActivity.getTrafficPlanId(), trafficPlanActivity.getLimitNumber(),
+                    trafficPlanActivity.getLowPrice(), trafficPlanActivity.getIsActive(), trafficPlanActivity.getStartTime(), trafficPlanActivity.getEndTime());
+            Bargainirg bargainirg = bargainirgService.createByOrder(order, trafficPlanActivity);
             return resultMessage.setSuccessInfo("提交订单成功").putParam(ORDER, order)
                     .putParam("code", 0)
-                    .putParam("plan", trafficPlanActivityVo);
+                    .putParam("plan", trafficPlanActivityVo)
+                    .putParam("bargainirg", bargainirg.getId());
         }else{
             return resultMessage.setSuccessInfo("砍价活动已失效").putParam(ORDER, order)
                     .putParam("code", 1)
                     .putParam("msg", "砍价活动已失效");
+        }
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/bargainirg/info",  method = RequestMethod.POST)
+    public Result bargainirgInfo(@ModelAttribute(SystemModelHandler.CURRENT_USER) UserVo user,
+                      HttpServletRequest req, @RequestParam("id") Long bargainirgId,
+                      ResultMessage resultMessage) {
+        Bargainirg bargainirg = bargainirgService.findById(bargainirgId);
+        if(!Optional.ofNullable(bargainirg).isPresent() || bargainirg.getState(Bargainirg.State.CLOSE).equals(Bargainirg.State.CLOSE)){
+            return resultMessage.setSuccessInfo("参加失败").putParam("code", 1)
+                    .putParam("msg", "此活动不可用");
+        }
+
+        TrafficPlanActivity trafficPlanActivity = trafficPlanActivitiesService.findByUser(bargainirg.getCustomerId(), bargainirg.getTrafficPlanActivityId());
+        if(!trafficPlanActivity.isAvailable()) {
+            return resultMessage.setSuccessInfo("参加失败").putParam("code", 1)
+                    .putParam("msg", "此活动不可用");
+        }
+        BargainirgPlanVo bargainirgPlanVo = trafficPlanActivitiesService.get(trafficPlanActivity.getId());
+
+        List<CustomerRecordVo> customerRecordVoList = bargainirgRecordService.getList(bargainirgId);
+
+        return resultMessage.setSuccessInfo("砍价活动已失效").putParam("records", customerRecordVoList)
+                .putParam("activity", trafficPlanActivity)
+                .putParam("businessPlan", bargainirgPlanVo);
+
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/cut", method = RequestMethod.POST)
+    public Result cut(@ModelAttribute(SystemModelHandler.CURRENT_USER) UserVo user,
+                             HttpServletRequest req, @RequestParam("bargainirg_id") Long bargainirgId,
+                             ResultMessage resultMessage) {
+        Bargainirg bargainirg = bargainirgService.findById(bargainirgId);
+        if(!Optional.of(bargainirg).isPresent() || bargainirg.getState(Bargainirg.State.CLOSE).equals(Bargainirg.State.CLOSE)){
+            return resultMessage.setSuccessInfo("参加失败").putParam("code", 1)
+                        .putParam("msg", "此活动不可用");
+        }
+
+        TrafficPlanActivity trafficPlanActivity = trafficPlanActivitiesService.findByUser(bargainirg.getCustomerId(), bargainirg.getTrafficPlanActivityId());
+        if(!trafficPlanActivity.isAvailable()) {
+            return resultMessage.setSuccessInfo("参加失败").putParam("code", 1)
+                    .putParam("msg", "此活动不可用");
+        }
+
+        BargainirgRecord record = bargainirgRecordService.queryByCustomer(bargainirgId, user.getUserId());
+        if(Optional.of(record).isPresent()){
+            return resultMessage.setSuccessInfo("参加失败").putParam("code", 1)
+                    .putParam("msg", "你已经参加过此次活动");
+        }else{
+            record = bargainirgRecordService.doCut(bargainirg, trafficPlanActivity, user);
+            if(Optional.of(record.getId()).isPresent()) {
+                return resultMessage.setSuccessInfo("参与成功").putParam("code", 0)
+                        .putParam("msg", "成功参与");
+            }else{
+                return resultMessage.setSuccessInfo("参加失败").putParam("code", 1)
+                        .putParam("msg", "你已经参加过此次活动");
+            }
         }
     }
 

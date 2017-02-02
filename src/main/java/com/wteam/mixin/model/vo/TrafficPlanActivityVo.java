@@ -12,6 +12,7 @@ import java.util.Date;
 @Data
 public class TrafficPlanActivityVo implements IValueObject {
 
+    public Long id;
 
     public Long trafficPlanId;
 

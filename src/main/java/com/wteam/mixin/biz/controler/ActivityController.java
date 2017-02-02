@@ -2,15 +2,12 @@ package com.wteam.mixin.biz.controler;
 
 import com.wteam.mixin.biz.controler.handler.SystemModelHandler;
 import com.wteam.mixin.biz.service.IBargainirgService;
-import com.wteam.mixin.define.IValueObject;
 import com.wteam.mixin.define.ResultMessage;
 import com.wteam.mixin.exception.ServiceException;
 import com.wteam.mixin.model.po.ActivityBusiness;
-import com.wteam.mixin.model.po.UserPo;
 import com.wteam.mixin.model.vo.BargainirgUserVo;
 import com.wteam.mixin.model.vo.UserVo;
 import com.wteam.mixin.pagination.Pagination;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,7 +54,7 @@ public class ActivityController {
     public ResultMessage edit(@ModelAttribute("activity_business") BargainirgUserVo bargainirgUserVo,
                               ResultMessage resultMessage) {
 
-        ActivityBusiness baseActivityBusiness = bargainirgService.findById(bargainirgUserVo.getId());
+        ActivityBusiness baseActivityBusiness = bargainirgService.findActivityBusinessById(bargainirgUserVo.getId());
         if (baseActivityBusiness == null) {
             throw new ServiceException("该条件不存在");
         }

@@ -7,7 +7,7 @@ app_customer.config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
     	function url(url) {
 			return url + '?' + new Date().getTime()
 		}
-    	
+
 		$stateProvider
 			.state('customer', {
 				url: '/',
@@ -33,7 +33,7 @@ app_customer.config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
 						templateUrl: url('/customer/theme2/tlps/recharge.html')
 					},
 				}
-			})  
+			})
 			.state('customer.home.myorders', {
 				url: '/myorders',
 				views: {
@@ -42,13 +42,22 @@ app_customer.config(['$stateProvider', '$urlRouterProvider', '$httpProvider',
 						templateUrl: url('/customer/theme2/tlps/myorders.html')
 					},
 				}
-			}) 
+			})
 			.state('customer.home.pay', {
 				url: '/pay',
 				views: {
 					'content@customer': {
 						controller: 'PayCtrl',
 						templateUrl: url('/customer/theme2/tlps/pay.html')
+					},
+				}
+			})
+			.state('customer.home.cut', {
+				url: '/cut',
+				views: {
+					'content@customer': {
+						controller: 'CutCtrl',
+						templateUrl: url('/customer/theme2/tlps/cut.html')
 					},
 				}
 			})

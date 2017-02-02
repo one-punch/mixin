@@ -325,6 +325,7 @@ public class OrderServiceImpl implements IOrderService{
                 // 记录到recordPo中
                 payOutcomeRecord(po, State.BBRecordSource.productApiRecharge);
                 chageOrderState(po, State.CustomerOrder.paySuccess);
+            }else if(po.getPaymentMethod().equals(PaymentMethod.Cut)){
             }
         }
         baseDao.update(po);

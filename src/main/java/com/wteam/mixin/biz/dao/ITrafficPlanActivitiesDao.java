@@ -3,6 +3,7 @@ package com.wteam.mixin.biz.dao;
 import com.wteam.mixin.model.po.TrafficPlanActivity;
 import com.wteam.mixin.model.vo.ActivityPlanVo;
 import com.wteam.mixin.model.vo.BargainirgPlanVo;
+import com.wteam.mixin.model.vo.TrafficPlanActivityVo;
 
 import java.util.List;
 
@@ -17,5 +18,7 @@ public interface ITrafficPlanActivitiesDao {
 
     TrafficPlanActivity findByUser(Long userId, Long id);
 
-    TrafficPlanActivity getAvailable(String sql, Object[] objects);
+    TrafficPlanActivityVo getAvailable(String sql, Object[] objects);
+
+    BargainirgPlanVo get(String s, Object[] objects);
 }

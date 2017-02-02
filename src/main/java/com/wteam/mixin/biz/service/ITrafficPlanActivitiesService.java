@@ -23,5 +23,7 @@ public interface ITrafficPlanActivitiesService {
 
     boolean allowBargainirg(CustomerOrderVo order);
 
-    TrafficPlanActivity getAvailable(CustomerOrderVo order);
+    TrafficPlanActivityVo getAvailable(CustomerOrderVo order);
+
+    BargainirgPlanVo get(Long activityPlanId);
 }

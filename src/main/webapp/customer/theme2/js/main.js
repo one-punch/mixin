@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 
 var ctrl_dependencies = [
@@ -35,11 +35,11 @@ app_customer.run(['$rootScope', '$state', '$stateParams','$interval','ActionServ
 function($rootScope, $state, $stateParams, $interval, Action, Utils, _user) {
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
-    
-    
+
+
     // 商家id
     _user.business.id = Utils.Request['businessId']
-    
+
     // 获取首页显示的页面
     var menu = Utils.Request['menu']
     $interval(function() {
@@ -53,7 +53,7 @@ function($rootScope, $state, $stateParams, $interval, Action, Utils, _user) {
 }]);
 //常量定义
 //
-mixin = {} 
+mixin = {}
 app_customer.constant("mixin",mixin);
 //变量定义
 app_customer.service("user",function() {
@@ -78,7 +78,8 @@ mixin.ProductType = {
 //支付方式
 mixin.PaymentMethod =  {
 		'Wechat':0,  // 微信支付
-		'Balance':1, // 余额支付
+        'Balance':1, // 余额支付
+		'Cut':2, // 余额支付
 }
 
 //运营商

@@ -74,6 +74,18 @@ public class TrafficPlanActivitiesServiceImpl implements ITrafficPlanActivitiesS
         return trafficPlanActivitiesDao.getList(sql + orderBy, new Object[]{userId}, pageNo, pageSize);
     }
 
+    public BargainirgPlanVo get(Long activityPlanId){
+        String sql = "SELECT plan.name, plan.cost, plan.provider, plan.apiProvider, planGroup.province, activity_plan.isActive, "
+                +"activity_plan.startTime, activity_plan.endTime, activity_plan.lowPrice, activity_plan.limitNumber, "
+                +"business_plan.retailPrice, activity_plan.id FROM TrafficPlanPo AS plan, TrafficPlanActivity AS activity_plan, "
+                +"BusinessTrafficPlanPo AS business_plan, TrafficGroupPo AS planGroup "
+                +"WHERE activity_plan.trafficplanId = plan.id AND plan.trafficGroupId = planGroup.id AND "
+                +"business_plan.trafficplanId = plan.id AND plan.isDelete = 0"
+                +"AND activity_plan.id = ? ";
+        String orderBy = "ORDER BY activity_plan.createdAt DESC LIMIT 1";
+        return trafficPlanActivitiesDao.get(sql + orderBy, new Object[]{activityPlanId});
+    }
+
     @Override
     public TrafficPlanActivity findByUser(Long userId, Long id) {
         return trafficPlanActivitiesDao.findByUser(userId, id);
@@ -86,19 +98,20 @@ public class TrafficPlanActivitiesServiceImpl implements ITrafficPlanActivitiesS
 
     @Override
     public boolean allowBargainirg(CustomerOrderVo order) {
-        TrafficPlanActivity trafficPlanActivity = this.getAvailable(order);
-        return Optional.of(trafficPlanActivity).isPresent();
+        TrafficPlanActivityVo trafficPlanActivityVo = this.getAvailable(order);
+        return Optional.of(trafficPlanActivityVo).isPresent();
     }
 
     @Override
-    public TrafficPlanActivity getAvailable(CustomerOrderVo order){
-        String sql = "SELECT plan_activity.is_active, plan_activity.low_price, plan_activity.traffic_plan_id, "
-                +"plan_activity.limit_number, plan_activity.startTime, plan_activity.endTime, plan_activity.user_id "
+    public TrafficPlanActivityVo getAvailable(CustomerOrderVo order){
+        String sql = "SELECT plan_activity.isActive, plan_activity.lowPrice, plan_activity.trafficplanId, "
+                +"plan_activity.limitNumber, plan_activity.startTime, plan_activity.endTime, plan_activity.userId, "
+                +"plan_activity.id "
                 +"FROM TrafficPlanActivity as plan_activity "
-                +"WHERE plan_activity.user_id = ? AND plan_activity.is_active = true "
-                +"AND plan_activity.active_id = 1 "
-                +"AND plan_activity.traffic_plan_id = ? AND plan_activity.startTime <= CURDATE() " +
-                "AND plan_activity.endTime >= CURDATE() LIMIT 1 ";
+                +"WHERE plan_activity.userId = ? AND plan_activity.isActive = true "
+                +"AND plan_activity.activeId = 1 "
+                +"AND plan_activity.trafficplanId = ? AND plan_activity.startTime <= CURDATE() " +
+                "AND plan_activity.endTime >= CURDATE()";
         return trafficPlanActivitiesDao.getAvailable(sql, new Object[]{order.getBusinessId(), order.getProductId()});
     }
 }

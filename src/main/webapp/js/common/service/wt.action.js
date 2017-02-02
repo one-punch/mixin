@@ -1292,23 +1292,6 @@ function ActionService($http, $rootScope,toaster){
 		httpHandle(http, success, failure);
 	}
 
-  /**
-  */
-  this.orderBargainirg = function(order) {
-    return new Promise(function(resolve, reject){
-      //将json对象转换成json字符串
-      var http = $http({
-        url : url("/order/bargainirg/"),
-        params : {
-          'orderId' : order.id,
-          'paymentMethod' : order.paymentMethod,
-        },
-        method : 'POST'
-      });
-      httpHandle(http, success, failure);
-    })
-  }
-
 	/* **************************************************************
 	 * 微信模块
 	 * **************************************************************/

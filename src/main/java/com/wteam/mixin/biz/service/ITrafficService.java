@@ -2,6 +2,8 @@ package com.wteam.mixin.biz.service;
 
 import java.util.List;
 
+import com.wteam.mixin.model.po.BusinessTrafficPlanPo;
+import com.wteam.mixin.model.po.TrafficPlanPo;
 import com.wteam.mixin.model.query.TrafficGroupQuery;
 import com.wteam.mixin.model.query.TrafficPlanQuery;
 import com.wteam.mixin.model.vo.GroupNPlanVo;
@@ -19,6 +21,8 @@ import com.wteam.mixin.pagination.Pagination;
  * @date 2016年8月11日
  */
 public interface ITrafficService {
+
+	BusinessTrafficPlanPo findBusinessPlan(Long id, Long businessId);
 	
 	/**
 	 * 添加流量分组对象
@@ -167,5 +171,7 @@ public interface ITrafficService {
      * @return
      */
     public Pagination listApiRechargeTrafficplanlistByBusiness(TrafficPlanQueryVo query, Integer currentPage, Integer pageSize, Long businessId);
-    
+
+
+	TrafficPlanPo find(Long id);
 }

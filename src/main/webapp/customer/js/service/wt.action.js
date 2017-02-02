@@ -229,6 +229,37 @@ function ActionService($http, $rootScope){
 	}
 
 
+   /**
+    *砍价
+    */
+  this.orderBargainirg = function(order) {
+    return new Promise(function(resolve, reject){
+      //将json对象转换成json字符串
+      var http = $http({
+        url : url("/order/bargainirg/"),
+        params : {
+          'orderId' : order.id,
+          'paymentMethod' : order.paymentMethod,
+        },
+        method : 'POST'
+      });
+      httpHandle(http, resolve, reject);
+    })
+  }
+
+  this.loadBargainirg = function(id){
+    return new Promise(function(resolve, reject){
+       var http = $http({
+        url : url("/order/bargainirg/info"),
+        params : {
+          'id' : id,
+        },
+        method : 'POST'
+      });
+      httpHandle(http, resolve, reject);
+    })
+  }
+
 	/* **************************************************************
 	 * 账务模块
 	 * **************************************************************/

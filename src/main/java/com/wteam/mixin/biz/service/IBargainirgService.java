@@ -4,6 +4,7 @@ import com.wteam.mixin.model.po.ActivityBusiness;
 import com.wteam.mixin.model.po.Bargainirg;
 import com.wteam.mixin.model.po.TrafficPlanActivity;
 import com.wteam.mixin.model.vo.CustomerOrderVo;
+import com.wteam.mixin.model.vo.TrafficPlanActivityVo;
 import com.wteam.mixin.model.vo.UserVo;
 import com.wteam.mixin.pagination.Pagination;
 
@@ -20,9 +21,11 @@ public interface IBargainirgService {
 
     Pagination getActivityBusinessByPage(Object[] params, Integer pageNo, Integer pageSize);
 
-    ActivityBusiness findById(Long id);
+    ActivityBusiness findActivityBusinessById(Long id);
+
+    Bargainirg findById(Long id);
 
     ActivityBusiness update(ActivityBusiness activityBusiness);
 
-    Bargainirg createByOrder(CustomerOrderVo order, TrafficPlanActivity trafficPlanActivity);
+    Bargainirg createByOrder(CustomerOrderVo order, TrafficPlanActivityVo trafficPlanActivity);
 }
