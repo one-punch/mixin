@@ -82,7 +82,7 @@ public class TrafficPlanActivitiesServiceImpl implements ITrafficPlanActivitiesS
                 +"WHERE activity_plan.trafficplanId = plan.id AND plan.trafficGroupId = planGroup.id AND "
                 +"business_plan.trafficplanId = plan.id AND plan.isDelete = 0"
                 +"AND activity_plan.id = ? ";
-        String orderBy = "ORDER BY activity_plan.createdAt DESC LIMIT 1";
+        String orderBy = "ORDER BY activity_plan.createdAt DESC ";
         return trafficPlanActivitiesDao.get(sql + orderBy, new Object[]{activityPlanId});
     }
 

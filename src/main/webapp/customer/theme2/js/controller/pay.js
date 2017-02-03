@@ -38,6 +38,7 @@ function($scope, $location, $rootScope, $timeout, Action, Utils,_mixin,_user){
 				toaster.pop({ type: 'error', body: data.msg, timeout: 3000 })
 			}else{
 				$location.url("/home/cut?id="+data.bargainirg)
+				$scope.$apply()
 			}
 		}).catch(failure)
 	}

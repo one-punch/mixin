@@ -405,6 +405,7 @@ public class OrderController {
     @RequestMapping(value = "/bargainirg/info",  method = RequestMethod.POST)
     public Result bargainirgInfo(@ModelAttribute(SystemModelHandler.CURRENT_USER) UserVo user,
                       HttpServletRequest req, @RequestParam("id") Long bargainirgId,
+                                 @RequestParam("businessId") Long businessId,
                       ResultMessage resultMessage) {
         Bargainirg bargainirg = bargainirgService.findById(bargainirgId);
         if(!Optional.ofNullable(bargainirg).isPresent() || bargainirg.getState(Bargainirg.State.CLOSE).equals(Bargainirg.State.CLOSE)){
@@ -412,17 +413,25 @@ public class OrderController {
                     .putParam("msg", "此活动不可用");
         }
 
-        TrafficPlanActivity trafficPlanActivity = trafficPlanActivitiesService.findByUser(bargainirg.getCustomerId(), bargainirg.getTrafficPlanActivityId());
-        if(!trafficPlanActivity.isAvailable()) {
+        TrafficPlanActivity trafficPlanActivity = trafficPlanActivitiesService.findByUser(businessId, bargainirg.getTrafficPlanActivityId());
+        if(!Optional.of(trafficPlanActivity).isPresent() || !trafficPlanActivity.isAvailable()) {
             return resultMessage.setSuccessInfo("参加失败").putParam("code", 1)
                     .putParam("msg", "此活动不可用");
         }
+        TrafficPlanActivityVo trafficPlanActivityVo = new TrafficPlanActivityVo();
+        trafficPlanActivityVo.setId(trafficPlanActivity.getId());
+        trafficPlanActivityVo.setLimitNumber(trafficPlanActivity.getLimitNumber());
+        trafficPlanActivityVo.setLowPrice(trafficPlanActivity.getLowPrice());
+        trafficPlanActivityVo.setStartTime(trafficPlanActivity.getStartTime());
+        trafficPlanActivityVo.setEndTime(trafficPlanActivity.getEndTime());
+        trafficPlanActivityVo.setIsActive(trafficPlanActivity.isActive());
+
         BargainirgPlanVo bargainirgPlanVo = trafficPlanActivitiesService.get(trafficPlanActivity.getId());
 
         List<CustomerRecordVo> customerRecordVoList = bargainirgRecordService.getList(bargainirgId);
 
         return resultMessage.setSuccessInfo("砍价活动已失效").putParam("records", customerRecordVoList)
-                .putParam("activity", trafficPlanActivity)
+                .putParam("activity", trafficPlanActivityVo)
                 .putParam("businessPlan", bargainirgPlanVo);
 
     }

@@ -49,8 +49,8 @@ public class BargainirgRecordServiceImpl implements IBargainirgRecordService {
     public List<CustomerRecordVo> getList(Long bargainirgId) {
         String sql = "SELECT customer.nickname, customer.headimgurl, record.discount, record.createdAt " +
                 "FROM CustomerInfoPo AS customer, BargainirgRecord AS record " +
-                "WHERE record.bargainirg_id = ? AND customer.customerId = record.customer_id " +
-                "customer.isDelete = 0 ORDER BY record.createdAt DESC ";
+                "WHERE record.bargainirgId = ? AND customer.customerId = record.customerId " +
+                "AND customer.isDelete = 0 ORDER BY record.createdAt DESC ";
         return baseDao.find(sql, new Object[]{bargainirgId})
                 .parallelStream().map(p -> {
             CustomerRecordVo customerRecordVo = new CustomerRecordVo();

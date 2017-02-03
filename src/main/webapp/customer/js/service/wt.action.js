@@ -247,12 +247,13 @@ function ActionService($http, $rootScope){
     })
   }
 
-  this.loadBargainirg = function(id){
+  this.loadBargainirg = function(id, businessId){
     return new Promise(function(resolve, reject){
        var http = $http({
         url : url("/order/bargainirg/info"),
         params : {
           'id' : id,
+          'businessId': businessId
         },
         method : 'POST'
       });
