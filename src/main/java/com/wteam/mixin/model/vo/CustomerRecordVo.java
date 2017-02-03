@@ -12,6 +12,8 @@ import java.util.Date;
 @Data
 public class CustomerRecordVo implements IValueObject {
 
+    Long id;
+
     String nickname;
 
     String headimgurl;

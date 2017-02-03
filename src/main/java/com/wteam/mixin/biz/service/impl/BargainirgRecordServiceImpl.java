@@ -47,7 +47,7 @@ public class BargainirgRecordServiceImpl implements IBargainirgRecordService {
 
     @Override
     public List<CustomerRecordVo> getList(Long bargainirgId) {
-        String sql = "SELECT customer.nickname, customer.headimgurl, record.discount, record.createdAt " +
+        String sql = "SELECT customer.nickname, customer.headimgurl, record.discount, record.createdAt, customer.customerId " +
                 "FROM CustomerInfoPo AS customer, BargainirgRecord AS record " +
                 "WHERE record.bargainirgId = ? AND customer.customerId = record.customerId " +
                 "AND customer.isDelete = 0 ORDER BY record.createdAt DESC ";
@@ -59,6 +59,7 @@ public class BargainirgRecordServiceImpl implements IBargainirgRecordService {
             customerRecordVo.setHeadimgurl(Optional.ofNullable(o[1]).orElse("").toString());
             customerRecordVo.setDiscount((BigDecimal) Optional.ofNullable(o[2]).orElse(BigDecimal.ZERO));
             customerRecordVo.setCreatedAt((Date) Optional.ofNullable(o[3]).orElse(new Date()));
+            customerRecordVo.setId((Long) Optional.of(o[4]).get());
             return customerRecordVo;
         }).collect(Collectors.toList());
     }

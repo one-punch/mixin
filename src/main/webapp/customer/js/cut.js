@@ -18,7 +18,7 @@ function($scope, $location, $rootScope, $timeout, Action, Utils,_mixin,_user){
 
         $scope.endDate = {
           year: endTime.getFullYear(),
-          month: endTime.getMonth(),
+          month: endTime.getMonth() + 1,
           day: endTime.getDate(),
           hour: endTime.getHours(),
           min: endTime.getMinutes(),
@@ -32,6 +32,7 @@ function($scope, $location, $rootScope, $timeout, Action, Utils,_mixin,_user){
     }
   }
   $scope.plan = {total: 0}
+  $scope.currentUserRecord = null
   $scope.business = _user.business // 商户信息
   var PaymentMethod = _mixin.PaymentMethod // 支付方式
   var ProductType = _mixin.ProductType // 产品类型
@@ -40,5 +41,17 @@ function($scope, $location, $rootScope, $timeout, Action, Utils,_mixin,_user){
   var _id = $location.search().id
 
   loadRecords(_id, $scope.business.id)
+
+  $scope.doCut = function(){
+    $scope.currentUserRecord = !$scope.currentUserRecord
+  }
+
+  $scope.help = function(){
+    $scope.currentUserRecord = !$scope.currentUserRecord
+  }
+
+  $scope.myOrders = function(){
+
+  }
 
 }])

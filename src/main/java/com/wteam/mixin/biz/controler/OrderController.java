@@ -429,11 +429,14 @@ public class OrderController {
         BargainirgPlanVo bargainirgPlanVo = trafficPlanActivitiesService.get(trafficPlanActivity.getId());
 
         List<CustomerRecordVo> customerRecordVoList = bargainirgRecordService.getList(bargainirgId);
+        CustomerRecordVo currentUserRecord = customerRecordVoList.parallelStream()
+                .filter(x -> x.getId().equals(user.getUserId()))
+                .findFirst().orElse(null);
 
         return resultMessage.setSuccessInfo("砍价活动已失效").putParam("records", customerRecordVoList)
                 .putParam("activity", trafficPlanActivityVo)
-                .putParam("businessPlan", bargainirgPlanVo);
-
+                .putParam("businessPlan", bargainirgPlanVo)
+                .putParam("currentUserRecord", currentUserRecord);
     }
 
 

@@ -1,7 +1,6 @@
 <div class="default">
     <link type="text/css" rel="stylesheet" href="/customer/css/cutActivity.min.css" />
     <script type="text/javascript">var _speedMark = new Date(), _loadTime='1485769469';</script>
-        <!--<195 v6.2 default 0.53248310089111>-->
         <style type="text/css">.centerK{position: absolute;left: 0;right: 0;margin: auto;}.goodaInfosj{border-bottom: solid 1px #ffe547;padding: 15px 0 16px 0;}.topLog{height: 100%;}.goodaInfosj .centerK p{width: 83%;}.goodaInfosjS .centerK{width: 64%;}.goodaInfosjS .centerK .mingziK{margin: 0 0 -4px 9px;}.goodaInfosjS .rightK{float: right;}</style>
         <div class="activityPage gyPageHide" id="activityPage">
             <div class="goodsInfoS clearfix">
@@ -19,10 +18,10 @@
                     </div>
                 </div>
             </div>
-            <div class="bargainStatus xiLineBottom" id="bargainStatus" ng-repeat="record in records">
+            <div class="bargainStatus xiLineBottom" id="bargainStatus" >
                 <div class="goodsTitle goodsTitleYi">
                     <p class="p1 clearfix">
-                        {{record.name}}
+                        {{plan.providerName}} {{plan.name}}
                     </p>
                     <p class="p2"></p>
                     <a class="guiZe xiLineLeft" id="guiZeClick" href="javascript:;" click-Status="baiduTongJi" tongji-tishiyu="点击活动规则"><img src="/customer/images/huodongguozetp1.png" alt="活动规则"/><span>规则</span></a>
@@ -36,10 +35,10 @@
 
                 <div class="gyStyleE mainYi mainShow">
                     <p class="titleS xiLineBottom clearfix"><span class="name">名称</span><span class="kanJiaGe">帮砍价格</span></p>
-                    <ul class="ul1 ranking_list">
-                        <li data-openid="o8tOWs5hoPccvtbkUesyg92k_CVs" data-appendname="#pgbYi .ranking_list">
-                            <img src="http://wx.qlogo.cn/mmopen/f3tDJsSgiaUeQxQuyX0f4GhYqC5rqokIk96ickDHes26WGQeqm99dibibHoXNhNp98ydoJsdajg7iaaCP3icCCVkibpSabNeicwTlBicp/0" alt="图片">
-                            <div class="clearfix xiLineBottom"><span class="nameS">{{user.name}}<br><em>{{time}}</em></span><span>-￥{{discount}}</span></div>
+                    <ul class="ul1 ranking_list" ng-repeat="record in records">
+                        <li>
+                            <img src="{{record.headimgurl}}" alt="图片">
+                            <div class="clearfix xiLineBottom"><span class="nameS">{{record.nickname}}<br><em>{{record.createdAt}}</em></span><span>-￥{{record.discount}}</span></div>
                         </li>
                     </ul>
                 </div>
@@ -68,12 +67,18 @@
                 <p class="p1"></p>
             </div>
             <div class="dibuNavS xiLineTop clearfix" id="dibuNavS">
-                <div class="leftK" style="display:none"><a click-Status="baiduTongJi" tongji-tishiyu="点击跳转到首页" tongji-fenzu="底部悬浮块" href="http://m.wkj.idea0086.com/new_specialtopic.php?sjid=48"><img src="/customer/images/shouyetp1.png" alt="首页"/><span>首页</span></a></div>
-                <div class="centerK" id="buttonKanJia">
-                    <div class="centeEr clearfix"><a class="huiseKS bangKan" href="javascript:;">未发起砍价</a><a class="gouMai" href="http://game.wkj.idea0086.com/?controller=default&action=index&v=v6.2&fixedv=0&gowxauth=0&gid=1&hdid=484&fqoid=o8tOWs5hoPccvtbkUesyg92k_CVs&t=1485769469" click-Status="baiduTongJi" tongji-tishiyu="点击我要砍价" tongji-fenzu="底部悬浮块">我要砍价</a></div>
-                    <div class="centeEr clearfix"><a class="bangKan" click-KanJia="bangKan" click-Status="baiduTongJi" tongji-tishiyu="点击找人帮Ta砍" tongji-fenzu="底部悬浮块" href="javascript:;">找人帮Ta砍</a><a class="gouMai" href="http://game.wkj.idea0086.com/?controller=default&action=index&v=v6.2&fixedv=0&gowxauth=0&gid=1&hdid=484&fqoid=o8tOWs5hoPccvtbkUesyg92k_CVs&t=1485769469" click-Status="baiduTongJi" tongji-tishiyu="点击我的活动" tongji-fenzu="底部悬浮快">我的活动</a></div>
+
+                <div class="centerK" id="buttonKanJia" ng-class="{ 'hidden': currentUserRecord }">
+                    <div class="centeYi">
+                        <a ng-click="doCut()">帮Ta砍价</a>
+                    </div>
                 </div>
-                <div class="rightK" style="display:none"><a click-Status="baiduTongJi" tongji-tishiyu="点击跳转到我的砍价" tongji-fenzu="底部悬浮块" href="http://m2.wkj.idea0086.com/?controller=member&action=index&v=v4.0&controller=member&action=index&v=v4.0"><img src="/customer/images/gerenzhongxintp1.png" alt="我的个人中心"/><span>我的</span></a></div>
+                <div class="centerK" id="buttonKanJia" ng-class="{ 'hidden': !currentUserRecord }">
+                    <div class="centeYi">
+                        <a ng-click="help()">找人帮Ta砍价</a>
+                    </div>
+                </div>
+            </div>
             </div>
             <div class="gzzhegaik" id="gzzhegaik"></div>
             <div class="huodongGuiZeWWW" id="huodongGuiZeWWW">
