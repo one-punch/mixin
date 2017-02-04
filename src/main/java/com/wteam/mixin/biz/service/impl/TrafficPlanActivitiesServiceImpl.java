@@ -11,6 +11,7 @@ import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -84,6 +85,17 @@ public class TrafficPlanActivitiesServiceImpl implements ITrafficPlanActivitiesS
                 +"AND activity_plan.id = ? ";
         String orderBy = "ORDER BY activity_plan.createdAt DESC ";
         return trafficPlanActivitiesDao.get(sql + orderBy, new Object[]{activityPlanId});
+    }
+
+    @Override
+    public Long recordCount(Long id) {
+        return trafficPlanActivitiesDao.recordCount(id);
+    }
+
+    @Override
+    public BigDecimal totalDiscount(Long id) {
+        String sql = "SELECT SUM( record.discount ) AS total FROM BargainirgRecord AS record WHERE record.bargainirgId = :id ";
+        return (BigDecimal) Optional.ofNullable(baseDao.getSession().createQuery(sql).setParameter("id", id).uniqueResult()).orElse(BigDecimal.ZERO);
     }
 
     @Override

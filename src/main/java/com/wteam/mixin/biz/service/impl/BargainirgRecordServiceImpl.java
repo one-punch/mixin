@@ -3,10 +3,12 @@ package com.wteam.mixin.biz.service.impl;
 import com.wteam.mixin.biz.dao.IBargainirgRecordDao;
 import com.wteam.mixin.biz.dao.IBaseDao;
 import com.wteam.mixin.biz.service.IBargainirgRecordService;
+import com.wteam.mixin.biz.service.ITrafficPlanActivitiesService;
 import com.wteam.mixin.model.po.Bargainirg;
 import com.wteam.mixin.model.po.BargainirgRecord;
 import com.wteam.mixin.model.po.CustomerInfoPo;
 import com.wteam.mixin.model.po.TrafficPlanActivity;
+import com.wteam.mixin.model.vo.BargainirgPlanVo;
 import com.wteam.mixin.model.vo.CustomerRecordVo;
 import com.wteam.mixin.model.vo.UserVo;
 import lombok.Data;
@@ -33,15 +35,19 @@ public class BargainirgRecordServiceImpl implements IBargainirgRecordService {
     @Autowired
     IBargainirgRecordDao bargainirgRecordDao;
 
+    @Autowired
+    ITrafficPlanActivitiesService trafficPlanActivitiesService;
+
     @Override
     public BargainirgRecord queryByCustomer(Long bargainirgId, Long userId) {
-        String sql = "FROM BargainirgRecord WHERE record.bargainirg_id = ? AND record.customer_id = ? ";
+        String sql = "FROM BargainirgRecord AS record WHERE record.bargainirgId = ? AND record.customerId = ? ";
         return baseDao.get(sql, new Object[]{bargainirgId, userId});
     }
 
     @Override
     public BargainirgRecord doCut(Bargainirg bargainirg, TrafficPlanActivity trafficPlanActivity, UserVo user) {
-        float discount = ThreadLocalRandom.current().nextFloat() * trafficPlanActivity.getLowPrice().floatValue();
+        BargainirgPlanVo bargainirgPlanVo = trafficPlanActivitiesService.get(trafficPlanActivity.getId());
+        float discount = ThreadLocalRandom.current().nextFloat() * bargainirgPlanVo.getRetailPrice().subtract(trafficPlanActivity.getLowPrice()).floatValue();
         return bargainirgRecordDao.create(bargainirg, trafficPlanActivity, user, discount);
     }
 

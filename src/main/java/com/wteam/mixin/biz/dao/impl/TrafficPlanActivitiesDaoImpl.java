@@ -7,6 +7,7 @@ import com.wteam.mixin.model.po.TrafficPlanActivity;
 import com.wteam.mixin.model.vo.ActivityPlanVo;
 import com.wteam.mixin.model.vo.BargainirgPlanVo;
 import com.wteam.mixin.model.vo.TrafficPlanActivityVo;
+import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -84,5 +85,12 @@ public class TrafficPlanActivitiesDaoImpl implements ITrafficPlanActivitiesDao {
     @Override
     public BargainirgPlanVo get(String sql, Object[] objects) {
         return baseDao.find(sql, objects).parallelStream().map(p -> generator((Object[]) p)).collect(Collectors.toList()).get(0);
+    }
+
+    @Override
+    public Long recordCount(Long id) {
+        Query query = baseDao.getSession().createQuery("select count(*) FROM BargainirgRecord as record WHERE record.bargainirgId = :id ");
+        query.setParameter("id", id);
+        return (Long) query.uniqueResult();
     }
 }

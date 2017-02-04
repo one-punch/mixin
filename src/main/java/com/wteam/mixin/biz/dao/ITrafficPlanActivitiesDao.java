@@ -21,4 +21,6 @@ public interface ITrafficPlanActivitiesDao {
     TrafficPlanActivityVo getAvailable(String sql, Object[] objects);
 
     BargainirgPlanVo get(String s, Object[] objects);
+
+    Long recordCount(Long id);
 }

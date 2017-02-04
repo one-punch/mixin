@@ -4,6 +4,7 @@ import com.wteam.mixin.model.po.TrafficPlanActivity;
 import com.wteam.mixin.model.vo.*;
 import org.apache.poi.ss.formula.functions.T;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -26,4 +27,8 @@ public interface ITrafficPlanActivitiesService {
     TrafficPlanActivityVo getAvailable(CustomerOrderVo order);
 
     BargainirgPlanVo get(Long activityPlanId);
+
+    Long recordCount(Long id);
+
+    BigDecimal totalDiscount(Long id);
 }

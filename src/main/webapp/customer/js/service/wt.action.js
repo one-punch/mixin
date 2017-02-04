@@ -261,6 +261,20 @@ function ActionService($http, $rootScope){
     })
   }
 
+  this.doCut = function(id, businessId){
+    return new Promise(function(resolve, reject){
+      var http = $http({
+        url : url("/order/bargainirg/cut"),
+        params : {
+          'id' : id,
+          businessId: businessId
+        },
+        method : 'POST'
+      });
+      httpHandle(http, resolve, reject);
+    })
+  }
+
 	/* **************************************************************
 	 * 账务模块
 	 * **************************************************************/

@@ -429,11 +429,12 @@ public class OrderController {
         BargainirgPlanVo bargainirgPlanVo = trafficPlanActivitiesService.get(trafficPlanActivity.getId());
 
         List<CustomerRecordVo> customerRecordVoList = bargainirgRecordService.getList(bargainirgId);
-        CustomerRecordVo currentUserRecord = customerRecordVoList.parallelStream()
+        boolean currentUserRecord = customerRecordVoList.parallelStream()
                 .filter(x -> x.getId().equals(user.getUserId()))
-                .findFirst().orElse(null);
+                .findFirst().isPresent();
 
-        return resultMessage.setSuccessInfo("砍价活动已失效").putParam("records", customerRecordVoList)
+
+        return resultMessage.setSuccessInfo("砍价活动已失效").putParam("recordList", customerRecordVoList)
                 .putParam("activity", trafficPlanActivityVo)
                 .putParam("businessPlan", bargainirgPlanVo)
                 .putParam("currentUserRecord", currentUserRecord);
@@ -441,9 +442,10 @@ public class OrderController {
 
 
     @ResponseBody
-    @RequestMapping(value = "/cut", method = RequestMethod.POST)
+    @RequestMapping(value = "/bargainirg/cut", method = RequestMethod.POST)
     public Result cut(@ModelAttribute(SystemModelHandler.CURRENT_USER) UserVo user,
-                             HttpServletRequest req, @RequestParam("bargainirg_id") Long bargainirgId,
+                             HttpServletRequest req, @RequestParam("id") Long bargainirgId,
+                             @RequestParam("businessId") Long businessId,
                              ResultMessage resultMessage) {
         Bargainirg bargainirg = bargainirgService.findById(bargainirgId);
         if(!Optional.of(bargainirg).isPresent() || bargainirg.getState(Bargainirg.State.CLOSE).equals(Bargainirg.State.CLOSE)){
@@ -451,14 +453,17 @@ public class OrderController {
                         .putParam("msg", "此活动不可用");
         }
 
-        TrafficPlanActivity trafficPlanActivity = trafficPlanActivitiesService.findByUser(bargainirg.getCustomerId(), bargainirg.getTrafficPlanActivityId());
-        if(!trafficPlanActivity.isAvailable()) {
+        TrafficPlanActivity trafficPlanActivity = trafficPlanActivitiesService.findByUser(businessId, bargainirg.getTrafficPlanActivityId());
+        Long recordCount = trafficPlanActivitiesService.recordCount(bargainirg.getId());
+        BigDecimal totalDiscount = trafficPlanActivitiesService.totalDiscount(bargainirg.getId());
+        BargainirgPlanVo bargainirgPlanVo = trafficPlanActivitiesService.get(trafficPlanActivity.getId());
+        if(!Optional.ofNullable(trafficPlanActivity).isPresent() || !trafficPlanActivity.isAvailable(recordCount.intValue(), bargainirgPlanVo.getRetailPrice(), totalDiscount)) {
             return resultMessage.setSuccessInfo("参加失败").putParam("code", 1)
                     .putParam("msg", "此活动不可用");
         }
 
         BargainirgRecord record = bargainirgRecordService.queryByCustomer(bargainirgId, user.getUserId());
-        if(Optional.of(record).isPresent()){
+        if(Optional.ofNullable(record).isPresent()){
             return resultMessage.setSuccessInfo("参加失败").putParam("code", 1)
                     .putParam("msg", "你已经参加过此次活动");
         }else{

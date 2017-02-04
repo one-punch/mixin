@@ -22,10 +22,10 @@ public class BargainirgRecordDaoImpl implements IBargainirgRecordDao {
     @Override
     public BargainirgRecord create(Bargainirg bargainirg, TrafficPlanActivity trafficPlanActivity, UserVo user, float discount) {
         Query query = baseDao.getSession().createSQLQuery("INSERT INTO bargainirg_record (createdAt, updatedAt, bargainirg_id, customer_id, discount) " +
-                "VALUES (NOW(), NOW(), :bargainirg_id, :customer_id, :discount) " +
+                "SELECT * FROM (SELECT NOW() AS createdAt, NOW() AS updatedAt, :bargainirg_id AS bargainirg_id, :customer_id AS customer_id, :discount AS discount ) AS tmp " +
                 "WHERE NOT EXISTS (" +
-                "    SELECT customer_id FROM bargainirg_record WHERE bargainirg_id = :check_bargainirg_id AND customer_id = :check_customer_id " +
-                ") LIMIT 1;");
+                "    SELECT b1.customer_id FROM bargainirg_record AS b1 WHERE b1.bargainirg_id = :check_bargainirg_id AND b1.customer_id = :check_customer_id " +
+                ")");
         query.setParameter("bargainirg_id", bargainirg.getId());
         query.setParameter("customer_id", user.getUserId());
         query.setParameter("discount", discount);
