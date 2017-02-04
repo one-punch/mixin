@@ -6,34 +6,41 @@ function($scope, $location, $rootScope, $timeout, Action, Utils, toast, _mixin,_
   function loadRecords(id, businessId){
     if(id && businessId){
       Action.loadBargainirg(id, businessId).then(function(data){
-        console.log(data);
-        var endTime = new Date(data.businessPlan.endTime)
-        $scope.currentUserRecord = data.currentUserRecord
-        $scope.records = data.recordList
-        $scope.plan = {
-          formprice: data.businessPlan.retailPrice,
-          lowPrice: data.businessPlan.lowPrice,
-          total: 100,
-          providerName: data.businessPlan.providerName,
-          name: data.businessPlan.name
-        }
+        if(!!!data.code){
+          var endTime = new Date(data.businessPlan.endTime)
+          $scope.currentUserRecord = data.currentUserRecord
+          $scope.records = data.recordList
+          $scope.plan = {
+            formprice: data.businessPlan.retailPrice,
+            lowPrice: data.businessPlan.lowPrice,
+            total: 100,
+            providerName: data.businessPlan.providerName,
+            name: data.businessPlan.name
+          }
 
-        $scope.endDate = {
-          year: endTime.getFullYear(),
-          month: endTime.getMonth() + 1,
-          day: endTime.getDate(),
-          hour: endTime.getHours(),
-          min: endTime.getMinutes(),
-          second: endTime.getSeconds()
+          $scope.endDate = {
+            year: endTime.getFullYear(),
+            month: endTime.getMonth() + 1,
+            day: endTime.getDate(),
+            hour: endTime.getHours(),
+            min: endTime.getMinutes(),
+            second: endTime.getSeconds()
+          }
+          ShowCountDown($scope.endDate.year, $scope.endDate.month, $scope.endDate.day, $scope.endDate.hour, $scope.endDate.min, $scope.endDate.second, "daoJiTime",1000)
+          $scope.$apply()
         }
-        ShowCountDown($scope.endDate.year, $scope.endDate.month, $scope.endDate.day, $scope.endDate.hour, $scope.endDate.min, $scope.endDate.second, "daoJiTime",1000)
-        $scope.$apply()
       }).catch(failure)
     }else{
       toast.pop({ type: 'error', body: "参数错误", timeout: 3000 })
     }
   }
-  $scope.plan = {total: 0}
+  $scope.plan = {
+            formprice: 0.00,
+            lowPrice: 0.00,
+            total: 0,
+            providerName: "活动已过期",
+            name: "或不可用"
+          }
   $scope.currentUserRecord = null
   $scope.records = []
   $scope.business = _user.business // 商户信息
@@ -48,7 +55,6 @@ function($scope, $location, $rootScope, $timeout, Action, Utils, toast, _mixin,_
   $scope.doCut = function(){
     toast.showLoading()
     Action.doCut(_id, $scope.business.id).then(function(data){
-      console.log(data)
       toast.hideLoading()
       toast.pop(data.msg)
       loadRecords(_id, $scope.business.id)
