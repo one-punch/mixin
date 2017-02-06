@@ -9,6 +9,8 @@ import javax.validation.constraints.Pattern;
 import com.wteam.mixin.constant.State;
 import com.wteam.mixin.constant.ValidatePattern;
 import com.wteam.mixin.define.IValueObject;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 顾客订单Vo
@@ -18,6 +20,7 @@ import com.wteam.mixin.define.IValueObject;
  */
 public class CustomerOrderVo implements IValueObject {
 
+    public static  String DISCOUNTPRODUCT = "DISCOUNTPRODUCT";
     public static String SELECT_1(String as) {
         as = as == null ? "" : (as.equals("") ? as : as + ".");
         return "select new com.wteam.mixin.model.vo.CustomerOrderVo(this.id,this.orderNum,this.customerId,this.businessId,this.productId,this.realProductId,this.productType,this.phone,this.num,this.retailPrice,this.cost,this.factorage,this.realIncome,this.profits,this.state,this.info,this.paymentMethod,this.failedInfo,this.isDelete,this.createTime,this.isBusinessCallback)"
@@ -134,6 +137,9 @@ public class CustomerOrderVo implements IValueObject {
 
     private String trafficplanValue;
 
+    @Setter
+    @Getter
+    private String productSortType;
 
 
 

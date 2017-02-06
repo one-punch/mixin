@@ -260,7 +260,9 @@ function ActionService($http, $rootScope){
       httpHandle(http, resolve, reject);
     })
   }
-
+  /**
+  *  砍价
+  **/
   this.doCut = function(id, businessId){
     return new Promise(function(resolve, reject){
       var http = $http({
@@ -275,6 +277,21 @@ function ActionService($http, $rootScope){
     })
   }
 
+
+  this.payForDiscount = function(id, businessId, phone){
+    return new Promise(function(resolve, reject){
+      var http = $http({
+        url : url("/order/pay/discount"),
+        params : {
+          'id' : id,
+          businessId: businessId,
+          phone: phone
+        },
+        method : 'POST'
+      });
+      httpHandle(http, resolve, reject);
+    })
+  }
 	/* **************************************************************
 	 * 账务模块
 	 * **************************************************************/

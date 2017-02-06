@@ -1,4 +1,4 @@
-/**
+     /**
  * Created by zbin on 17/1/30.
  */
 ctrls_customer.controller('CutCtrl',['$scope','$location','$rootScope','$timeout','ActionService','UtilsService', 'toast', 'mixin','user',
@@ -77,7 +77,10 @@ function($scope, $location, $rootScope, $timeout, Action, Utils, toast, _mixin,_
   }
 
   $scope.doPay = function(){
-
+    Action.payForDiscount(_id, $scope.business.id, '11111111111').then(function(data){
+      _mixin.paySuccess(data, $scope, $rootScope, Action, wx)
+    }).catch(function(err){
+      toast.hideLoading()
+    })
   }
-
 }])

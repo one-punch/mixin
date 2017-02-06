@@ -69,19 +69,15 @@
             <div class="dibuNavS xiLineTop clearfix" id="dibuNavS">
 
                 <div class="centerK" id="buttonKanJia" ng-class="{ 'hidden': currentUserRecord }">
-                    <div class="centeYi">
-                        <a ng-click="doPay()">直接购买</a>
-                    </div>
-                    <div class="centeYi">
-                        <a ng-click="doCut()">帮Ta砍价</a>
+                    <div class="centeEr clearfix">
+                        <a class="huiseKS bangKan" ng-click="doPay()" >直接购买</a>
+                        <a class="gouMai" ng-click="doCut()">帮Ta砍价</a>
                     </div>
                 </div>
                 <div class="centerK" id="buttonKanJia" ng-class="{ 'hidden': !currentUserRecord }">
-                    <div class="centeYi">
-                        <a ng-click="doPay()">直接购买</a>
-                    </div>
-                    <div class="centeYi">
-                        <a ng-click="help()">找人帮Ta砍价</a>
+                    <div class="centeEr clearfix">
+                        <a class="huiseKS bangKan" ng-click="doPay()" >直接购买</a>
+                        <a class="gouMai" ng-click="help()">找人帮Ta砍价</a>
                     </div>
                 </div>
             </div>

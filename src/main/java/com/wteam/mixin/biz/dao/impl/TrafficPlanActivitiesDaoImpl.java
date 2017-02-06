@@ -70,16 +70,20 @@ public class TrafficPlanActivitiesDaoImpl implements ITrafficPlanActivitiesDao {
 //        plan_activity.isActive, plan_activity.lowPrice, plan_activity.trafficplanId, "
 //                +"plan_activity.limitNumber, plan_activity.startTime, plan_activity.endTime, plan_activity.userId
         Object[] o = (Object[]) baseDao.get(sql, objects);
-        TrafficPlanActivityVo trafficPlanActivityVo = new TrafficPlanActivityVo();
-        trafficPlanActivityVo.setIsActive((Boolean) Optional.ofNullable(o[0]).orElse(Boolean.TRUE));
-        trafficPlanActivityVo.setLowPrice((BigDecimal) Optional.ofNullable(o[1]).orElse(BigDecimal.ZERO));
-        trafficPlanActivityVo.setTrafficPlanId((Long) Optional.of(o[2]).get());
-        trafficPlanActivityVo.setLimitNumber((Integer) Optional.ofNullable(o[3]).orElse(0));
-        trafficPlanActivityVo.setStartTime((Date) Optional.ofNullable(o[4]).orElse(new Date()));
-        trafficPlanActivityVo.setEndTime((Date) Optional.ofNullable(o[5]).orElse(new Date()));
-        trafficPlanActivityVo.setUserId((Long) Optional.of(o[6]).get());
-        trafficPlanActivityVo.setId((Long) Optional.of(o[7]).get());
-        return  trafficPlanActivityVo;
+        if(Optional.ofNullable(o).isPresent()) {
+            TrafficPlanActivityVo trafficPlanActivityVo = new TrafficPlanActivityVo();
+            trafficPlanActivityVo.setIsActive((Boolean) Optional.ofNullable(o[0]).orElse(Boolean.TRUE));
+            trafficPlanActivityVo.setLowPrice((BigDecimal) Optional.ofNullable(o[1]).orElse(BigDecimal.ZERO));
+            trafficPlanActivityVo.setTrafficPlanId((Long) Optional.of(o[2]).get());
+            trafficPlanActivityVo.setLimitNumber((Integer) Optional.ofNullable(o[3]).orElse(0));
+            trafficPlanActivityVo.setStartTime((Date) Optional.ofNullable(o[4]).orElse(new Date()));
+            trafficPlanActivityVo.setEndTime((Date) Optional.ofNullable(o[5]).orElse(new Date()));
+            trafficPlanActivityVo.setUserId((Long) Optional.of(o[6]).get());
+            trafficPlanActivityVo.setId((Long) Optional.of(o[7]).get());
+            return trafficPlanActivityVo;
+        }else {
+            return null;
+        }
     }
 
     @Override

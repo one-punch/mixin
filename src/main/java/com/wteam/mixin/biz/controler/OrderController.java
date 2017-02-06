@@ -479,6 +479,50 @@ public class OrderController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "/pay/discount", method = RequestMethod.POST)
+    public Result payDiscount(@ModelAttribute(SystemModelHandler.CURRENT_USER) UserVo user,
+                              HttpServletRequest req,
+                              @RequestParam("id") Long bargainirgId,
+                              @RequestParam("businessId") Long businessId,
+                              @RequestParam("phone") String phone,
+                              ResultMessage resultMessage){
+        Bargainirg bargainirg = bargainirgService.findById(bargainirgId);
+        if(!Optional.of(bargainirg).isPresent() || bargainirg.getState(Bargainirg.State.CLOSE).equals(Bargainirg.State.CLOSE)){
+            return resultMessage.setSuccessInfo("参加失败").putParam("code", 1)
+                    .putParam("msg", "此活动不可用");
+        }
+        TrafficPlanActivity trafficPlanActivity = trafficPlanActivitiesService.findByUser(businessId, bargainirg.getTrafficPlanActivityId());
+        BargainirgPlanVo bargainirgPlanVo = trafficPlanActivitiesService.get(trafficPlanActivity.getId());
+        BigDecimal totalDiscount = trafficPlanActivitiesService.totalDiscount(bargainirg.getId());
+        Long recordCount = trafficPlanActivitiesService.recordCount(bargainirg.getId());
+
+        if(!Optional.ofNullable(trafficPlanActivity).isPresent() || !trafficPlanActivity.isAvailable(recordCount.intValue(), bargainirgPlanVo.getRetailPrice(), totalDiscount)) {
+            return resultMessage.setSuccessInfo("参加失败").putParam("code", 1)
+                    .putParam("msg", "此活动不可用");
+        }
+
+        CustomerOrderVo order = new CustomerOrderVo();
+        order.setPaymentMethod(PaymentMethod.Wechat);
+        order.setPhone(phone);
+        order.setBusinessId(businessId);
+        order.setCustomerId(user.getUserId());
+        order.setProductId(trafficPlanActivity.getTrafficplanId());
+        order.setCost(bargainirgPlanVo.getRetailPrice().subtract(totalDiscount));
+        order.setProductType(ProductType.Traffic);
+        order.setProductSortType(CustomerOrderVo.DISCOUNTPRODUCT);
+        order = orderService.submitOrder(order);
+
+        Object wechat_pay_params = null;
+        if (order.getPaymentMethod().equals(PaymentMethod.Wechat)) {
+            wechat_pay_params = wechatService.pay(order, req);
+        }
+
+        return resultMessage.setSuccessInfo("提交订单成功").putParam(ORDER, order).putParam(
+                "wechat_pay_params", wechat_pay_params);
+    }
+
+
+    @ResponseBody
     @RequestMapping(value = "/pay/wechat")
     public String wechatPayCallback(HttpServletRequest req) {
         String returnFormat = "<xml><return_code><![CDATA[{code}]]></return_code><return_msg><![CDATA[{msg}]]></return_msg></xml>",

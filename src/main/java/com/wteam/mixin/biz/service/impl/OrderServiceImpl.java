@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -242,6 +243,10 @@ public class OrderServiceImpl implements IOrderService{
         }
         else {
             po.setCost(cost);
+            if(Optional.ofNullable(orderVo.getProductSortType()).isPresent() && orderVo.getProductSortType().equals(CustomerOrderVo.DISCOUNTPRODUCT)
+                && Optional.ofNullable(orderVo.getCost()).isPresent()){
+                po.setCost(orderVo.getCost());
+            }
             po.setRetailPrice(retailPrice);
             po.setFactorage(retailPrice.multiply(rate));
             po.setRealIncome(po.getRetailPrice().subtract(po.getFactorage()));
