@@ -76,4 +76,8 @@ function($scope, $location, $rootScope, $timeout, Action, Utils, toast, _mixin,_
     $("#sharebehind").hide()
   }
 
+  $scope.doPay = function(){
+
+  }
+
 }])

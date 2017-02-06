@@ -70,10 +70,16 @@
 
                 <div class="centerK" id="buttonKanJia" ng-class="{ 'hidden': currentUserRecord }">
                     <div class="centeYi">
+                        <a ng-click="doPay()">直接购买</a>
+                    </div>
+                    <div class="centeYi">
                         <a ng-click="doCut()">帮Ta砍价</a>
                     </div>
                 </div>
                 <div class="centerK" id="buttonKanJia" ng-class="{ 'hidden': !currentUserRecord }">
+                    <div class="centeYi">
+                        <a ng-click="doPay()">直接购买</a>
+                    </div>
                     <div class="centeYi">
                         <a ng-click="help()">找人帮Ta砍价</a>
                     </div>
