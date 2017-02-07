@@ -76,8 +76,22 @@ function($scope, $location, $rootScope, $timeout, Action, Utils, toast, _mixin,_
     $("#sharebehind").hide()
   }
 
+  $scope.showPayDialog = function(){
+    $("#phoneinput").show()
+  }
+
+  $scope.cancle = function(){
+    $("#phoneinput").hide()
+  }
+
   $scope.doPay = function(){
-    Action.payForDiscount(_id, $scope.business.id, '11111111111').then(function(data){
+    if (!$scope.phone || !Utils.isMobile($scope.phone)) {
+      //toaster.pop({ type: 'warning', body: !$scope.tel ? '请输入手机号' : '手机号格式不对'  , timeout: 3000 })
+      alert(!$scope.phone ? '请输入手机号' : '手机号格式不对')
+      return;
+    }
+
+    Action.payForDiscount(_id, $scope.business.id, $scope.phone).then(function(data){
       _mixin.paySuccess(data, $scope, $rootScope, Action, wx)
     }).catch(function(err){
       toast.hideLoading()

@@ -1,7 +1,81 @@
 <div class="default">
     <link type="text/css" rel="stylesheet" href="/customer/css/cutActivity.min.css" />
     <script type="text/javascript">var _speedMark = new Date(), _loadTime='1485769469';</script>
-        <style type="text/css">.centerK{position: absolute;left: 0;right: 0;margin: auto;}.goodaInfosj{border-bottom: solid 1px #ffe547;padding: 15px 0 16px 0;}.topLog{height: 100%;}.goodaInfosj .centerK p{width: 83%;}.goodaInfosjS .centerK{width: 64%;}.goodaInfosjS .centerK .mingziK{margin: 0 0 -4px 9px;}.goodaInfosjS .rightK{float: right;}</style>
+        <style type="text/css">.centerK{position: absolute;left: 0;right: 0;margin: auto;}.goodaInfosj{border-bottom: solid 1px #ffe547;padding: 15px 0 16px 0;}.topLog{height: 100%;}.goodaInfosj .centerK p{width: 83%;}.goodaInfosjS .centerK{width: 64%;}.goodaInfosjS .centerK .mingziK{margin: 0 0 -4px 9px;}.goodaInfosjS .rightK{float: right;}
+        #phoneinput .main{
+            height: 3000px;
+        }
+        #phoneinput .popup{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 302px;
+            top: 50%;
+            left: 50%;
+            border-radius: 5px;
+            border: 1px solid #cccccc;
+            transform: translate(-50%,-50%);
+            z-index: 2;
+            background-color: white;
+        }
+        #phoneinput .title{
+            display: inline-block;
+            height: 40px;
+            width: 100%;
+            background-color: #eeeeee;
+        }
+        #phoneinput .title p{
+            padding: 0 20px;
+            font: 14px "Microsoft YaHei";
+            line-height: 100%;
+            vertical-align: center;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+
+        }
+        #phoneinput .title .close{
+            position: absolute;
+            background-image: url("../x.png");
+            width: 10px;
+            height: 10px;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+        #phoneinput .content{
+            margin: 20px;
+            background-color: white;
+            font: 12px "SimSun";
+        }
+        #phoneinput .content p{
+            margin-bottom: 20px;
+            line-height: 1.5em;
+        }
+        #phoneinput .content button{
+            margin: 20px auto;
+            width: 45%;
+            height: 30px;
+            background-color: white;
+            color: black;
+            text-align: center;
+            border-radius: 5px;
+        }
+        #phoneinput .mask{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            line-height: 100%;
+            padding-top: 50%;
+            text-align: center;
+            background-color: grey;
+            opacity: 0.3;
+            z-index: 1;
+        }
+        </style>
+
         <div class="activityPage gyPageHide" id="activityPage">
             <div class="goodsInfoS clearfix">
                 <div class="leftK clearfix">
@@ -70,13 +144,13 @@
 
                 <div class="centerK" id="buttonKanJia" ng-class="{ 'hidden': currentUserRecord }">
                     <div class="centeEr clearfix">
-                        <a class="huiseKS bangKan" ng-click="doPay()" >直接购买</a>
+                        <a class="huiseKS bangKan" ng-click="showPayDialog()" >直接购买</a>
                         <a class="gouMai" ng-click="doCut()">帮Ta砍价</a>
                     </div>
                 </div>
                 <div class="centerK" id="buttonKanJia" ng-class="{ 'hidden': !currentUserRecord }">
                     <div class="centeEr clearfix">
-                        <a class="huiseKS bangKan" ng-click="doPay()" >直接购买</a>
+                        <a class="huiseKS bangKan" ng-click="showPayDialog()" >直接购买</a>
                         <a class="gouMai" ng-click="help()">找人帮Ta砍价</a>
                     </div>
                 </div>
@@ -96,6 +170,29 @@
                     </div>
                 </div>
             </div>
+
+
+
+            <div id="phoneinput" style="display: none;" >
+                <div class="mask"></div>
+                <div class="popup">
+                    <div class="title">
+                        <p>输入手机号码</p>
+                        <i class="close"></i>
+                    </div>
+                    <div class="content">
+                        <p>
+                            <div class="form-group">
+                                <label for="phone" class="control-label" >手机号码:</label>
+                                <input class="form-control" id="phone" ng-model="phone">
+                            </div>
+                        </p>
+                        <button ng-click="cancle()">取 消</button>
+                        <button ng-click="doPay()">确 定</button>
+                    </div>
+                </div>
+            </div>
+
             <div class="kanjiaZheGai" id="kanjiaZheGai"></div>
             <div class="dibuAnNiu clearfix xiLineTop" id="dibuAnNiuYi"><a class="leftK xiLineRight" href="javascript:;" click-Status="baiduTongJi" tongji-tishiyu="点击关闭砍价对话框" tongji-fenzu="砍价弹出框">返回</a><a class="rightK" href="javascript:;" click-Status="baiduTongJi" tongji-tishiyu="点击砍价对话框的找人帮砍" tongji-fenzu="砍价弹出框">找人帮砍</a></div>
             <div class="kanjiaKuangS" id="kanjiaKuangS">

@@ -494,9 +494,8 @@ public class OrderController {
         TrafficPlanActivity trafficPlanActivity = trafficPlanActivitiesService.findByUser(businessId, bargainirg.getTrafficPlanActivityId());
         BargainirgPlanVo bargainirgPlanVo = trafficPlanActivitiesService.get(trafficPlanActivity.getId());
         BigDecimal totalDiscount = trafficPlanActivitiesService.totalDiscount(bargainirg.getId());
-        Long recordCount = trafficPlanActivitiesService.recordCount(bargainirg.getId());
 
-        if(!Optional.ofNullable(trafficPlanActivity).isPresent() || !trafficPlanActivity.isAvailable(recordCount.intValue(), bargainirgPlanVo.getRetailPrice(), totalDiscount)) {
+        if(!Optional.ofNullable(trafficPlanActivity).isPresent() || !trafficPlanActivity.isAvailableForPayment(bargainirgPlanVo.getRetailPrice(), totalDiscount)) {
             return resultMessage.setSuccessInfo("参加失败").putParam("code", 1)
                     .putParam("msg", "此活动不可用");
         }

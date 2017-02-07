@@ -82,4 +82,13 @@ public class TrafficPlanActivity extends BasePo{
             return this.lowPrice.add(totalDiscount).compareTo(retailPrice) < 0 && now.before(this.endTime) && now.after(this.startTime) && this.limitNumber > count;
         }
     }
+
+    public boolean isAvailableForPayment(BigDecimal retailPrice, BigDecimal totalDiscount){
+        if(!this.isActive || !Optional.of(this.startTime).isPresent() || !Optional.of(this.endTime).isPresent()){
+            return false;
+        }else{
+            Date now = new Date();
+            return this.lowPrice.add(totalDiscount).compareTo(retailPrice) <= 0 && now.before(this.endTime) && now.after(this.startTime);
+        }
+    }
 }
